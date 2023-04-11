@@ -28,7 +28,7 @@ public class QuestionController {
 
     @GetMapping("/list")
     public String list(Model model, @RequestParam(value="page", defaultValue="0") int page) {
-        Page<Question> paging = this.questionService.getList(page);
+        Page<Question> paging = questionService.getList(page);
         model.addAttribute("paging", paging);
         return "question_list";
     }
@@ -75,7 +75,7 @@ public class QuestionController {
         if (bindingResult.hasErrors()) {
             return "question_form";
         }
-        Question question = this.questionService.getQuestion(id);
+        Question question = questionService.getQuestion(id);
         if (!question.getAuthor().getUsername().equals(principal.getName())) {
             throw new ResponseStatusException(HttpStatus.BAD_REQUEST, "수정 권한이 없습니다.");
         }
