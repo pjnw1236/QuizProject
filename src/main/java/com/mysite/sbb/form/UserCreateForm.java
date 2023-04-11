@@ -1,4 +1,4 @@
-package com.mysite.sbb.user;
+package com.mysite.sbb.form;
 
 import javax.validation.constraints.Email;
 import javax.validation.constraints.NotEmpty;

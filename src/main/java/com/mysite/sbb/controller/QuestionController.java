@@ -1,8 +1,11 @@
-package com.mysite.sbb.question;
+package com.mysite.sbb.controller;
 
-import com.mysite.sbb.answer.Answer;
-import com.mysite.sbb.user.SiteUser;
-import com.mysite.sbb.user.UserService;
+import com.mysite.sbb.form.AnswerForm;
+import com.mysite.sbb.entity.Question;
+import com.mysite.sbb.form.QuestionForm;
+import com.mysite.sbb.service.QuestionService;
+import com.mysite.sbb.entity.SiteUser;
+import com.mysite.sbb.service.UserService;
 import java.security.Principal;
 import javax.validation.Valid;
 import lombok.RequiredArgsConstructor;

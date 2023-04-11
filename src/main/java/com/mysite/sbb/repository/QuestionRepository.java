@@ -1,5 +1,6 @@
-package com.mysite.sbb.question;
+package com.mysite.sbb.repository;
 
+import com.mysite.sbb.entity.Question;
 import java.util.List;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;

@@ -1,7 +1,7 @@
-package com.mysite.sbb.answer;
+package com.mysite.sbb.entity;
 
-import com.mysite.sbb.question.Question;
-import com.mysite.sbb.user.SiteUser;
+import com.mysite.sbb.entity.Question;
+import com.mysite.sbb.entity.SiteUser;
 import java.time.LocalDateTime;
 import java.util.Set;
 import javax.persistence.Column;

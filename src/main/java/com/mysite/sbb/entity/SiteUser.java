@@ -1,4 +1,4 @@
-package com.mysite.sbb.user;
+package com.mysite.sbb.entity;
 
 import javax.persistence.Column;
 import javax.persistence.Entity;

@@ -1,7 +1,5 @@
-package com.mysite.sbb.question;
+package com.mysite.sbb.entity;
 
-import com.mysite.sbb.answer.Answer;
-import com.mysite.sbb.user.SiteUser;
 import java.time.LocalDateTime;
 import java.util.List;
 import java.util.Set;

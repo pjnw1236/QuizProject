@@ -1,4 +1,4 @@
-package com.mysite.sbb.question;
+package com.mysite.sbb.form;
 
 import javax.validation.constraints.NotEmpty;
 import lombok.Getter;
