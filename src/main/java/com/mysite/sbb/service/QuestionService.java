@@ -20,6 +20,7 @@ import org.springframework.stereotype.Service;
 @Service
 public class QuestionService {
     private final QuestionRepository questionRepository;
+    private final UserService userService;
 
     public Page<Question> getList(int page) {
         List<Order> sorts = new ArrayList<>();
@@ -36,6 +37,14 @@ public class QuestionService {
         } else {
             throw new DataNotFoundException("question not found");
         }
+    }
+
+    public Question getQuestionByAuthenticated(Integer id, String name) {
+        SiteUser user = userService.getUser(name);
+        Question question = this.getQuestion(id);
+        question.getViewer().add(user);
+        questionRepository.save(question);
+        return question;
     }
 
     public void create(String subject, String content, SiteUser user) {

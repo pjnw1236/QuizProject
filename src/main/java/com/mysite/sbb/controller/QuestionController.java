@@ -9,9 +9,13 @@ import com.mysite.sbb.service.UserService;
 import java.security.Principal;
 import javax.validation.Valid;
 import lombok.RequiredArgsConstructor;
+import lombok.extern.slf4j.Slf4j;
 import org.springframework.data.domain.Page;
 import org.springframework.http.HttpStatus;
 import org.springframework.security.access.prepost.PreAuthorize;
+import org.springframework.security.authentication.AnonymousAuthenticationToken;
+import org.springframework.security.core.Authentication;
+import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.validation.BindingResult;
@@ -25,6 +29,7 @@ import org.springframework.web.server.ResponseStatusException;
 @RequestMapping("/question")
 @RequiredArgsConstructor
 @Controller
+@Slf4j
 public class QuestionController {
     private final QuestionService questionService;
     private final UserService userService;
@@ -38,8 +43,18 @@ public class QuestionController {
 
     @GetMapping(value = "/detail/{id}")
     public String detail(Model model, @PathVariable("id") Integer id, AnswerForm answerForm) {
-        Question question = questionService.getQuestion(id);
-        model.addAttribute("question", question);
+        Authentication authentication = SecurityContextHolder.getContext().getAuthentication();
+        log.info("auth" + authentication.getName());
+        log.info("isAUth " + authentication.isAuthenticated());
+        if (authentication instanceof AnonymousAuthenticationToken) {
+            Question question = questionService.getQuestion(id);
+            model.addAttribute("question", question);
+        } else {
+            String name = authentication.getName();
+            Question question = questionService.getQuestionByAuthenticated(id, name);
+            model.addAttribute("question", question);
+            log.info("question_viewer", question.getViewer() );
+        }
         return "question_detail";
     }
 
