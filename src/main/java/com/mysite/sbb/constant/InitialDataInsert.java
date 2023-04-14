@@ -1,4 +1,4 @@
-package com.mysite.sbb;
+package com.mysite.sbb.constant;
 
 import com.mysite.sbb.entity.Answer;
 import com.mysite.sbb.entity.Question;
@@ -7,30 +7,19 @@ import com.mysite.sbb.repository.AnswerRepository;
 import com.mysite.sbb.repository.QuestionRepository;
 import com.mysite.sbb.repository.UserRepository;
 import java.time.LocalDateTime;
-import org.junit.jupiter.api.DisplayName;
-import org.junit.jupiter.api.MethodOrderer;
-import org.junit.jupiter.api.Order;
-import org.junit.jupiter.api.Test;
-import org.junit.jupiter.api.TestMethodOrder;
-import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.boot.test.context.SpringBootTest;
+import javax.annotation.PostConstruct;
+import lombok.RequiredArgsConstructor;
+import org.springframework.stereotype.Component;
 
-@SpringBootTest
-@TestMethodOrder(MethodOrderer.OrderAnnotation.class)
-public class InsertTest {
-    @Autowired
-    UserRepository userRepository;
+@Component
+@RequiredArgsConstructor
+public class InitialDataInsert {
+    private final UserRepository userRepository;
+    private final QuestionRepository questionRepository;
+    private final AnswerRepository answerRepository;
 
-    @Autowired
-    QuestionRepository questionRepository;
-
-    @Autowired
-    AnswerRepository answerRepository;
-
-    @Test
-    @DisplayName("유저 데이터 삽입 테스트")
-    @Order(1)
-    void insertUser() {
+    @PostConstruct
+    public void init() {
         SiteUser user1 = new SiteUser();
         user1.setUsername("test");
         user1.setPassword("$2a$10$MQAXZJtzb3l864JpjWmxzOuShMoFXu38pfsM7U3DrUB.50sYyLxwC");
@@ -73,19 +62,5 @@ public class InsertTest {
             answer.setQuestion(question);
             answerRepository.save(answer);
         }
-    }
-
-    @Test
-    @DisplayName("질문 데이터 삽입 테스트")
-    @Order(2)
-    void insertQuestion() {
-
-    }
-
-    @Test
-    @DisplayName("답변 데이터 삽입 테스트")
-    @Order(3)
-    void insertAnswer() {
-
     }
 }
