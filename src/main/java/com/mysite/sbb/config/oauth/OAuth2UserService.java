@@ -2,7 +2,7 @@ package com.mysite.sbb.config.oauth;
 
 import com.mysite.sbb.entity.SiteUser;
 import com.mysite.sbb.repository.UserRepository;
-import java.util.Optional;
+import java.util.List;
 import lombok.AllArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.security.oauth2.client.userinfo.DefaultOAuth2UserService;
@@ -31,16 +31,14 @@ public class OAuth2UserService extends DefaultOAuth2UserService {
 //        String username = oAuth2User.getAttribute("name") + "_" + userRequest.getClientRegistration().getClientName();
         String username = oAuth2User.getAttribute("name");
         String email = oAuth2User.getAttribute("email");
-        String pk = userRequest.getClientRegistration().getClientId();
 
-        Optional<SiteUser> _siteUser = userRepository.findByusername(username);
-        if (_siteUser.isEmpty()) {
+        List<SiteUser> siteUserList = userRepository.findAllByOauthEmail(email);
+        if (siteUserList.size() == 0) {
             SiteUser siteUser = new SiteUser();
-            siteUser.setUsername(pk);
-            siteUser.setEmail(pk);
+            siteUser.setUsername(username);
+            siteUser.setEmail(email);
             siteUser.setPassword("password");
-            siteUser.setOAuthUsername(username);
-            siteUser.setOAuthEmail(email);
+            siteUser.setIsOauth(true);
             userRepository.save(siteUser);
         }
 
