@@ -1,5 +1,7 @@
 package com.mysite.sbb.config;
 
+import com.mysite.sbb.config.oauth.OAuth2UserService;
+import lombok.RequiredArgsConstructor;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
 import org.springframework.security.authentication.AuthenticationManager;
@@ -16,7 +18,10 @@ import org.springframework.security.web.util.matcher.AntPathRequestMatcher;
 @Configuration
 @EnableWebSecurity
 @EnableMethodSecurity(prePostEnabled = true)
+@RequiredArgsConstructor
 public class SecurityConfig {
+    private final OAuth2UserService oAuth2UserService;
+
     @Bean
     SecurityFilterChain filterChain(HttpSecurity http) throws Exception {
         http.authorizeHttpRequests()
@@ -28,7 +33,9 @@ public class SecurityConfig {
                 .and()
             .formLogin().loginPage("/user/login").defaultSuccessUrl("/")
                 .and()
-            .logout().logoutRequestMatcher(new AntPathRequestMatcher("/user/logout")).logoutSuccessUrl("/").invalidateHttpSession(true);
+            .logout().logoutRequestMatcher(new AntPathRequestMatcher("/user/logout")).logoutSuccessUrl("/").invalidateHttpSession(true)
+                .and()
+            .oauth2Login().loginPage("/user/login").userInfoEndpoint().userService(oAuth2UserService);
         return http.build();
     }
 

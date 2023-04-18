@@ -1,4 +1,4 @@
-package com.mysite.sbb.service;
+package com.mysite.sbb.config;
 
 import com.mysite.sbb.entity.SiteUser;
 import com.mysite.sbb.repository.UserRepository;
