@@ -23,17 +23,22 @@ public class UserSecurityService implements UserDetailsService {
 
     @Override
     public UserDetails loadUserByUsername(String username) throws UsernameNotFoundException {
-        Optional<SiteUser> _siteUser = userRepository.findByusername(username);
-        if (_siteUser.isEmpty()) {
+        Boolean bool = false;
+        List<SiteUser> siteUserList = userRepository.findByUsernameAndIsOauth(username, bool);
+
+        if (siteUserList.size() == 0) {
             throw new UsernameNotFoundException("사용자를 찾을 수 없습니다.");
         }
-        SiteUser siteUser = _siteUser.get();
+
+        SiteUser siteUser = siteUserList.get(0);
         List<GrantedAuthority> authorities = new ArrayList<>();
-        if ("admin".equals(username)) {
+
+        if (username.equals("admin")) {
             authorities.add(new SimpleGrantedAuthority(UserRole.ADMIN.getValue()));
         } else {
             authorities.add(new SimpleGrantedAuthority(UserRole.USER.getValue()));
         }
+
         return new User(siteUser.getUsername(), siteUser.getPassword(), authorities);
     }
 }

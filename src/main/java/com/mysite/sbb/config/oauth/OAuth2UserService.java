@@ -31,8 +31,9 @@ public class OAuth2UserService extends DefaultOAuth2UserService {
 //        String username = oAuth2User.getAttribute("name") + "_" + userRequest.getClientRegistration().getClientName();
         String username = oAuth2User.getAttribute("name");
         String email = oAuth2User.getAttribute("email");
+        Boolean bool = true;
 
-        List<SiteUser> siteUserList = userRepository.findAllByOauthEmail(email);
+        List<SiteUser> siteUserList = userRepository.findByEmailAndIsOauth(email, bool);
         if (siteUserList.size() == 0) {
             SiteUser siteUser = new SiteUser();
             siteUser.setUsername(username);
