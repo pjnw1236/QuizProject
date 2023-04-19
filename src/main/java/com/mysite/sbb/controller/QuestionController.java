@@ -44,23 +44,6 @@ public class QuestionController {
         return "question_list";
     }
 
-//    @GetMapping(value = "/detail/{id}")
-//    public String detail(Model model, @PathVariable("id") Integer id, AnswerForm answerForm) {
-//        Authentication authentication = SecurityContextHolder.getContext().getAuthentication();
-//        log.info("auth" + authentication.getName());
-//        log.info("isAUth " + authentication.isAuthenticated());
-//        if (authentication instanceof AnonymousAuthenticationToken) {
-//            Question question = questionService.getQuestion(id);
-//            model.addAttribute("question", question);
-//        } else {
-//            String name = authentication.getName();
-//            Question question = questionService.getQuestionByAuthenticated(id, name);
-//            model.addAttribute("question", question);
-//            log.info("question_viewer", question.getViewer() );
-//        }
-//        return "question_detail";
-//    }
-
     @GetMapping(value = "/detail/{id}")
     public String detail(Model model, @PathVariable("id") Integer id, AnswerForm answerForm) {
         Authentication authentication = SecurityContextHolder.getContext().getAuthentication();
@@ -96,17 +79,6 @@ public class QuestionController {
         return "question_form";
     }
 
-//    @PreAuthorize("isAuthenticated()")
-//    @PostMapping("/create")
-//    public String questionCreate(@Valid QuestionForm questionForm, BindingResult bindingResult, Principal principal) {
-//        if (bindingResult.hasErrors()) {
-//            return "question_form";
-//        }
-//        SiteUser siteUser = userService.getUser(principal.getName());
-//        questionService.create(questionForm.getSubject(), questionForm.getContent(), siteUser);
-//        return "redirect:/question/list";
-//    }
-
     @PreAuthorize("isAuthenticated()")
     @PostMapping("/create")
     public String questionCreate(@Valid QuestionForm questionForm, BindingResult bindingResult) {
@@ -139,18 +111,6 @@ public class QuestionController {
             return "redirect:/question/list";
         }
     }
-
-//    @PreAuthorize("isAuthenticated()")
-//    @GetMapping("/modify/{id}")
-//    public String questionModify(QuestionForm questionForm, @PathVariable("id") Integer id, Principal principal) {
-//        Question question = questionService.getQuestion(id);
-//        if (!question.getAuthor().getUsername().equals(principal.getName())) {
-//            throw new ResponseStatusException(HttpStatus.BAD_REQUEST, "수정권한이 없습니다.");
-//        }
-//        questionForm.setSubject(question.getSubject());
-//        questionForm.setContent(question.getContent());
-//        return "question_form";
-//    }
 
     @PreAuthorize("isAuthenticated()")
     @GetMapping("/modify/{id}")
@@ -188,20 +148,6 @@ public class QuestionController {
         }
     }
 
-//    @PreAuthorize("isAuthenticated()")
-//    @PostMapping("/modify/{id}")
-//    public String questionModify(@Valid QuestionForm questionForm, BindingResult bindingResult, Principal principal, @PathVariable("id") Integer id) {
-//        if (bindingResult.hasErrors()) {
-//            return "question_form";
-//        }
-//        Question question = questionService.getQuestion(id);
-//        if (!question.getAuthor().getUsername().equals(principal.getName())) {
-//            throw new ResponseStatusException(HttpStatus.BAD_REQUEST, "수정 권한이 없습니다.");
-//        }
-//        questionService.modify(question, questionForm.getSubject(), questionForm.getContent());
-//        return String.format("redirect:/question/detail/%s", id);
-//    }
-
     @PreAuthorize("isAuthenticated()")
     @PostMapping("/modify/{id}")
     public String questionModify(@Valid QuestionForm questionForm, BindingResult bindingResult, @PathVariable("id") Integer id) {
@@ -238,17 +184,6 @@ public class QuestionController {
             }
         }
     }
-//
-//    @PreAuthorize("isAuthenticated()")
-//    @GetMapping("/delete/{id}")
-//    public String questionDelete(Principal principal, @PathVariable("id") Integer id) {
-//        Question question = questionService.getQuestion(id);
-//        if (!question.getAuthor().getUsername().equals(principal.getName())) {
-//            throw new ResponseStatusException(HttpStatus.BAD_REQUEST, "삭제 권한이 없습니다.");
-//        }
-//        questionService.delete(question);
-//        return "redirect:/";
-//    }
 
     @PreAuthorize("isAuthenticated()")
     @GetMapping("/delete/{id}")
@@ -282,15 +217,6 @@ public class QuestionController {
             }
         }
     }
-
-//    @PreAuthorize("isAuthenticated()")
-//    @GetMapping("/vote/{id}")
-//    public String questionVote(Principal principal, @PathVariable("id") Integer id) {
-//        Question question = questionService.getQuestion(id);
-//        SiteUser siteUser = userService.getUser(principal.getName());
-//        questionService.vote(question, siteUser);
-//        return String.format("redirect:/question/detail/%s", id);
-//    }
 
     @PreAuthorize("isAuthenticated()")
     @GetMapping("/vote/{id}")
