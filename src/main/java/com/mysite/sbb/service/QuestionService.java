@@ -4,6 +4,7 @@ import com.mysite.sbb.exception.DataNotFoundException;
 import com.mysite.sbb.entity.Question;
 import com.mysite.sbb.repository.QuestionRepository;
 import com.mysite.sbb.entity.SiteUser;
+import com.mysite.sbb.repository.UserRepository;
 import java.time.LocalDateTime;
 import java.util.ArrayList;
 import java.util.List;
@@ -21,6 +22,7 @@ import org.springframework.stereotype.Service;
 public class QuestionService {
     private final QuestionRepository questionRepository;
     private final UserService userService;
+    private final UserRepository userRepository;
 
     public Page<Question> getList(int page) {
         List<Order> sorts = new ArrayList<>();
@@ -39,10 +41,18 @@ public class QuestionService {
         }
     }
 
-    public Question getQuestionByAuthenticated(Integer id, String name) {
-        SiteUser user = userService.getUser(name);
+    public Question getQuestionByUsername(Integer id, String username, Boolean bool) {
+        SiteUser user = userService.getUser(username, bool);
         Question question = this.getQuestion(id);
         question.getViewer().add(user);
+        questionRepository.save(question);
+        return question;
+    }
+
+    public Question getQuestionByEmail(Integer id, String email, Boolean bool) {
+        List<SiteUser> siteUserList = userRepository.findByEmailAndIsOauth(email, bool);
+        Question question = this.getQuestion(id);
+        question.getViewer().add(siteUserList.get(0));
         questionRepository.save(question);
         return question;
     }

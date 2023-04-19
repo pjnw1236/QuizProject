@@ -3,7 +3,7 @@ package com.mysite.sbb.service;
 import com.mysite.sbb.exception.DataNotFoundException;
 import com.mysite.sbb.entity.SiteUser;
 import com.mysite.sbb.repository.UserRepository;
-import java.util.Optional;
+import java.util.List;
 import lombok.RequiredArgsConstructor;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Service;
@@ -23,10 +23,10 @@ public class UserService {
         return user;
     }
 
-    public SiteUser getUser(String username) {
-        Optional<SiteUser> siteUser = userRepository.findByusername(username);
-        if (siteUser.isPresent()) {
-            return siteUser.get();
+    public SiteUser getUser(String username, Boolean bool) {
+        List<SiteUser> siteUserList = userRepository.findByUsernameAndIsOauth(username, bool);
+        if (siteUserList.size() > 0) {
+            return siteUserList.get(0);
         } else {
             throw new DataNotFoundException("siteuser not found");
         }
