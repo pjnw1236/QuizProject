@@ -37,10 +37,50 @@ public class QuestionController {
     private final UserService userService;
     private final UserRepository userRepository;
 
+//    @GetMapping("/list")
+//    public String list(Model model, @RequestParam(value="page", defaultValue="0") int page) {
+//        Page<Question> paging = questionService.getList(page);
+//        model.addAttribute("paging", paging);
+//        return "question_list";
+//    }
+
+//    @GetMapping("/list")
+//    public String list(Model model, @RequestParam(value = "page", defaultValue = "0") int page, @RequestParam(value = "kw", defaultValue = "") String kw) {
+//        Page<Question> paging = this.questionService.getList(page, kw);
+//        model.addAttribute("paging", paging);
+//        model.addAttribute("kw", kw);
+//        return "question_list";
+//    }
+
     @GetMapping("/list")
-    public String list(Model model, @RequestParam(value="page", defaultValue="0") int page) {
-        Page<Question> paging = questionService.getList(page);
-        model.addAttribute("paging", paging);
+    public String list(Model model, @RequestParam(value = "page", defaultValue = "0") int page, @RequestParam(value = "kw", defaultValue = "") String kw, @RequestParam(name = "searchOption", required = false) String searchOption) {
+        model.addAttribute("kw", kw);
+        model.addAttribute("searchOption", searchOption);
+
+        if (searchOption == null) {
+            Page<Question> paging = questionService.getList(page, kw);
+            model.addAttribute("paging", paging);
+        } else if (searchOption.equals("subjectAndContent")) {
+            Page<Question> paging = questionService.getListBySubjectAndContent(page, kw);
+            model.addAttribute("paging", paging);
+        } else if (searchOption.equals("subject")) {
+            Page<Question> paging = questionService.getListBySubject(page, kw);
+            model.addAttribute("paging", paging);
+        } else if (searchOption.equals("content")) {
+            Page<Question> paging = questionService.getListByContent(page, kw);
+            model.addAttribute("paging", paging);
+        } else if (searchOption.equals("comment")) {
+            Page<Question> paging = questionService.getListByAnswerContent(page, kw);
+            model.addAttribute("paging", paging);
+        } else if (searchOption.equals("username")) {
+            Page<Question> paging = questionService.getListByUsername(page, kw);
+            model.addAttribute("paging", paging);
+        } else {
+            Page<Question> paging = questionService.getList(page, kw);
+            model.addAttribute("paging", paging);
+        }
+
+        log.info(searchOption);
         return "question_list";
     }
 
