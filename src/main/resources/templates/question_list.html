@@ -5,22 +5,6 @@
       <div class="col-6">
         <a th:href="@{/question/create}" class="btn btn-primary">질문 등록하기</a>
       </div>
-
-      <div class="col-6">
-        <div class="input-group">
-          <!-- 제목+내용, 제목, 내용, 댓글, 닉네임 -->
-          <select class="form-select" id="searchOption" th:value="${searchOption}">
-            <option value="subjectAndContent" th:selected="${searchOption == 'subjectAndContent'}">제목 + 내용</option>
-            <option value="subject" th:selected="${searchOption == 'subject'}">제목</option>
-            <option value="content" th:selected="${searchOption == 'content'}">내용</option>
-            <option value="comment" th:selected="${searchOption == 'comment'}">댓글</option>
-            <option value="username" th:selected="${searchOption == 'username'}">글쓴이</option>
-          </select>
-          <input type="text" id="search_kw" class="form-control" th:value="${kw}">
-          <button class="btn btn-outline-secondary" type="button" id="btn_search">찾기</button>
-        </div>
-      </div>
-
     </div>
 
     <table class="table">
@@ -69,6 +53,23 @@
     </div>
     <!-- 페이징처리 끝 -->
 
+    <div class="input-group">
+      <!-- 제목+내용, 제목, 내용, 댓글, 닉네임 -->
+      <div class="col-2">
+        <select class="form-select" id="searchOption" th:value="${searchOption}">
+          <option value="subjectAndContent" th:selected="${searchOption == 'subjectAndContent'}">제목 + 내용</option>
+          <option value="subject" th:selected="${searchOption == 'subject'}">제목</option>
+          <option value="content" th:selected="${searchOption == 'content'}">내용</option>
+          <option value="comment" th:selected="${searchOption == 'comment'}">댓글</option>
+          <option value="username" th:selected="${searchOption == 'username'}">글쓴이</option>
+        </select>
+      </div>
+      <div class="col-6">
+        <input type="text" id="search_kw" class="form-control" th:value="${kw}">
+      </div>
+      <button class="btn btn-outline-secondary" type="button" id="btn_search">찾기</button>
+    </div>
+
     <form th:action="@{/question/list}" method="get" id="searchForm">
       <input type="hidden" id="kw" name="kw" th:value="${kw}">
       <input type="hidden" id="page" name="page" th:value="${paging.number}">
@@ -93,5 +94,4 @@
       document.getElementById('searchForm').submit();
     });
   </script>
-
 </html>
