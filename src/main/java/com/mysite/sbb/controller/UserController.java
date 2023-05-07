@@ -51,4 +51,15 @@ public class UserController {
     public String login() {
         return "login_form";
     }
+
+
+    @GetMapping("/admin/quiz")
+    public String adminQuiz() {
+        return "admin/admin_quiz";
+    }
+
+    @GetMapping("/admin/board")
+    public String adminBoard() {
+        return "admin/admin_question_list";
+    }
 }
