@@ -1,6 +1,7 @@
 package com.mysite.sbb.config;
 
 import com.mysite.sbb.config.oauth.OAuth2UserService;
+import com.mysite.sbb.constant.UserRole;
 import lombok.RequiredArgsConstructor;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
@@ -25,7 +26,8 @@ public class SecurityConfig {
     @Bean
     SecurityFilterChain filterChain(HttpSecurity http) throws Exception {
         http.authorizeHttpRequests()
-            .requestMatchers(new AntPathRequestMatcher("/**")).permitAll()
+            .mvcMatchers("/admin/**").hasAuthority(UserRole.ADMIN.getValue())
+            .anyRequest().permitAll()
                 .and()
             .csrf().ignoringRequestMatchers(new AntPathRequestMatcher("/h2-console/**"))
                 .and()
