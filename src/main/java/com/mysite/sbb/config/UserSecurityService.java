@@ -5,7 +5,6 @@ import com.mysite.sbb.repository.UserRepository;
 import com.mysite.sbb.constant.UserRole;
 import java.util.ArrayList;
 import java.util.List;
-import java.util.Optional;
 import lombok.RequiredArgsConstructor;
 import org.springframework.security.core.GrantedAuthority;
 import org.springframework.security.core.authority.SimpleGrantedAuthority;
