@@ -38,6 +38,8 @@ dependencies {
 	implementation 'org.commonmark:commonmark:0.21.0'
 	// OAuth2 Client
 	implementation 'org.springframework.boot:spring-boot-starter-oauth2-client'
+	// SpringDoc
+	implementation 'org.springdoc:springdoc-openapi-ui:1.6.15'
 }
 
 tasks.named('test') {
