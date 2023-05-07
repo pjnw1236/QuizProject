@@ -1,6 +1,9 @@
 package com.mysite.sbb.entity;
 
+import com.mysite.sbb.constant.UserRole;
 import javax.persistence.Entity;
+import javax.persistence.EnumType;
+import javax.persistence.Enumerated;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
@@ -18,4 +21,6 @@ public class SiteUser {
     private String password;
     private String email;
     private Boolean isOauth = false;
+    @Enumerated(EnumType.STRING)
+    private UserRole userRole = UserRole.USER;
 }

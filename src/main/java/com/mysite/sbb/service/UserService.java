@@ -1,5 +1,6 @@
 package com.mysite.sbb.service;
 
+import com.mysite.sbb.constant.UserRole;
 import com.mysite.sbb.exception.DataNotFoundException;
 import com.mysite.sbb.entity.SiteUser;
 import com.mysite.sbb.repository.UserRepository;
@@ -19,6 +20,9 @@ public class UserService {
         user.setUsername(username);
         user.setEmail(email);
         user.setPassword(passwordEncoder.encode(password));
+        if (username.equals("admin")) {
+            user.setUserRole(UserRole.ADMIN);
+        }
         userRepository.save(user);
         return user;
     }
