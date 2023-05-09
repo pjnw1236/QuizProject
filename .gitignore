@@ -1,6 +1,6 @@
 src/main/resources/application-local.properties
 
-src/main/java/com/mysite/sbb/constant/InitialDataInsert.java
+src/main/java/com/quiz/constant/InitialDataInsert.java
 src/main/resources/application-aws.properties
 
 HELP.md
