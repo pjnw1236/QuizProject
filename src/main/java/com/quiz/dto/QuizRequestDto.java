@@ -1,19 +1,13 @@
-package com.quiz.entity;
+package com.quiz.dto;
 
-import javax.persistence.Entity;
-import javax.persistence.GeneratedValue;
-import javax.persistence.GenerationType;
-import javax.persistence.Id;
+import javax.validation.constraints.NotEmpty;
 import lombok.Getter;
 import lombok.Setter;
 
 @Getter
 @Setter
-@Entity
-public class AdminQuiz {
-    @Id
-    @GeneratedValue(strategy = GenerationType.IDENTITY)
-    private Long id;
+public class QuizRequestDto {
+    @NotEmpty
     private String title;
 
     private String commonContent;
@@ -21,12 +15,19 @@ public class AdminQuiz {
     private String javaContent;
     private String javaScriptContent;
 
+    @NotEmpty
     private String first;
+    @NotEmpty
     private String second;
+    @NotEmpty
     private String third;
+    @NotEmpty
     private String fourth;
+    @NotEmpty
     private String fifth;
 
+    @NotEmpty
     private int quizNumber;
+    @NotEmpty
     private int quizAnswer;
 }
