@@ -1,4 +1,4 @@
-package com.quiz.entity.quiz;
+package com.quiz.entity;
 
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
