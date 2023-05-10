@@ -1,4 +1,4 @@
-package com.quiz.form;
+package com.quiz.dto;
 
 import javax.validation.constraints.NotEmpty;
 import lombok.Getter;
@@ -6,7 +6,7 @@ import lombok.Setter;
 
 @Getter
 @Setter
-public class AdminQuizForm {
+public class AdminQuizRequestDto {
     @NotEmpty
     private String title;
 
