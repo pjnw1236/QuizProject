@@ -1,0 +1,74 @@
+<html layout:decorate="~{layout}">
+<div layout:fragment="content" class="container">
+  <h5 class="my-3 border-bottom pb-2">Quiz 등록</h5>
+  <form th:object="${quizRequestDto}" method="post">
+    <input type="hidden" th:name="${_csrf.parameterName}" th:value="${_csrf.token}" />
+<!--    <div th:replace="~{form_errors :: formErrorsFragment}"></div>-->
+
+    <!-- 제목 -->
+    <div class="mb-3">
+      <label for="title" class="form-label">Quiz 제목</label>
+      <p th:if="${#fields.hasErrors('title')}" th:errors="*{title}" class="text-danger fw-bold"></p>
+      <input type="text" th:field="*{title}" class="form-control">
+    </div>
+
+    <!-- 내용 -->
+    <div class="mb-3">
+      <label for="pythonContent" class="form-label">Python 코드</label>
+      <p th:if="${#fields.hasErrors('pythonContent')}" th:errors="*{pythonContent}" class="text-danger fw-bold"></p>
+      <textarea th:field="*{pythonContent}" class="form-control" rows="10"></textarea>
+    </div>
+    <div class="mb-3">
+      <label for="javaContent" class="form-label">Java 코드</label>
+      <p th:if="${#fields.hasErrors('javaContent')}" th:errors="*{javaContent}" class="text-danger fw-bold"></p>
+      <textarea th:field="*{javaContent}" class="form-control" rows="10"></textarea>
+    </div>
+    <div class="mb-3">
+      <label for="javaScriptContent" class="form-label">JavaScript 코드</label>
+      <p th:if="${#fields.hasErrors('javaScriptContent')}" th:errors="*{javaScriptContent}" class="text-danger fw-bold"></p>
+      <textarea th:field="*{javaScriptContent}" class="form-control" rows="10"></textarea>
+    </div>
+
+    <!-- 오지선다 -->
+    <div class="mb-3">
+      <label for="first" class="form-label">1번</label>
+      <p th:if="${#fields.hasErrors('first')}" th:errors="*{first}" class="text-danger fw-bold"></p>
+      <input type="text" th:field="*{first}" class="form-control">
+    </div>
+    <div class="mb-3">
+      <label for="second" class="form-label">2번</label>
+      <p th:if="${#fields.hasErrors('second')}" th:errors="*{second}" class="text-danger fw-bold"></p>
+      <input type="text" th:field="*{second}" class="form-control">
+    </div>
+    <div class="mb-3">
+      <label for="third" class="form-label">3번</label>
+      <p th:if="${#fields.hasErrors('third')}" th:errors="*{third}" class="text-danger fw-bold"></p>
+      <input type="text" th:field="*{third}" class="form-control">
+    </div>
+    <div class="mb-3">
+      <label for="fourth" class="form-label">4번</label>
+      <p th:if="${#fields.hasErrors('fourth')}" th:errors="*{fourth}" class="text-danger fw-bold"></p>
+      <input type="text" th:field="*{fourth}" class="form-control">
+    </div>
+    <div class="mb-3">
+      <label for="fifth" class="form-label">5번</label>
+      <p th:if="${#fields.hasErrors('fifth')}" th:errors="*{fifth}" class="text-danger fw-bold"></p>
+      <input type="text" th:field="*{fifth}" class="form-control">
+    </div>
+
+    <!-- 퀴즈 번호 및 답 -->
+<!--    <div class="mb-3">-->
+<!--      <label for="quizNumber" class="form-label">Quiz 번호</label>-->
+<!--      <p th:if="${#fields.hasErrors('quizNumber')}" th:errors="*{quizNumber}" class="text-danger fw-bold"></p>-->
+<!--      <input type="text" th:field="*{quizNumber}" class="form-control">-->
+<!--    </div>-->
+<!--    <div class="mb-3">-->
+<!--      <label for="quizAnswer" class="form-label">정답 번호</label>-->
+<!--      <p th:if="${#fields.hasErrors('quizAnswer')}" th:errors="*{quizAnswer}" class="text-danger fw-bold"></p>-->
+<!--      <input type="text" th:field="*{quizAnswer}" class="form-control">-->
+<!--    </div>-->
+
+    <input type="submit" value="저장하기" class="btn btn-primary my-2">
+  </form>
+</div>
+</html>

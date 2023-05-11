@@ -2,6 +2,7 @@ package com.quiz.entity;
 
 import com.quiz.dto.QuizRequestDto;
 import com.quiz.dto.QuizResponseDto;
+import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
@@ -18,9 +19,11 @@ public class Quiz {
     private Long id;
     private String title;
 
-    private String commonContent;
+    @Column(length = 500)
     private String pythonContent;
+    @Column(length = 500)
     private String javaContent;
+    @Column(length = 500)
     private String javaScriptContent;
 
     private String first;
@@ -29,8 +32,8 @@ public class Quiz {
     private String fourth;
     private String fifth;
 
-    private int quizNumber;
-    private int quizAnswer;
+    private Integer quizNumber;
+    private Integer quizAnswer;
 
     // QuizRequestDto -> Quiz 변환 메소드
     public static Quiz dtoToEntity(QuizRequestDto dto) {
@@ -38,7 +41,6 @@ public class Quiz {
         // 제목
         quiz.setTitle(dto.getTitle());
         // 내용
-        quiz.setCommonContent(dto.getCommonContent());
         quiz.setPythonContent(dto.getPythonContent());
         quiz.setJavaContent(dto.getJavaContent());
         quiz.setJavaScriptContent(dto.getJavaScriptContent());
@@ -49,8 +51,8 @@ public class Quiz {
         quiz.setFourth(dto.getFourth());
         quiz.setFifth(dto.getFifth());
         // 퀴즈 번호 및 답
-        quiz.setQuizNumber(dto.getQuizNumber());
-        quiz.setQuizAnswer(dto.getQuizAnswer());
+//        quiz.setQuizNumber(dto.getQuizNumber());
+//        quiz.setQuizAnswer(dto.getQuizAnswer());
 
         return quiz;
     }
@@ -61,7 +63,6 @@ public class Quiz {
         // 제목
         dto.setTitle(quiz.getTitle());
         // 내용
-        dto.setCommonContent(quiz.getCommonContent());
         dto.setPythonContent(quiz.getPythonContent());
         dto.setJavaContent(quiz.getJavaContent());
         dto.setJavaScriptContent(quiz.getJavaScriptContent());
