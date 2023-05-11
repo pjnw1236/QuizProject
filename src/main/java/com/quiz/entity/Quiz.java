@@ -51,8 +51,8 @@ public class Quiz {
         quiz.setFourth(dto.getFourth());
         quiz.setFifth(dto.getFifth());
         // 퀴즈 번호 및 답
-//        quiz.setQuizNumber(dto.getQuizNumber());
-//        quiz.setQuizAnswer(dto.getQuizAnswer());
+        quiz.setQuizNumber(dto.getQuizNumber());
+        quiz.setQuizAnswer(dto.getQuizAnswer());
 
         return quiz;
     }

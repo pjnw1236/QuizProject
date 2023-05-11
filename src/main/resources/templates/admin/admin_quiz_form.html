@@ -57,16 +57,16 @@
     </div>
 
     <!-- 퀴즈 번호 및 답 -->
-<!--    <div class="mb-3">-->
-<!--      <label for="quizNumber" class="form-label">Quiz 번호</label>-->
-<!--      <p th:if="${#fields.hasErrors('quizNumber')}" th:errors="*{quizNumber}" class="text-danger fw-bold"></p>-->
-<!--      <input type="text" th:field="*{quizNumber}" class="form-control">-->
-<!--    </div>-->
-<!--    <div class="mb-3">-->
-<!--      <label for="quizAnswer" class="form-label">정답 번호</label>-->
-<!--      <p th:if="${#fields.hasErrors('quizAnswer')}" th:errors="*{quizAnswer}" class="text-danger fw-bold"></p>-->
-<!--      <input type="text" th:field="*{quizAnswer}" class="form-control">-->
-<!--    </div>-->
+    <div class="mb-3">
+      <label for="quizNumber" class="form-label">Quiz 번호</label>
+      <p th:if="${#fields.hasErrors('quizNumber')}" th:errors="*{quizNumber}" class="text-danger fw-bold"></p>
+      <input type="text" th:field="*{quizNumber}" class="form-control">
+    </div>
+    <div class="mb-3">
+      <label for="quizAnswer" class="form-label">정답 번호</label>
+      <p th:if="${#fields.hasErrors('quizAnswer')}" th:errors="*{quizAnswer}" class="text-danger fw-bold"></p>
+      <input type="text" th:field="*{quizAnswer}" class="form-control">
+    </div>
 
     <input type="submit" value="저장하기" class="btn btn-primary my-2">
   </form>
