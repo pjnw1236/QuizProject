@@ -6,4 +6,5 @@ import org.springframework.data.jpa.repository.JpaRepository;
 
 public interface AdminRepository extends JpaRepository<Quiz, Integer> {
     List<Quiz> findAll();
+    Quiz findById(Long id);
 }

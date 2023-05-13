@@ -3,6 +3,7 @@ package com.quiz.service;
 import com.quiz.dto.QuizRequestDto;
 import com.quiz.dto.QuizResponseDto;
 import com.quiz.entity.Quiz;
+import com.quiz.exception.DataNotFoundException;
 import com.quiz.repository.AdminRepository;
 import java.util.List;
 import lombok.AllArgsConstructor;
@@ -26,5 +27,14 @@ public class AdminService {
         List<Quiz> quizList = adminRepository.findAll();
         List<QuizResponseDto> quizResponseDtoList = Quiz.entityListToDtoList(quizList);
         return quizResponseDtoList;
+    }
+
+    public QuizResponseDto getQuiz(Long id) {
+        Quiz quiz = adminRepository.findById(id);
+        if (quiz == null) {
+            throw new DataNotFoundException("해당 퀴즈는 존재하지 않습니다.");
+        }
+        QuizResponseDto quizResponseDto = Quiz.entityToDto(quiz);
+        return quizResponseDto;
     }
 }
