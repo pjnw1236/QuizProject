@@ -25,8 +25,8 @@ public class Quiz {
     private String pythonContent;
     @Column(length = 2000)
     private String javaContent;
-    @Column(length = 2000)
-    private String javaScriptContent;
+//    @Column(length = 2000)
+//    private String javaScriptContent;
 
     private String first;
     private String second;
@@ -45,7 +45,7 @@ public class Quiz {
         // 내용
         quiz.setPythonContent(dto.getPythonContent());
         quiz.setJavaContent(dto.getJavaContent());
-        quiz.setJavaScriptContent(dto.getJavaScriptContent());
+//        quiz.setJavaScriptContent(dto.getJavaScriptContent());
         // 오지선다
         quiz.setFirst(dto.getFirst());
         quiz.setSecond(dto.getSecond());
@@ -69,7 +69,7 @@ public class Quiz {
         // 내용
         dto.setPythonContent(quiz.getPythonContent());
         dto.setJavaContent(quiz.getJavaContent());
-        dto.setJavaScriptContent(quiz.getJavaScriptContent());
+//        dto.setJavaScriptContent(quiz.getJavaScriptContent());
         // 오지선다
         dto.setFirst(quiz.getFirst());
         dto.setSecond(quiz.getSecond());

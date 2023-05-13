@@ -10,7 +10,7 @@ public class QuizResponseDto {
     private String title;
     private String pythonContent;
     private String javaContent;
-    private String javaScriptContent;
+//    private String javaScriptContent;
     private String first;
     private String second;
     private String third;

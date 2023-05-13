@@ -19,8 +19,8 @@ public class QuizRequestDto {
     @Size(max = 2000, message = "Java 코드 입력은 2000자 이하여야 합니다.")
     private String javaContent;
     @NotEmpty(message = "JavaScript 코드 입력은 필수입니다.")
-    @Size(max = 2000, message = "JavaScript 코드 입력은 2000자 이하여야 합니다.")
-    private String javaScriptContent;
+//    @Size(max = 2000, message = "JavaScript 코드 입력은 2000자 이하여야 합니다.")
+//    private String javaScriptContent;
 
     @NotEmpty(message = "1번 보기는 필수입니다.")
     private String first;
