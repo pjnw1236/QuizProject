@@ -21,11 +21,11 @@ public class Quiz {
     private Long id;
     private String title;
 
-    @Column(length = 500)
+    @Column(length = 2000)
     private String pythonContent;
-    @Column(length = 500)
+    @Column(length = 2000)
     private String javaContent;
-    @Column(length = 500)
+    @Column(length = 2000)
     private String javaScriptContent;
 
     private String first;
