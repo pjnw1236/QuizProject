@@ -6,6 +6,7 @@ import lombok.Setter;
 @Getter
 @Setter
 public class QuizResponseDto {
+    private Long id;
     private String title;
     private String pythonContent;
     private String javaContent;

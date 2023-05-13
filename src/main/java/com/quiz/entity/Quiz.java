@@ -62,6 +62,8 @@ public class Quiz {
     // Quiz -> QuizResponseDto 변환 메소드
     public static QuizResponseDto entityToDto(Quiz quiz) {
         QuizResponseDto dto = new QuizResponseDto();
+
+        dto.setId(quiz.getId());
         // 제목
         dto.setTitle(quiz.getTitle());
         // 내용
