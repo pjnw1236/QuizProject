@@ -30,30 +30,50 @@
     </div>
 
     <!-- 오지선다 -->
-    <div class="mb-3">
-      <label for="first" class="form-label">1번</label>
+    <div class="row">
       <p th:if="${#fields.hasErrors('first')}" th:errors="*{first}" class="text-danger fw-bold"></p>
-      <input type="text" th:field="*{first}" class="form-control">
+      <div class="col-md-1">
+        <label for="first" class="form-label">1번 보기 </label>
+      </div>
+      <div class="col-md-11">
+        <input type="text" th:field="*{first}" class="form-control">
+      </div>
     </div>
-    <div class="mb-3">
-      <label for="second" class="form-label">2번</label>
+    <div class="row">
       <p th:if="${#fields.hasErrors('second')}" th:errors="*{second}" class="text-danger fw-bold"></p>
-      <input type="text" th:field="*{second}" class="form-control">
+      <div class="col-md-1">
+        <label for="second" class="form-label">2번 보기 </label>
+      </div>
+      <div class="col-md-11">
+        <input type="text" th:field="*{second}" class="form-control">
+      </div>
     </div>
-    <div class="mb-3">
-      <label for="third" class="form-label">3번</label>
+    <div class="row">
       <p th:if="${#fields.hasErrors('third')}" th:errors="*{third}" class="text-danger fw-bold"></p>
-      <input type="text" th:field="*{third}" class="form-control">
+      <div class="col-md-1">
+        <label for="third" class="form-label">3번 보기 </label>
+      </div>
+      <div class="col-md-11">
+        <input type="text" th:field="*{third}" class="form-control">
+      </div>
     </div>
-    <div class="mb-3">
-      <label for="fourth" class="form-label">4번</label>
+    <div class="row">
       <p th:if="${#fields.hasErrors('fourth')}" th:errors="*{fourth}" class="text-danger fw-bold"></p>
-      <input type="text" th:field="*{fourth}" class="form-control">
+      <div class="col-md-1">
+        <label for="fourth" class="form-label">4번 보기 </label>
+      </div>
+      <div class="col-md-11">
+        <input type="text" th:field="*{fourth}" class="form-control">
+      </div>
     </div>
-    <div class="mb-3">
-      <label for="fifth" class="form-label">5번</label>
+    <div class="row">
       <p th:if="${#fields.hasErrors('fifth')}" th:errors="*{fifth}" class="text-danger fw-bold"></p>
-      <input type="text" th:field="*{fifth}" class="form-control">
+      <div class="col-md-1">
+        <label for="fifth" class="form-label">5번 보기 </label>
+      </div>
+      <div class="col-md-11">
+        <input type="text" th:field="*{fifth}" class="form-control">
+      </div>
     </div>
 
     <!-- 퀴즈 번호 및 답 -->
