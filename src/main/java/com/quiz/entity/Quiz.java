@@ -2,6 +2,8 @@ package com.quiz.entity;
 
 import com.quiz.dto.QuizRequestDto;
 import com.quiz.dto.QuizResponseDto;
+import java.util.ArrayList;
+import java.util.List;
 import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
@@ -77,5 +79,15 @@ public class Quiz {
         dto.setQuizAnswer(quiz.quizAnswer);
 
         return dto;
+    }
+
+    // QuizList -> QuizResponseDtoList 변환 메소드
+    public static List<QuizResponseDto> entityListToDtoList(List<Quiz> quizList) {
+        List<QuizResponseDto> quizResponseDtoList = new ArrayList<>();
+        for (Quiz quiz : quizList) {
+            QuizResponseDto quizResponseDto = Quiz.entityToDto(quiz);
+            quizResponseDtoList.add(quizResponseDto);
+        }
+        return quizResponseDtoList;
     }
 }
