@@ -30,8 +30,8 @@ public class QuizRequestDto {
     private String third;
     @NotEmpty(message = "4번 보기는 필수입니다.")
     private String fourth;
-    @NotEmpty(message = "5번 보기는 필수입니다.")
-    private String fifth;
+//    @NotEmpty(message = "5번 보기는 필수입니다.")
+//    private String fifth;
 
     @Range(min=1, max=10, message="Quiz 번호는 1에서 10 사이입니다.")
     private Integer quizNumber;

@@ -15,7 +15,7 @@ public class QuizResponseDto {
     private String second;
     private String third;
     private String fourth;
-    private String fifth;
+//    private String fifth;
     private int quizNumber;
     private int quizAnswer;
 }

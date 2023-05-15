@@ -32,7 +32,7 @@ public class Quiz {
     private String second;
     private String third;
     private String fourth;
-    private String fifth;
+//    private String fifth;
 
     private Integer quizNumber;
     private Integer quizAnswer;
@@ -51,7 +51,7 @@ public class Quiz {
         quiz.setSecond(dto.getSecond());
         quiz.setThird(dto.getThird());
         quiz.setFourth(dto.getFourth());
-        quiz.setFifth(dto.getFifth());
+//        quiz.setFifth(dto.getFifth());
         // 퀴즈 번호 및 답
         quiz.setQuizNumber(dto.getQuizNumber());
         quiz.setQuizAnswer(dto.getQuizAnswer());
@@ -75,7 +75,7 @@ public class Quiz {
         dto.setSecond(quiz.getSecond());
         dto.setThird(quiz.getThird());
         dto.setFourth(quiz.getFourth());
-        dto.setFifth(quiz.getFifth());
+//        dto.setFifth(quiz.getFifth());
         // 퀴즈 번호 및 답
         dto.setQuizNumber(quiz.quizNumber);
         dto.setQuizAnswer(quiz.quizAnswer);
