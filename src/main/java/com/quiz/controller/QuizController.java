@@ -73,11 +73,11 @@ public class QuizController {
 
     @GetMapping("/quiz/python")
     public String getQuizPython() {
-        return "quiz/python";
+        return "quiz/python_home";
     }
 
     @GetMapping("/quiz/java")
     public String getQuizJava() {
-        return "quiz/java";
+        return "quiz/java_home";
     }
 }

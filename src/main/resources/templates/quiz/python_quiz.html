@@ -1,0 +1,40 @@
+<html layout:decorate="~{layout}">
+<div layout:fragment="content" class="container my-3">
+
+  <h2 class="border-bottom py-2" th:text="'Quiz ' + ${quizResponseDto.quizNumber} + '. ' + ${quizResponseDto.title}"></h2>
+
+  <h4 class="mt-5">Java 코드</h4>
+  <pre><code th:text="${quizResponseDto.javaContent}"></code></pre>
+
+  <div class="mt-5"></div>
+  <div class="form-check">
+    <input class="form-check-input" type="radio" name="exampleRadios" id="exampleRadios1" value="option1"  th:checked="${quizResponseDto.quizAnswer == 1}" disabled>
+    <label class="form-check-label" for="exampleRadios1" th:text="'(1번) ' + ${quizResponseDto.first}">
+      1번 선택지
+    </label>
+  </div>
+  <div class="form-check">
+    <input class="form-check-input" type="radio" name="exampleRadios" id="exampleRadios2" value="option2" th:checked="${quizResponseDto.quizAnswer == 2}" disabled>
+    <label class="form-check-label" for="exampleRadios2" th:text="'(2번) ' + ${quizResponseDto.second}">
+      2번 선택지
+    </label>
+  </div>
+  <div class="form-check">
+    <input class="form-check-input" type="radio" name="exampleRadios" id="exampleRadios3" value="option3" th:checked="${quizResponseDto.quizAnswer == 3}" disabled>
+    <label class="form-check-label" for="exampleRadios3" th:text="'(3번) ' + ${quizResponseDto.third}">
+      3번 선택지
+    </label>
+  </div>
+  <div class="form-check">
+    <input class="form-check-input" type="radio" name="exampleRadios" id="exampleRadios4" value="option4" th:checked="${quizResponseDto.quizAnswer == 4}" disabled>
+    <label class="form-check-label" for="exampleRadios4" th:text="'(4번) ' + ${quizResponseDto.fourth}">
+      4번 선택지
+    </label>
+  </div>
+
+  <form th:action="@{|/admin/quiz/editform/${quizResponseDto.id}|}" method="get" class="my-3">
+    <input type="submit" value="Quiz 수정" class="btn btn-primary my-2">
+  </form>
+
+</div>
+</html>
