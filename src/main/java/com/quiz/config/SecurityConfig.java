@@ -27,6 +27,7 @@ public class SecurityConfig {
     SecurityFilterChain filterChain(HttpSecurity http) throws Exception {
         http.authorizeHttpRequests()
             .mvcMatchers("/admin/**").hasAuthority(UserRole.ADMIN.getValue())
+            .mvcMatchers("/quiz/**").hasAnyAuthority(UserRole.ADMIN.getValue(), UserRole.USER.getValue())
             .anyRequest().permitAll()
                 .and()
             .csrf().ignoringRequestMatchers(new AntPathRequestMatcher("/h2-console/**"))
