@@ -70,4 +70,14 @@ public class QuizController {
         quizService.patchQuiz(Long.valueOf(id), quizRequestDto);
         return String.format("redirect:/admin/quiz/%s", id);
     }
+
+    @GetMapping("/quiz/python")
+    public String getQuizPython() {
+        return "quiz/python";
+    }
+
+    @GetMapping("/quiz/java")
+    public String getQuizJava() {
+        return "quiz/java";
+    }
 }
