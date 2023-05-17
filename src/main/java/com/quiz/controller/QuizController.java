@@ -2,7 +2,7 @@ package com.quiz.controller;
 
 import com.quiz.dto.QuizRequestDto;
 import com.quiz.dto.QuizResponseDto;
-import com.quiz.service.AdminService;
+import com.quiz.service.QuizService;
 import java.util.List;
 import javax.validation.Valid;
 import lombok.AllArgsConstructor;
@@ -19,12 +19,12 @@ import org.springframework.web.bind.annotation.RequestMapping;
 @Controller
 @AllArgsConstructor
 @Slf4j
-public class AdminController {
-    private final AdminService adminService;
+public class QuizController {
+    private final QuizService quizService;
 
     @GetMapping("/quiz")
     public String getAdminQuiz(Model model) {
-        List<QuizResponseDto> quizResponseDtoList = adminService.getQuizList();
+        List<QuizResponseDto> quizResponseDtoList = quizService.getQuizList();
         model.addAttribute("quizResponseDtoList", quizResponseDtoList);
         return "admin/admin_quiz";
     }
@@ -45,13 +45,13 @@ public class AdminController {
         if (bindingResult.hasErrors()) {
             return "admin/admin_quiz_form";
         }
-        QuizResponseDto quizResponseDto = adminService.createQuiz(quizRequestDto);
+        QuizResponseDto quizResponseDto = quizService.createQuiz(quizRequestDto);
         return "redirect:/admin/quiz";
     }
 
     @GetMapping("/quiz/{id}")
     public String getPythonQuizDetail(@PathVariable("id") Integer id, Model model) {
-        QuizResponseDto quizResponseDto = adminService.getQuiz(Long.valueOf(id));
+        QuizResponseDto quizResponseDto = quizService.getQuiz(Long.valueOf(id));
         model.addAttribute("quizResponseDto", quizResponseDto);
         return "admin/admin_quiz_detail";
     }
