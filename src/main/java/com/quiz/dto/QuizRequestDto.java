@@ -35,6 +35,6 @@ public class QuizRequestDto {
 
     @Range(min=1, max=10, message="Quiz 번호는 1에서 10 사이입니다.")
     private Integer quizNumber;
-    @Range(min=1, max=5, message="Quiz 정답은 1번에서 5번 사이입니다.")
+    @Range(min=1, max=4, message="Quiz 정답은 1번에서 4번 사이입니다.")
     private Integer quizAnswer;
 }

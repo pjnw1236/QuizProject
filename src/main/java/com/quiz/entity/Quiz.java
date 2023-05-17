@@ -92,4 +92,24 @@ public class Quiz {
         }
         return quizResponseDtoList;
     }
+
+    // Quiz -> QuizRequestDto 변환 메소드
+    public static QuizRequestDto entityToRequestDto(Quiz quiz) {
+        QuizRequestDto quizRequestDto = new QuizRequestDto();
+
+        quizRequestDto.setTitle(quiz.getTitle());
+
+        quizRequestDto.setPythonContent(quiz.getPythonContent());
+        quizRequestDto.setJavaContent(quiz.getJavaContent());
+
+        quizRequestDto.setFirst(quiz.getFirst());
+        quizRequestDto.setSecond(quiz.getSecond());
+        quizRequestDto.setThird(quiz.getThird());
+        quizRequestDto.setFourth(quiz.getFourth());
+
+        quizRequestDto.setQuizNumber(quiz.quizNumber);
+        quizRequestDto.setQuizAnswer(quiz.quizAnswer);
+
+        return quizRequestDto;
+    }
 }

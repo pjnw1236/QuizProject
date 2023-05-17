@@ -1,9 +1,9 @@
 <html layout:decorate="~{layout}">
 <div layout:fragment="content" class="container">
   <h5 class="my-3 border-bottom pb-2">Quiz 등록</h5>
-  <form th:object="${quizRequestDto}" method="post">
+  <form th:object="${quizRequestDto}" th:method="patch">
     <input type="hidden" th:name="${_csrf.parameterName}" th:value="${_csrf.token}" />
-<!--    <div th:replace="~{form_errors :: formErrorsFragment}"></div>-->
+<!--    <input type="hidden" name="_method" value="patch" />-->
 
     <!-- 제목 -->
     <div class="mb-3">
@@ -23,13 +23,8 @@
       <p th:if="${#fields.hasErrors('javaContent')}" th:errors="*{javaContent}" class="text-danger fw-bold"></p>
       <textarea th:field="*{javaContent}" class="form-control" rows="10"></textarea>
     </div>
-<!--    <div class="mb-3">-->
-<!--      <label for="javaScriptContent" class="form-label">JavaScript 코드</label>-->
-<!--      <p th:if="${#fields.hasErrors('javaScriptContent')}" th:errors="*{javaScriptContent}" class="text-danger fw-bold"></p>-->
-<!--      <textarea th:field="*{javaScriptContent}" class="form-control" rows="10"></textarea>-->
-<!--    </div>-->
 
-    <!-- 오지선다 -->
+    <!-- 선택지 -->
     <div class="row">
       <p th:if="${#fields.hasErrors('first')}" th:errors="*{first}" class="text-danger fw-bold"></p>
       <div class="col-md-1">
@@ -66,21 +61,11 @@
         <input type="text" th:field="*{fourth}" class="form-control">
       </div>
     </div>
-<!--    <div class="row">-->
-<!--      <p th:if="${#fields.hasErrors('fifth')}" th:errors="*{fifth}" class="text-danger fw-bold"></p>-->
-<!--      <div class="col-md-1">-->
-<!--        <label for="fifth" class="form-label">5번 보기 </label>-->
-<!--      </div>-->
-<!--      <div class="col-md-11">-->
-<!--        <input type="text" th:field="*{fifth}" class="form-control">-->
-<!--      </div>-->
-<!--    </div>-->
 
     <!-- 퀴즈 번호 및 답 -->
     <div class="mb-3">
       <label for="quizNumber" class="form-label">Quiz 번호 (1~10)</label>
-      <p th:if="${#fields.hasErrors('quizNumber')}" th:errors="*{quizNumber}" class="text-danger fw-bold"></p>
-      <input type="number" th:field="*{quizNumber}" class="form-control">
+      <input type="number" th:field="*{quizNumber}" class="form-control" disabled readonly>
     </div>
     <div class="mb-3">
       <label for="quizAnswer" class="form-label">정답 번호 (1~5)</label>
@@ -88,7 +73,7 @@
       <input type="number" th:field="*{quizAnswer}" class="form-control">
     </div>
 
-    <input type="submit" value="저장하기" class="btn btn-primary my-2">
+    <input type="submit" value="수정 완료" class="btn btn-primary my-2">
   </form>
 </div>
 </html>

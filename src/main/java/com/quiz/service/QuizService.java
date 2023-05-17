@@ -37,4 +37,28 @@ public class QuizService {
         QuizResponseDto quizResponseDto = Quiz.entityToDto(quiz);
         return quizResponseDto;
     }
+
+    public QuizRequestDto getQuizRequestDto(Long id) {
+        Quiz quiz = quizRepository.findById(id);
+        if (quiz == null) {
+            throw new DataNotFoundException("해당 퀴즈는 존재하지 않습니다.");
+        }
+        QuizRequestDto quizRequestDto = Quiz.entityToRequestDto(quiz);
+        return quizRequestDto;
+    }
+
+    public void patchQuiz(Long id, QuizRequestDto quizRequestDto) {
+        Quiz quiz = quizRepository.findById(id);
+        if (quiz == null) {
+            throw new DataNotFoundException("해당 퀴즈는 존재하지 않습니다.");
+        }
+        quiz.setTitle(quizRequestDto.getTitle());
+        quiz.setPythonContent(quizRequestDto.getPythonContent());
+        quiz.setJavaContent(quizRequestDto.getJavaContent());
+        quiz.setFirst(quizRequestDto.getFirst());
+        quiz.setSecond(quizRequestDto.getSecond());
+        quiz.setThird(quizRequestDto.getThird());
+        quiz.setFourth(quizRequestDto.getFourth());
+        quiz.setQuizAnswer(quizRequestDto.getQuizAnswer());
+    }
 }
