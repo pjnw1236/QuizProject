@@ -27,6 +27,6 @@ public interface QuestionRepository extends JpaRepository<Question, Integer> {
     @Query("select distinct q from Question q left outer join Answer a on a.question=q where a.content like %:kw%")
     Page<Question> findAllByAnswerContent(@Param("kw") String kw, Pageable pageable);
 
-    @Query("select distinct q from Question q left outer join SiteUser u on q.author=u where u.username like %:kw%")
+    @Query("select distinct q from Question q left outer join Member u on q.author=u where u.username like %:kw%")
     Page<Question> findAllByAuthor(@Param("kw") String kw, Pageable pageable);
 }

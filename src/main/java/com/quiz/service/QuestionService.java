@@ -3,7 +3,7 @@ package com.quiz.service;
 import com.quiz.exception.DataNotFoundException;
 import com.quiz.entity.Question;
 import com.quiz.repository.QuestionRepository;
-import com.quiz.entity.SiteUser;
+import com.quiz.entity.Member;
 import com.quiz.repository.UserRepository;
 import java.time.LocalDateTime;
 import java.util.ArrayList;
@@ -73,7 +73,7 @@ public class QuestionService {
     }
 
     public Question getQuestionByUsername(Integer id, String username, Boolean bool) {
-        SiteUser user = userService.getUser(username, bool);
+        Member user = userService.getUser(username, bool);
         Question question = this.getQuestion(id);
         question.getViewer().add(user);
         questionRepository.save(question);
@@ -81,14 +81,14 @@ public class QuestionService {
     }
 
     public Question getQuestionByEmail(Integer id, String email, Boolean bool) {
-        List<SiteUser> siteUserList = userRepository.findByEmailAndIsOauth(email, bool);
+        List<Member> memberList = userRepository.findByEmailAndIsOauth(email, bool);
         Question question = this.getQuestion(id);
-        question.getViewer().add(siteUserList.get(0));
+        question.getViewer().add(memberList.get(0));
         questionRepository.save(question);
         return question;
     }
 
-    public void create(String subject, String content, SiteUser user) {
+    public void create(String subject, String content, Member user) {
         Question q = new Question();
         q.setSubject(subject);
         q.setContent(content);
@@ -108,8 +108,8 @@ public class QuestionService {
         questionRepository.delete(question);
     }
 
-    public void vote(Question question, SiteUser siteUser) {
-        question.getVoter().add(siteUser);
+    public void vote(Question question, Member member) {
+        question.getVoter().add(member);
         questionRepository.save(question);
     }
 }

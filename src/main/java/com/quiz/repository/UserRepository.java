@@ -1,12 +1,12 @@
 package com.quiz.repository;
 
-import com.quiz.entity.SiteUser;
+import com.quiz.entity.Member;
 import java.util.List;
 import org.springframework.data.jpa.repository.JpaRepository;
 
-public interface UserRepository extends JpaRepository<SiteUser, Long> {
-    List<SiteUser> findAllByUsername(String username);
-    List<SiteUser> findAllByEmail(String email);
-    List<SiteUser> findByUsernameAndIsOauth(String username, Boolean bool);
-    List<SiteUser> findByEmailAndIsOauth(String email, Boolean bool);
+public interface UserRepository extends JpaRepository<Member, Long> {
+    List<Member> findAllByUsername(String username);
+    List<Member> findAllByEmail(String email);
+    List<Member> findByUsernameAndIsOauth(String username, Boolean bool);
+    List<Member> findByEmailAndIsOauth(String email, Boolean bool);
 }

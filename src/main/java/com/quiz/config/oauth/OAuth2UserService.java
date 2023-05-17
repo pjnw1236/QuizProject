@@ -1,6 +1,6 @@
 package com.quiz.config.oauth;
 
-import com.quiz.entity.SiteUser;
+import com.quiz.entity.Member;
 import com.quiz.repository.UserRepository;
 import java.util.List;
 import lombok.AllArgsConstructor;
@@ -33,14 +33,14 @@ public class OAuth2UserService extends DefaultOAuth2UserService {
         String email = oAuth2User.getAttribute("email");
         Boolean bool = true;
 
-        List<SiteUser> siteUserList = userRepository.findByEmailAndIsOauth(email, bool);
-        if (siteUserList.size() == 0) {
-            SiteUser siteUser = new SiteUser();
-            siteUser.setUsername(username);
-            siteUser.setEmail(email);
-            siteUser.setPassword("password");
-            siteUser.setIsOauth(true);
-            userRepository.save(siteUser);
+        List<Member> memberList = userRepository.findByEmailAndIsOauth(email, bool);
+        if (memberList.size() == 0) {
+            Member member = new Member();
+            member.setUsername(username);
+            member.setEmail(email);
+            member.setPassword("password");
+            member.setIsOauth(true);
+            userRepository.save(member);
         }
 
         return oAuth2User;

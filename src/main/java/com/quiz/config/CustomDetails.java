@@ -1,7 +1,7 @@
 package com.quiz.config;
 
 import com.quiz.constant.UserRole;
-import com.quiz.entity.SiteUser;
+import com.quiz.entity.Member;
 import java.util.ArrayList;
 import java.util.Collection;
 import java.util.List;
@@ -12,17 +12,17 @@ import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.security.oauth2.core.user.OAuth2User;
 
 public class CustomDetails implements UserDetails, OAuth2User {
-    private SiteUser siteUser;
+    private Member member;
     private Map<String, Object> attributes;
 
     // 일반 로그인
-    public CustomDetails(SiteUser siteUser) {
-        this.siteUser = siteUser;
+    public CustomDetails(Member member) {
+        this.member = member;
     }
 
     // OAuth2 로그인
-    public CustomDetails(SiteUser siteUser, Map<String, Object> attributes) {
-        this.siteUser = siteUser;
+    public CustomDetails(Member member, Map<String, Object> attributes) {
+        this.member = member;
         this.attributes = attributes;
     }
 
@@ -35,7 +35,7 @@ public class CustomDetails implements UserDetails, OAuth2User {
     @Override
     public Collection<? extends GrantedAuthority> getAuthorities() {
         List<GrantedAuthority> authorities = new ArrayList<>();
-        if (siteUser.getEmail().equals("admin")) {
+        if (member.getEmail().equals("admin")) {
             authorities.add(new SimpleGrantedAuthority(UserRole.ADMIN.getValue()));
         }
         authorities.add(new SimpleGrantedAuthority(UserRole.USER.getValue()));
@@ -44,12 +44,12 @@ public class CustomDetails implements UserDetails, OAuth2User {
 
     @Override
     public String getPassword() {
-        return siteUser.getPassword();
+        return member.getPassword();
     }
 
     @Override
     public String getUsername() {
-        return siteUser.getUsername();
+        return member.getUsername();
     }
 
     @Override

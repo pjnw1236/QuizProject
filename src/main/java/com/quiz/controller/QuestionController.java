@@ -5,7 +5,7 @@ import com.quiz.entity.Question;
 import com.quiz.form.QuestionForm;
 import com.quiz.repository.UserRepository;
 import com.quiz.service.QuestionService;
-import com.quiz.entity.SiteUser;
+import com.quiz.entity.Member;
 import com.quiz.service.UserService;
 import java.util.List;
 import javax.validation.Valid;
@@ -119,8 +119,8 @@ public class QuestionController {
             String username = auth.getName();
             Boolean bool = false;
 
-            SiteUser siteUser = userService.getUser(username, bool);
-            questionService.create(questionForm.getSubject(), questionForm.getContent(), siteUser);
+            Member member = userService.getUser(username, bool);
+            questionService.create(questionForm.getSubject(), questionForm.getContent(), member);
 
             return "redirect:/question/list";
         } else {
@@ -129,9 +129,9 @@ public class QuestionController {
             String email = oauthToken.getPrincipal().getAttribute("email");
             Boolean bool = true;
 
-            List<SiteUser> siteUserList = userRepository.findByEmailAndIsOauth(email, bool);
-            SiteUser siteUser = siteUserList.get(0);
-            questionService.create(questionForm.getSubject(), questionForm.getContent(), siteUser);
+            List<Member> memberList = userRepository.findByEmailAndIsOauth(email, bool);
+            Member member = memberList.get(0);
+            questionService.create(questionForm.getSubject(), questionForm.getContent(), member);
 
             return "redirect:/question/list";
         }
@@ -255,9 +255,9 @@ public class QuestionController {
             String username = auth.getName();
             Boolean bool = false;
 
-            SiteUser siteUser = userService.getUser(username, bool);
+            Member member = userService.getUser(username, bool);
 
-            questionService.vote(question, siteUser);
+            questionService.vote(question, member);
             return String.format("redirect:/question/detail/%s", id);
         } else {
             OAuth2AuthenticationToken oauthToken = (OAuth2AuthenticationToken) authentication;
@@ -265,9 +265,9 @@ public class QuestionController {
             String email = oauthToken.getPrincipal().getAttribute("email");
             Boolean bool = true;
 
-            List<SiteUser> siteUserList = userRepository.findByEmailAndIsOauth(email, bool);
+            List<Member> memberList = userRepository.findByEmailAndIsOauth(email, bool);
 
-            questionService.vote(question, siteUserList.get(0));
+            questionService.vote(question, memberList.get(0));
             return String.format("redirect:/question/detail/%s", id);
         }
     }

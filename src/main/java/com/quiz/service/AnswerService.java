@@ -4,7 +4,7 @@ import com.quiz.exception.DataNotFoundException;
 import com.quiz.entity.Answer;
 import com.quiz.repository.AnswerRepository;
 import com.quiz.entity.Question;
-import com.quiz.entity.SiteUser;
+import com.quiz.entity.Member;
 import java.time.LocalDateTime;
 import java.util.Optional;
 import lombok.RequiredArgsConstructor;
@@ -15,7 +15,7 @@ import org.springframework.stereotype.Service;
 public class AnswerService {
     private final AnswerRepository answerRepository;
 
-    public void create(Question question, String content, SiteUser author) {
+    public void create(Question question, String content, Member author) {
         Answer answer = new Answer();
         answer.setContent(content);
         answer.setCreateDate(LocalDateTime.now());
@@ -43,8 +43,8 @@ public class AnswerService {
         answerRepository.delete(answer);
     }
 
-    public void vote(Answer answer, SiteUser siteUser) {
-        answer.getVoter().add(siteUser);
+    public void vote(Answer answer, Member member) {
+        answer.getVoter().add(member);
         answerRepository.save(answer);
     }
 }

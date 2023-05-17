@@ -35,13 +35,13 @@ public class Question {
     private List<Answer> answerList;
 
     @ManyToOne
-    private SiteUser author;
+    private Member author;
 
     private LocalDateTime modifyDate;
 
     @ManyToMany
-    Set<SiteUser> voter;
+    Set<Member> voter;
 
     @ManyToMany
-    Set<SiteUser> viewer;
+    Set<Member> viewer;
 }

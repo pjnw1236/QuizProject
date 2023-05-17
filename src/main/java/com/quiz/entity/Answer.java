@@ -29,10 +29,10 @@ public class Answer {
     private Question question;
 
     @ManyToOne
-    private SiteUser author;
+    private Member author;
 
     private LocalDateTime modifyDate;
 
     @ManyToMany
-    Set<SiteUser> voter;
+    Set<Member> voter;
 }

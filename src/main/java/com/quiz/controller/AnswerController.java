@@ -6,7 +6,7 @@ import com.quiz.service.AnswerService;
 import com.quiz.form.AnswerForm;
 import com.quiz.entity.Question;
 import com.quiz.service.QuestionService;
-import com.quiz.entity.SiteUser;
+import com.quiz.entity.Member;
 import com.quiz.service.UserService;
 import java.util.List;
 import javax.validation.Valid;
@@ -53,9 +53,9 @@ public class AnswerController {
             String username = auth.getName();
             Boolean bool = false;
 
-            SiteUser siteUser = userService.getUser(username, bool);
+            Member member = userService.getUser(username, bool);
 
-            answerService.create(question, answerForm.getContent(), siteUser);
+            answerService.create(question, answerForm.getContent(), member);
             return String.format("redirect:/question/detail/%s", id);
         } else {
             OAuth2AuthenticationToken oauthToken = (OAuth2AuthenticationToken) authentication;
@@ -63,9 +63,9 @@ public class AnswerController {
             String email = oauthToken.getPrincipal().getAttribute("email");
             Boolean bool = true;
 
-            List<SiteUser> siteUserList = userRepository.findByEmailAndIsOauth(email, bool);
+            List<Member> memberList = userRepository.findByEmailAndIsOauth(email, bool);
 
-            answerService.create(question, answerForm.getContent(), siteUserList.get(0));
+            answerService.create(question, answerForm.getContent(), memberList.get(0));
             return String.format("redirect:/question/detail/%s", id);
         }
     }
@@ -95,7 +95,7 @@ public class AnswerController {
             String email = oauthToken.getPrincipal().getAttribute("email");
             Boolean bool = true;
 
-            List<SiteUser> siteUserList = userRepository.findByEmailAndIsOauth(email, bool);
+            List<Member> memberList = userRepository.findByEmailAndIsOauth(email, bool);
 
             if (answer.getAuthor().getEmail().equals(email) && answer.getAuthor().getIsOauth().equals(bool)) {
                 answerForm.setContent(answer.getContent());
@@ -135,7 +135,7 @@ public class AnswerController {
             String email = oauthToken.getPrincipal().getAttribute("email");
             Boolean bool = true;
 
-            List<SiteUser> siteUserList = userRepository.findByEmailAndIsOauth(email, bool);
+            List<Member> memberList = userRepository.findByEmailAndIsOauth(email, bool);
 
             if (answer.getAuthor().getEmail().equals(email) && answer.getAuthor().getIsOauth().equals(bool)) {
                 answerService.modify(answer, answerForm.getContent());
@@ -171,7 +171,7 @@ public class AnswerController {
             String email = oauthToken.getPrincipal().getAttribute("email");
             Boolean bool = true;
 
-            List<SiteUser> siteUserList = userRepository.findByEmailAndIsOauth(email, bool);
+            List<Member> memberList = userRepository.findByEmailAndIsOauth(email, bool);
 
             if (answer.getAuthor().getEmail().equals(email) && answer.getAuthor().getIsOauth().equals(bool)) {
                 answerService.delete(answer);
@@ -195,9 +195,9 @@ public class AnswerController {
             String username = auth.getName();
             Boolean bool = false;
 
-            SiteUser siteUser = userService.getUser(username, bool);
+            Member member = userService.getUser(username, bool);
 
-            answerService.vote(answer, siteUser);
+            answerService.vote(answer, member);
             return String.format("redirect:/question/detail/%s", answer.getQuestion().getId());
         } else {
             OAuth2AuthenticationToken oauthToken = (OAuth2AuthenticationToken) authentication;
@@ -205,9 +205,9 @@ public class AnswerController {
             String email = oauthToken.getPrincipal().getAttribute("email");
             Boolean bool = true;
 
-            List<SiteUser> siteUserList = userRepository.findByEmailAndIsOauth(email, bool);
+            List<Member> memberList = userRepository.findByEmailAndIsOauth(email, bool);
 
-            answerService.vote(answer, siteUserList.get(0));
+            answerService.vote(answer, memberList.get(0));
             return String.format("redirect:/question/detail/%s", answer.getQuestion().getId());
         }
     }

@@ -1,6 +1,6 @@
 package com.quiz.config;
 
-import com.quiz.entity.SiteUser;
+import com.quiz.entity.Member;
 import com.quiz.repository.UserRepository;
 import com.quiz.constant.UserRole;
 import java.util.ArrayList;
@@ -23,13 +23,13 @@ public class UserSecurityService implements UserDetailsService {
     @Override
     public UserDetails loadUserByUsername(String username) throws UsernameNotFoundException {
         Boolean bool = false;
-        List<SiteUser> siteUserList = userRepository.findByUsernameAndIsOauth(username, bool);
+        List<Member> memberList = userRepository.findByUsernameAndIsOauth(username, bool);
 
-        if (siteUserList.size() == 0) {
+        if (memberList.size() == 0) {
             throw new UsernameNotFoundException("사용자를 찾을 수 없습니다.");
         }
 
-        SiteUser siteUser = siteUserList.get(0);
+        Member member = memberList.get(0);
         List<GrantedAuthority> authorities = new ArrayList<>();
 
         if (username.equals("admin")) {
@@ -38,6 +38,6 @@ public class UserSecurityService implements UserDetailsService {
             authorities.add(new SimpleGrantedAuthority(UserRole.USER.getValue()));
         }
 
-        return new User(siteUser.getUsername(), siteUser.getPassword(), authorities);
+        return new User(member.getUsername(), member.getPassword(), authorities);
     }
 }
