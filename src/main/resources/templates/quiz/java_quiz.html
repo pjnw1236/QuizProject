@@ -1,40 +1,54 @@
 <html layout:decorate="~{layout}">
 <div layout:fragment="content" class="container my-3">
 
-  <h2 class="border-bottom py-2" th:text="'Quiz ' + ${quizResponseDto.quizNumber} + '. ' + ${quizResponseDto.title}"></h2>
+  <nav aria-label="Page navigation example" style="margin-top: 4rem; margin-bottom: 2rem;">
+    <ul class="pagination pagination-lg justify-content-center">
+      <li class="page-item"><a class="page-link text-secondary" th:href="@{|/quiz/java/${quizResponseDto.quizNumber-1}|}" th:classappend="${quizResponseDto.quizNumber == 1 ? 'disabled' : ''}">이전 문제</a></li>
+      <li class="page-item"><a class="page-link text-secondary" th:href="@{|/quiz/java/1|}" th:classappend="${quizResponseDto.quizNumber == 1 ? 'bg-secondary bg-opacity-10 disabled' : ''}">1</a></li>
+      <li class="page-item"><a class="page-link text-secondary" th:href="@{|/quiz/java/2|}" th:classappend="${quizResponseDto.quizNumber == 2 ? 'bg-secondary bg-opacity-10 disabled' : ''}">2</a></li>
+      <li class="page-item"><a class="page-link text-secondary" th:href="@{|/quiz/java/3|}" th:classappend="${quizResponseDto.quizNumber == 3 ? 'bg-secondary bg-opacity-10 disabled' : ''}">3</a></li>
+      <li class="page-item"><a class="page-link text-secondary" th:href="@{|/quiz/java/4|}" th:classappend="${quizResponseDto.quizNumber == 4 ? 'bg-secondary bg-opacity-10 disabled' : ''}">4</a></li>
+      <li class="page-item"><a class="page-link text-secondary" th:href="@{|/quiz/java/5|}" th:classappend="${quizResponseDto.quizNumber == 5 ? 'bg-secondary bg-opacity-10 disabled' : ''}">5</a></li>
+      <li class="page-item"><a class="page-link text-secondary" th:href="@{|/quiz/java/6|}" th:classappend="${quizResponseDto.quizNumber == 6 ? 'bg-secondary bg-opacity-10 disabled' : ''}">6</a></li>
+      <li class="page-item"><a class="page-link text-secondary" th:href="@{|/quiz/java/7|}" th:classappend="${quizResponseDto.quizNumber == 7 ? 'bg-secondary bg-opacity-10 disabled' : ''}">7</a></li>
+      <li class="page-item"><a class="page-link text-secondary" th:href="@{|/quiz/java/8|}" th:classappend="${quizResponseDto.quizNumber == 8 ? 'bg-secondary bg-opacity-10 disabled' : ''}">8</a></li>
+      <li class="page-item"><a class="page-link text-secondary" th:href="@{|/quiz/java/9|}" th:classappend="${quizResponseDto.quizNumber == 9 ? 'bg-secondary bg-opacity-10 disabled' : ''}">9</a></li>
+      <li class="page-item"><a class="page-link text-secondary" th:href="@{|/quiz/java/10|}" th:classappend="${quizResponseDto.quizNumber == 10 ? 'bg-secondary bg-opacity-10 disabled' : ''}">10</a></li>
+      <li class="page-item"><a class="page-link text-secondary" th:href="@{|/quiz/java/${quizResponseDto.quizNumber+1}|}" th:classappend="${quizResponseDto.quizNumber == 10 ? 'disabled' : ''}">다음 문제</a></li>
+    </ul>
+  </nav>
+
+  <h2 style="margin-top: 4rem; margin-bottom: 2rem;" th:text="'[Quiz ' + ${quizResponseDto.quizNumber} + ']'"></h2>
+  <h2 class="border-bottom py-2" th:text="${quizResponseDto.title}"></h2>
 
   <h4 class="mt-5">Java 코드</h4>
   <pre><code th:text="${quizResponseDto.javaContent}"></code></pre>
 
   <div class="mt-5"></div>
   <div class="form-check">
-    <input class="form-check-input" type="radio" name="exampleRadios" id="exampleRadios1" value="option1"  th:checked="${quizResponseDto.quizAnswer == 1}" disabled>
+    <input class="form-check-input" type="radio" name="exampleRadios" id="exampleRadios1" value="option1">
     <label class="form-check-label" for="exampleRadios1" th:text="'(1번) ' + ${quizResponseDto.first}">
       1번 선택지
     </label>
   </div>
   <div class="form-check">
-    <input class="form-check-input" type="radio" name="exampleRadios" id="exampleRadios2" value="option2" th:checked="${quizResponseDto.quizAnswer == 2}" disabled>
+    <input class="form-check-input" type="radio" name="exampleRadios" id="exampleRadios2" value="option2">
     <label class="form-check-label" for="exampleRadios2" th:text="'(2번) ' + ${quizResponseDto.second}">
       2번 선택지
     </label>
   </div>
   <div class="form-check">
-    <input class="form-check-input" type="radio" name="exampleRadios" id="exampleRadios3" value="option3" th:checked="${quizResponseDto.quizAnswer == 3}" disabled>
+    <input class="form-check-input" type="radio" name="exampleRadios" id="exampleRadios3" value="option3">
     <label class="form-check-label" for="exampleRadios3" th:text="'(3번) ' + ${quizResponseDto.third}">
       3번 선택지
     </label>
   </div>
   <div class="form-check">
-    <input class="form-check-input" type="radio" name="exampleRadios" id="exampleRadios4" value="option4" th:checked="${quizResponseDto.quizAnswer == 4}" disabled>
+    <input class="form-check-input" type="radio" name="exampleRadios" id="exampleRadios4" value="option4">
     <label class="form-check-label" for="exampleRadios4" th:text="'(4번) ' + ${quizResponseDto.fourth}">
       4번 선택지
     </label>
   </div>
-
-  <form th:action="@{|/admin/quiz/editform/${quizResponseDto.id}|}" method="get" class="my-3">
-    <input type="submit" value="Quiz 수정" class="btn btn-primary my-2">
-  </form>
 
 </div>
 </html>
