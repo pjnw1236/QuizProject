@@ -10,12 +10,10 @@ public class QuizResponseDto {
     private String title;
     private String pythonContent;
     private String javaContent;
-//    private String javaScriptContent;
     private String first;
     private String second;
     private String third;
     private String fourth;
-//    private String fifth;
-    private int quizNumber;
+    private Long quizNumber;
     private int quizAnswer;
 }

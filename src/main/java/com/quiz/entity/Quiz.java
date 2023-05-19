@@ -25,17 +25,14 @@ public class Quiz {
     private String pythonContent;
     @Column(length = 2000)
     private String javaContent;
-//    @Column(length = 2000)
-//    private String javaScriptContent;
 
     private String first;
     private String second;
     private String third;
     private String fourth;
-//    private String fifth;
 
-    private Integer quizNumber;
-    private Integer quizAnswer;
+    private Long quizNumber;
+    private int quizAnswer;
 
     // QuizRequestDto -> Quiz 변환 메소드
     public static Quiz dtoToEntity(QuizRequestDto dto) {
@@ -45,13 +42,11 @@ public class Quiz {
         // 내용
         quiz.setPythonContent(dto.getPythonContent());
         quiz.setJavaContent(dto.getJavaContent());
-//        quiz.setJavaScriptContent(dto.getJavaScriptContent());
         // 오지선다
         quiz.setFirst(dto.getFirst());
         quiz.setSecond(dto.getSecond());
         quiz.setThird(dto.getThird());
         quiz.setFourth(dto.getFourth());
-//        quiz.setFifth(dto.getFifth());
         // 퀴즈 번호 및 답
         quiz.setQuizNumber(dto.getQuizNumber());
         quiz.setQuizAnswer(dto.getQuizAnswer());
@@ -69,13 +64,11 @@ public class Quiz {
         // 내용
         dto.setPythonContent(quiz.getPythonContent());
         dto.setJavaContent(quiz.getJavaContent());
-//        dto.setJavaScriptContent(quiz.getJavaScriptContent());
         // 오지선다
         dto.setFirst(quiz.getFirst());
         dto.setSecond(quiz.getSecond());
         dto.setThird(quiz.getThird());
         dto.setFourth(quiz.getFourth());
-//        dto.setFifth(quiz.getFifth());
         // 퀴즈 번호 및 답
         dto.setQuizNumber(quiz.quizNumber);
         dto.setQuizAnswer(quiz.quizAnswer);
