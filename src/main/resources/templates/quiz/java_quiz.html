@@ -55,20 +55,13 @@
   </div>
 
   <script th:inline="javascript">
-    var endTime;
-    if (localStorage.getItem("endTime")) {
-      endTime = new Date(localStorage.getItem("endTime"));
-    } else {
-      var startTime = new Date();
-      endTime = new Date(startTime.getTime() + 902 * 1000);
-      localStorage.setItem("endTime", endTime);
-    }
+    var startTime = new Date();
+    var endTime = new Date(startTime.getTime() + 900 * 1000);
+
     var countdown = setInterval(function () {
       var currentTime = new Date().getTime();
       var remainTime = endTime - currentTime;
-      var minute = Math.floor((remainTime % (1000 * 60 * 60)) / (1000 * 60));
-      var second = Math.floor((remainTime % (1000 * 60)) / 1000);
-      document.getElementById("countdown").innerHTML = minute + "m " + second + "s ";
+      document.getElementById("countdown").innerHTML = "" + remainTime;
       if (remainTime < 0) {
         clearInterval(countdown);
         document.getElementById("countdown").innerHTML = "EXPIRED";
