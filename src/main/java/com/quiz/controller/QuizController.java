@@ -6,6 +6,7 @@ import com.quiz.entity.Member;
 import com.quiz.repository.UserRepository;
 import com.quiz.service.QuizService;
 import java.util.List;
+import javax.servlet.http.HttpServletRequest;
 import javax.validation.Valid;
 import lombok.AllArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
@@ -84,7 +85,7 @@ public class QuizController {
     }
 
     @GetMapping("/quiz/python/{id}")
-    public String getPythonQuizDetail(@PathVariable("id") Long id, Model model) {
+    public String getPythonQuizDetail(@PathVariable("id") Long id, Model model, HttpServletRequest request) {
         QuizResponseDto quizResponseDto = quizService.getQuizResponseDtoByQuizNumber(id);
         model.addAttribute("quizResponseDto", quizResponseDto);
         Authentication authentication = SecurityContextHolder.getContext().getAuthentication();
@@ -111,6 +112,13 @@ public class QuizController {
                 log.info(member.getIsOauth().toString());
                 log.info("===== member =====");
             }
+        }
+
+        String check = request.getParameter("endTime");
+        if (check != null) {
+            log.info("== endTime == " + check);
+        } else {
+            log.info("== endTime NULL ==");
         }
 
         return "quiz/python_quiz";

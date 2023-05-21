@@ -55,11 +55,11 @@
   </div>
 
   <script th:inline="javascript">
-    var startTime = new Date();
-    var endTime = new Date(startTime.getTime() + 900 * 1000);
+    var startTime = Math.floor(Date.now() / 1000);
+    var endTime = startTime + 900; // new Date(startTime.getTime() + 900 * 1000);
 
     var countdown = setInterval(function () {
-      var currentTime = new Date().getTime();
+      var currentTime = Math.floor(Date.now() / 1000);
       var remainTime = endTime - currentTime;
       // var minute = Math.floor((remainTime % (1000 * 60 * 60)) / (1000 * 60));
       // var second = Math.floor((remainTime % (1000 * 60)) / 1000);
@@ -71,6 +71,20 @@
         localStorage.removeItem("endTime");
       }
     }, 1000);
+
+    function callGetMappingWithEndTime(endTime) {
+      var url = "/quiz/python/1?endtime=" + endTime;
+      fetch(url)
+      .then(response => response)
+      .then(data => {
+        console.log(data);
+      })
+      .catch(error => {
+        console.error('Error:', error);
+      });
+    }
+
+    callGetMappingWithEndTime(endTime);
   </script>
 
 </div>
