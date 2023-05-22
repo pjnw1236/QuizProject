@@ -1,6 +1,8 @@
 <html layout:decorate="~{layout}">
 <div layout:fragment="content" class="container my-3">
 
+<!--  <meta name="_csrf" th:content="${_csrf.token}" />-->
+
   <nav aria-label="Page navigation example" style="margin-top: 4rem; margin-bottom: 2rem;">
     <ul class="pagination pagination-lg justify-content-center">
       <li class="page-item"><a class="page-link text-secondary" th:href="@{|/quiz/python/${quizResponseDto.quizNumber-1}|}" th:classappend="${quizResponseDto.quizNumber == 1 ? 'disabled' : ''}">이전 문제</a></li>
@@ -31,25 +33,25 @@
   <div class="mt-5"></div>
   <div class="form-check">
     <input class="form-check-input" type="radio" name="exampleRadios" id="exampleRadios1" value="option1">
-    <label class="form-check-label" for="exampleRadios1" th:text="'(1번) ' + ${quizResponseDto.first}">
+    <label class="form-check-label" for="exampleRadios1" th:text="'(1번) ' + ${quizResponseDto.first}" th:onclick="selectAnswer(1)">
       1번 선택지
     </label>
   </div>
   <div class="form-check">
     <input class="form-check-input" type="radio" name="exampleRadios" id="exampleRadios2" value="option2">
-    <label class="form-check-label" for="exampleRadios2" th:text="'(2번) ' + ${quizResponseDto.second}">
+    <label class="form-check-label" for="exampleRadios2" th:text="'(2번) ' + ${quizResponseDto.second}" th:onclick="selectAnswer(2)">
       2번 선택지
     </label>
   </div>
   <div class="form-check">
     <input class="form-check-input" type="radio" name="exampleRadios" id="exampleRadios3" value="option3">
-    <label class="form-check-label" for="exampleRadios3" th:text="'(3번) ' + ${quizResponseDto.third}">
+    <label class="form-check-label" for="exampleRadios3" th:text="'(3번) ' + ${quizResponseDto.third}" th:onclick="selectAnswer(3)">
       3번 선택지
     </label>
   </div>
   <div class="form-check">
     <input class="form-check-input" type="radio" name="exampleRadios" id="exampleRadios4" value="option4">
-    <label class="form-check-label" for="exampleRadios4" th:text="'(4번) ' + ${quizResponseDto.fourth}">
+    <label class="form-check-label" for="exampleRadios4" th:text="'(4번) ' + ${quizResponseDto.fourth}" th:onclick="selectAnswer(4)">
       4번 선택지
     </label>
   </div>
@@ -71,6 +73,39 @@
         localStorage.removeItem("endTime");
       }
     }, 1000);
+
+    function selectAnswer(answerNumber) {
+      alert("선택한 답변 : " + answerNumber);
+
+      // var csrfToken = document.querySelector('meta[name="_csrf"]').getAttribute('content');
+      // console.log(csrfToken);
+
+      var quizNumber = [[${quizResponseDto.quizNumber}]];
+      var url = "/quiz/python/" + quizNumber;
+      var data = { "answerNumber": answerNumber };
+
+      fetch(url, {
+        method: "POST",
+        headers: {
+          "Content-Type": "application/json",
+          // 'X-XSRF-TOKEN': csrfToken // CSRF 토큰 값
+        },
+        body: JSON.stringify(data)
+      })
+      .then(response => {
+        if (response.ok) {
+          return response.json();
+        } else {
+          throw new Error("요청이 실패했습니다.");
+        }
+      })
+      .then(responseData => {
+        console.log(responseData);
+      })
+      .catch(error => {
+        console.error(error);
+      });
+    }
   </script>
 
 </div>

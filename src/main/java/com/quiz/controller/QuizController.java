@@ -1,5 +1,6 @@
 package com.quiz.controller;
 
+import com.quiz.dto.MemberQuizDto;
 import com.quiz.dto.QuizRequestDto;
 import com.quiz.dto.QuizResponseDto;
 import com.quiz.entity.Member;
@@ -21,6 +22,8 @@ import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PatchMapping;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
+import org.springframework.web.bind.annotation.RequestBody;
+import org.springframework.web.bind.annotation.ResponseBody;
 
 @Controller
 @AllArgsConstructor
@@ -160,5 +163,13 @@ public class QuizController {
         }
 
         return "quiz/java_quiz";
+    }
+
+    @PostMapping("/quiz/python/{id}")
+    @ResponseBody
+    public MemberQuizDto postPythonQuizAnswer(@PathVariable("id") Long id, @RequestBody MemberQuizDto memberQuizDto, Model model) {
+        QuizResponseDto quizResponseDto = quizService.getQuizResponseDtoByQuizNumber(id);
+        log.info("== RequestBody ==" + memberQuizDto.getAnswerNumber());
+        return memberQuizDto;
     }
 }
