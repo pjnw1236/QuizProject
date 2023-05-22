@@ -1,7 +1,7 @@
 <html layout:decorate="~{layout}">
 <div layout:fragment="content" class="container my-3">
 
-<!--  <meta name="_csrf" th:content="${_csrf.token}" />-->
+  <meta name="_csrf" th:content="${_csrf.token}" />
 
   <nav aria-label="Page navigation example" style="margin-top: 4rem; margin-bottom: 2rem;">
     <ul class="pagination pagination-lg justify-content-center">
@@ -77,8 +77,8 @@
     function selectAnswer(answerNumber) {
       alert("선택한 답변 : " + answerNumber);
 
-      // var csrfToken = document.querySelector('meta[name="_csrf"]').getAttribute('content');
-      // console.log(csrfToken);
+      var csrfToken = document.querySelector('meta[name="_csrf"]').getAttribute('content');
+      console.log(csrfToken);
 
       var quizNumber = [[${quizResponseDto.quizNumber}]];
       var url = "/quiz/python/" + quizNumber;
@@ -88,7 +88,7 @@
         method: "POST",
         headers: {
           "Content-Type": "application/json",
-          // 'X-XSRF-TOKEN': csrfToken // CSRF 토큰 값
+          'X-XSRF-TOKEN': csrfToken // CSRF 토큰 값
         },
         body: JSON.stringify(data)
       })
