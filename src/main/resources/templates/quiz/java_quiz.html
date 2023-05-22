@@ -55,11 +55,14 @@
   </div>
 
   <script th:inline="javascript">
-    var startTime = new Date();
-    var endTime = new Date(startTime.getTime() + 900 * 1000);
+    var startTime = Math.floor(Date.now() / 1000);
+    var endTime = startTime + 60;
+
+    console.log("endTime : " + endTime);
+    console.log("endTime type : " + typeof(endTime));
 
     var countdown = setInterval(function () {
-      var currentTime = new Date().getTime();
+      var currentTime = Math.floor(Date.now() / 1000);
       var remainTime = endTime - currentTime;
       document.getElementById("countdown").innerHTML = "" + remainTime;
       if (remainTime < 0) {

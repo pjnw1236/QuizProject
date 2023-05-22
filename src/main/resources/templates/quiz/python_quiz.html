@@ -56,7 +56,10 @@
 
   <script th:inline="javascript">
     var startTime = Math.floor(Date.now() / 1000);
-    var endTime = startTime + 900;
+    var endTime = startTime + 60;
+
+    console.log("endTime : " + endTime);
+    console.log("endTime type : " + typeof(endTime));
 
     var countdown = setInterval(function () {
       var currentTime = Math.floor(Date.now() / 1000);
@@ -68,20 +71,6 @@
         localStorage.removeItem("endTime");
       }
     }, 1000);
-
-    function callGetMappingWithEndTime(endTime) {
-      var url = "/quiz/python/1?endtime=" + endTime;
-      fetch(url)
-      .then(response => response)
-      .then(data => {
-        console.log(data);
-      })
-      .catch(error => {
-        console.error('Error:', error);
-      });
-    }
-
-    callGetMappingWithEndTime(endTime);
   </script>
 
 </div>
