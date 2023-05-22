@@ -169,7 +169,9 @@ public class QuizController {
     @ResponseBody
     public MemberQuizDto postPythonQuizAnswer(@PathVariable("id") Long id, @RequestBody MemberQuizDto memberQuizDto, Model model) {
         QuizResponseDto quizResponseDto = quizService.getQuizResponseDtoByQuizNumber(id);
-        log.info("== RequestBody ==" + memberQuizDto.getAnswerNumber());
+        log.info("=============================================");
+        log.info(memberQuizDto.getAnswerNumber() + "번을 고르셨습니다.");
+        log.info("=============================================");
         return memberQuizDto;
     }
 }
