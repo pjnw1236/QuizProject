@@ -6,5 +6,7 @@ import lombok.Setter;
 @Getter
 @Setter
 public class MemberQuizDto {
-    private int answerNumber;
+    private int quizNumber;
+    private int quizAnswer;
+    private int memberQuizAnswer;
 }

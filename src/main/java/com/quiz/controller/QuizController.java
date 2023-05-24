@@ -4,6 +4,8 @@ import com.quiz.dto.MemberQuizDto;
 import com.quiz.dto.QuizRequestDto;
 import com.quiz.dto.QuizResponseDto;
 import com.quiz.entity.Member;
+import com.quiz.entity.MemberQuiz;
+import com.quiz.entity.Quiz;
 import com.quiz.repository.UserRepository;
 import com.quiz.service.QuizService;
 import java.util.List;
@@ -88,7 +90,7 @@ public class QuizController {
     }
 
     @GetMapping("/quiz/python/{id}")
-    public String getPythonQuizDetail(@PathVariable("id") Long id, Model model, HttpServletRequest request) {
+    public String getPythonQuizDetail(@PathVariable("id") Long id, Model model) {
         QuizResponseDto quizResponseDto = quizService.getQuizResponseDtoByQuizNumber(id);
         model.addAttribute("quizResponseDto", quizResponseDto);
         Authentication authentication = SecurityContextHolder.getContext().getAuthentication();
@@ -103,6 +105,12 @@ public class QuizController {
                 log.info(member.getEmail());
                 log.info(member.getIsOauth().toString());
                 log.info("===== member =====");
+                MemberQuiz memberQuiz = member.getMemberQuizByQuizNumber(id);
+                if (memberQuiz != null) {
+                    model.addAttribute("memberQuizAnswer", memberQuiz.getMemberQuizAnswer());
+                    log.info("memberQuizAnswer" + memberQuiz.getMemberQuizAnswer());
+                }
+                log.info("size" + member.getMemberQuizList().size());
             }
         } else {
             OAuth2AuthenticationToken oauthToken = (OAuth2AuthenticationToken) authentication;
@@ -114,16 +122,14 @@ public class QuizController {
                 log.info(member.getEmail());
                 log.info(member.getIsOauth().toString());
                 log.info("===== member =====");
+                MemberQuiz memberQuiz = member.getMemberQuizByQuizNumber(id);
+                if (memberQuiz != null) {
+                    model.addAttribute("memberQuizAnswer", memberQuiz.getMemberQuizAnswer());
+                    log.info("memberQuizAnswer" + memberQuiz.getMemberQuizAnswer());
+                }
+                log.info("size" + member.getMemberQuizList().size());
             }
         }
-
-        String check = request.getParameter("endTime");
-        if (check != null) {
-            log.info("== endTime == " + check);
-        } else {
-            log.info("== endTime NULL ==");
-        }
-
         return "quiz/python_quiz";
     }
 
@@ -137,7 +143,6 @@ public class QuizController {
         QuizResponseDto quizResponseDto = quizService.getQuizResponseDtoByQuizNumber(id);
         model.addAttribute("quizResponseDto", quizResponseDto);
         Authentication authentication = SecurityContextHolder.getContext().getAuthentication();
-
         if (authentication instanceof UsernamePasswordAuthenticationToken) {
             UsernamePasswordAuthenticationToken auth = (UsernamePasswordAuthenticationToken) authentication;
             List<Member> memberList = userRepository.findByUsernameAndIsOauth(auth.getName(), false);
@@ -148,6 +153,12 @@ public class QuizController {
                 log.info(member.getEmail());
                 log.info(member.getIsOauth().toString());
                 log.info("===== member =====");
+                MemberQuiz memberQuiz = member.getMemberQuizByQuizNumber(id);
+                if (memberQuiz != null) {
+                    model.addAttribute("memberQuizAnswer", memberQuiz.getMemberQuizAnswer());
+                    log.info("memberQuizAnswer" + memberQuiz.getMemberQuizAnswer());
+                }
+                log.info("size" + member.getMemberQuizList().size());
             }
         } else {
             OAuth2AuthenticationToken oauthToken = (OAuth2AuthenticationToken) authentication;
@@ -159,19 +170,58 @@ public class QuizController {
                 log.info(member.getEmail());
                 log.info(member.getIsOauth().toString());
                 log.info("===== member =====");
+                MemberQuiz memberQuiz = member.getMemberQuizByQuizNumber(id);
+                if (memberQuiz != null) {
+                    model.addAttribute("memberQuizAnswer", memberQuiz.getMemberQuizAnswer());
+                    log.info("memberQuizAnswer" + memberQuiz.getMemberQuizAnswer());
+                }
+                log.info("size" + member.getMemberQuizList().size());
             }
         }
-
         return "quiz/java_quiz";
     }
 
-    @PostMapping("/quiz/python/{id}")
+    @PostMapping("/quiz/python")
     @ResponseBody
-    public MemberQuizDto postPythonQuizAnswer(@PathVariable("id") Long id, @RequestBody MemberQuizDto memberQuizDto, Model model) {
-        QuizResponseDto quizResponseDto = quizService.getQuizResponseDtoByQuizNumber(id);
-        log.info("=============================================");
-        log.info(memberQuizDto.getAnswerNumber() + "번을 고르셨습니다.");
-        log.info("=============================================");
+    public MemberQuizDto postPythonQuizAnswer(@RequestBody MemberQuizDto memberQuizDto, Model model) {
+        Authentication authentication = SecurityContextHolder.getContext().getAuthentication();
+        if (authentication instanceof UsernamePasswordAuthenticationToken) {
+            UsernamePasswordAuthenticationToken auth = (UsernamePasswordAuthenticationToken) authentication;
+            List<Member> memberList = userRepository.findByUsernameAndIsOauth(auth.getName(), false);
+            if (memberList.size() > 0) {
+                Member member = memberList.get(0);
+                quizService.solvingPythonQuiz(member, memberQuizDto);
+            }
+        } else {
+            OAuth2AuthenticationToken oauthToken = (OAuth2AuthenticationToken) authentication;
+            List<Member> memberList = userRepository.findByEmailAndIsOauth(oauthToken.getPrincipal().getAttribute("email"), true);
+            if (memberList.size() > 0) {
+                Member member = memberList.get(0);
+                quizService.solvingPythonQuiz(member, memberQuizDto);
+            }
+        }
+        return memberQuizDto;
+    }
+
+    @PostMapping("/quiz/java")
+    @ResponseBody
+    public MemberQuizDto postJavaQuizAnswer(@RequestBody MemberQuizDto memberQuizDto, Model model) {
+        Authentication authentication = SecurityContextHolder.getContext().getAuthentication();
+        if (authentication instanceof UsernamePasswordAuthenticationToken) {
+            UsernamePasswordAuthenticationToken auth = (UsernamePasswordAuthenticationToken) authentication;
+            List<Member> memberList = userRepository.findByUsernameAndIsOauth(auth.getName(), false);
+            if (memberList.size() > 0) {
+                Member member = memberList.get(0);
+                quizService.solvingJavaQuiz(member, memberQuizDto);
+            }
+        } else {
+            OAuth2AuthenticationToken oauthToken = (OAuth2AuthenticationToken) authentication;
+            List<Member> memberList = userRepository.findByEmailAndIsOauth(oauthToken.getPrincipal().getAttribute("email"), true);
+            if (memberList.size() > 0) {
+                Member member = memberList.get(0);
+                quizService.solvingJavaQuiz(member, memberQuizDto);
+            }
+        }
         return memberQuizDto;
     }
 }

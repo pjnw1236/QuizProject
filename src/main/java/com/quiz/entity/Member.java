@@ -35,4 +35,13 @@ public class Member {
     public void addMemberQuiz(MemberQuiz memberQuiz) {
         this.memberQuizList.add(memberQuiz);
     }
+
+    public MemberQuiz getMemberQuizByQuizNumber(Long quizNumber) {
+        for (MemberQuiz memberQuiz : memberQuizList) {
+            if (memberQuiz.getQuizNumber() == quizNumber) {
+                return memberQuiz;
+            }
+        }
+        return null;
+    }
 }

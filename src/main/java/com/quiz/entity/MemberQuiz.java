@@ -26,6 +26,6 @@ public class MemberQuiz {
     private Member member;
 
     public void setMember(Member member) {
-        this.setMember(member);
+        this.member = member;
     }
 }
