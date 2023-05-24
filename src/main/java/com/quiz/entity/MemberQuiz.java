@@ -1,6 +1,9 @@
 package com.quiz.entity;
 
+import com.quiz.constant.QuizType;
 import javax.persistence.Entity;
+import javax.persistence.EnumType;
+import javax.persistence.Enumerated;
 import javax.persistence.FetchType;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
@@ -20,6 +23,9 @@ public class MemberQuiz {
     private int quizNumber;
     private int quizAnswer;
     private int memberQuizAnswer;
+
+    @Enumerated(EnumType.STRING)
+    private QuizType quizType;
 
     @ManyToOne(fetch = FetchType.LAZY)
     @JoinColumn(name = "member_id")

@@ -1,15 +1,14 @@
 package com.quiz.controller;
 
+import com.quiz.constant.QuizType;
 import com.quiz.dto.MemberQuizDto;
 import com.quiz.dto.QuizRequestDto;
 import com.quiz.dto.QuizResponseDto;
 import com.quiz.entity.Member;
 import com.quiz.entity.MemberQuiz;
-import com.quiz.entity.Quiz;
 import com.quiz.repository.UserRepository;
 import com.quiz.service.QuizService;
 import java.util.List;
-import javax.servlet.http.HttpServletRequest;
 import javax.validation.Valid;
 import lombok.AllArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
@@ -76,7 +75,7 @@ public class QuizController {
     }
 
     @PatchMapping("/admin/quiz/editform/{id}")
-    public String patchQuizDetail(@PathVariable("id") Long id, Model model, @Valid QuizRequestDto quizRequestDto, BindingResult bindingResult) {
+    public String patchQuizDetail(@PathVariable("id") Long id, @Valid QuizRequestDto quizRequestDto, BindingResult bindingResult) {
         if (bindingResult.hasErrors()) {
             return "admin/quiz_edit_form";
         }
@@ -94,7 +93,6 @@ public class QuizController {
         QuizResponseDto quizResponseDto = quizService.getQuizResponseDtoByQuizNumber(id);
         model.addAttribute("quizResponseDto", quizResponseDto);
         Authentication authentication = SecurityContextHolder.getContext().getAuthentication();
-
         if (authentication instanceof UsernamePasswordAuthenticationToken) {
             UsernamePasswordAuthenticationToken auth = (UsernamePasswordAuthenticationToken) authentication;
             List<Member> memberList = userRepository.findByUsernameAndIsOauth(auth.getName(), false);
@@ -105,7 +103,7 @@ public class QuizController {
                 log.info(member.getEmail());
                 log.info(member.getIsOauth().toString());
                 log.info("===== member =====");
-                MemberQuiz memberQuiz = member.getMemberQuizByQuizNumber(id);
+                MemberQuiz memberQuiz = member.getMemberQuizByQuizNumber(id, QuizType.Python);
                 if (memberQuiz != null) {
                     model.addAttribute("memberQuizAnswer", memberQuiz.getMemberQuizAnswer());
                     log.info("memberQuizAnswer" + memberQuiz.getMemberQuizAnswer());
@@ -122,7 +120,7 @@ public class QuizController {
                 log.info(member.getEmail());
                 log.info(member.getIsOauth().toString());
                 log.info("===== member =====");
-                MemberQuiz memberQuiz = member.getMemberQuizByQuizNumber(id);
+                MemberQuiz memberQuiz = member.getMemberQuizByQuizNumber(id, QuizType.Python);
                 if (memberQuiz != null) {
                     model.addAttribute("memberQuizAnswer", memberQuiz.getMemberQuizAnswer());
                     log.info("memberQuizAnswer" + memberQuiz.getMemberQuizAnswer());
@@ -153,7 +151,7 @@ public class QuizController {
                 log.info(member.getEmail());
                 log.info(member.getIsOauth().toString());
                 log.info("===== member =====");
-                MemberQuiz memberQuiz = member.getMemberQuizByQuizNumber(id);
+                MemberQuiz memberQuiz = member.getMemberQuizByQuizNumber(id, QuizType.Java);
                 if (memberQuiz != null) {
                     model.addAttribute("memberQuizAnswer", memberQuiz.getMemberQuizAnswer());
                     log.info("memberQuizAnswer" + memberQuiz.getMemberQuizAnswer());
@@ -170,7 +168,7 @@ public class QuizController {
                 log.info(member.getEmail());
                 log.info(member.getIsOauth().toString());
                 log.info("===== member =====");
-                MemberQuiz memberQuiz = member.getMemberQuizByQuizNumber(id);
+                MemberQuiz memberQuiz = member.getMemberQuizByQuizNumber(id, QuizType.Java);
                 if (memberQuiz != null) {
                     model.addAttribute("memberQuizAnswer", memberQuiz.getMemberQuizAnswer());
                     log.info("memberQuizAnswer" + memberQuiz.getMemberQuizAnswer());
@@ -183,7 +181,7 @@ public class QuizController {
 
     @PostMapping("/quiz/python")
     @ResponseBody
-    public MemberQuizDto postPythonQuizAnswer(@RequestBody MemberQuizDto memberQuizDto, Model model) {
+    public MemberQuizDto postPythonQuizAnswer(@RequestBody MemberQuizDto memberQuizDto) {
         Authentication authentication = SecurityContextHolder.getContext().getAuthentication();
         if (authentication instanceof UsernamePasswordAuthenticationToken) {
             UsernamePasswordAuthenticationToken auth = (UsernamePasswordAuthenticationToken) authentication;
@@ -205,7 +203,7 @@ public class QuizController {
 
     @PostMapping("/quiz/java")
     @ResponseBody
-    public MemberQuizDto postJavaQuizAnswer(@RequestBody MemberQuizDto memberQuizDto, Model model) {
+    public MemberQuizDto postJavaQuizAnswer(@RequestBody MemberQuizDto memberQuizDto) {
         Authentication authentication = SecurityContextHolder.getContext().getAuthentication();
         if (authentication instanceof UsernamePasswordAuthenticationToken) {
             UsernamePasswordAuthenticationToken auth = (UsernamePasswordAuthenticationToken) authentication;

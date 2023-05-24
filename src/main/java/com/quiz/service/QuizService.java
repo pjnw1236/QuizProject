@@ -85,7 +85,7 @@ public class QuizService {
     }
 
     public void solvingPythonQuiz(Member member, MemberQuizDto memberQuizDto) {
-        Optional<MemberQuiz> OptionalMemberQuiz = memberQuizRepository.findByQuizNumber(memberQuizDto.getQuizNumber());
+        Optional<MemberQuiz> OptionalMemberQuiz = memberQuizRepository.findByQuizNumberAndQuizType(memberQuizDto.getQuizNumber(), memberQuizDto.getQuizType());
         if (OptionalMemberQuiz.isPresent()) {
             MemberQuiz memberQuiz = OptionalMemberQuiz.get();
             memberQuiz.setMemberQuizAnswer(memberQuizDto.getMemberQuizAnswer());
@@ -94,6 +94,7 @@ public class QuizService {
             MemberQuiz memberQuiz = new MemberQuiz();
             memberQuiz.setQuizNumber(memberQuizDto.getQuizNumber());
             memberQuiz.setQuizAnswer(memberQuizDto.getQuizAnswer());
+            memberQuiz.setQuizType(memberQuizDto.getQuizType());
             memberQuiz.setMemberQuizAnswer(memberQuizDto.getMemberQuizAnswer());
             memberQuiz.setMember(member);
             member.getMemberQuizList().add(memberQuiz);
@@ -102,7 +103,7 @@ public class QuizService {
     }
 
     public void solvingJavaQuiz(Member member, MemberQuizDto memberQuizDto) {
-        Optional<MemberQuiz> OptionalMemberQuiz = memberQuizRepository.findByQuizNumber(memberQuizDto.getQuizNumber());
+        Optional<MemberQuiz> OptionalMemberQuiz = memberQuizRepository.findByQuizNumberAndQuizType(memberQuizDto.getQuizNumber(), memberQuizDto.getQuizType());
         if (OptionalMemberQuiz.isPresent()) {
             MemberQuiz memberQuiz = OptionalMemberQuiz.get();
             memberQuiz.setMemberQuizAnswer(memberQuizDto.getMemberQuizAnswer());
@@ -111,6 +112,7 @@ public class QuizService {
             MemberQuiz memberQuiz = new MemberQuiz();
             memberQuiz.setQuizNumber(memberQuizDto.getQuizNumber());
             memberQuiz.setQuizAnswer(memberQuizDto.getQuizAnswer());
+            memberQuiz.setQuizType(memberQuizDto.getQuizType());
             memberQuiz.setMemberQuizAnswer(memberQuizDto.getMemberQuizAnswer());
             memberQuiz.setMember(member);
             member.getMemberQuizList().add(memberQuiz);

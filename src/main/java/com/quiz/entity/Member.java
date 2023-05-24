@@ -1,5 +1,6 @@
 package com.quiz.entity;
 
+import com.quiz.constant.QuizType;
 import com.quiz.constant.UserRole;
 import java.util.ArrayList;
 import java.util.List;
@@ -36,9 +37,9 @@ public class Member {
         this.memberQuizList.add(memberQuiz);
     }
 
-    public MemberQuiz getMemberQuizByQuizNumber(Long quizNumber) {
+    public MemberQuiz getMemberQuizByQuizNumber(Long quizNumber, QuizType quizType) {
         for (MemberQuiz memberQuiz : memberQuizList) {
-            if (memberQuiz.getQuizNumber() == quizNumber) {
+            if (memberQuiz.getQuizNumber() == quizNumber && quizType.equals(memberQuiz.getQuizType())) {
                 return memberQuiz;
             }
         }
