@@ -1,6 +1,8 @@
 package com.quiz.service;
 
+import com.quiz.constant.QuizType;
 import com.quiz.dto.MemberQuizDto;
+import com.quiz.dto.MemberQuizResultDto;
 import com.quiz.dto.QuizRequestDto;
 import com.quiz.dto.QuizResponseDto;
 import com.quiz.entity.Member;
@@ -10,6 +12,7 @@ import com.quiz.exception.DataNotFoundException;
 import com.quiz.repository.MemberQuizRepository;
 import com.quiz.repository.QuizRepository;
 import com.quiz.repository.UserRepository;
+import java.util.ArrayList;
 import java.util.List;
 import java.util.Optional;
 import lombok.AllArgsConstructor;
@@ -20,7 +23,6 @@ import org.springframework.transaction.annotation.Transactional;
 @Transactional
 @AllArgsConstructor
 public class QuizService {
-    private final UserRepository userRepository;
     private final QuizRepository quizRepository;
     private final MemberQuizRepository memberQuizRepository;
 
@@ -118,5 +120,59 @@ public class QuizService {
             member.getMemberQuizList().add(memberQuiz);
             memberQuizRepository.save(memberQuiz);
         }
+    }
+
+    public List<MemberQuizResultDto> getPythonResult(Member member) {
+        List<MemberQuizResultDto> memberQuizResultDtoList = new ArrayList<>();
+        List<MemberQuiz> memberQuizList = member.getMemberQuizList();
+        for (int i=1; i<=10; i++) {
+            Optional<Quiz> quiz = quizRepository.findByQuizNumber(Long.valueOf(i));
+            MemberQuiz memberQuiz = member.getMemberQuizByQuizNumber((long) i, QuizType.Python);
+            MemberQuizResultDto memberQuizResultDto = new MemberQuizResultDto();
+            if (quiz.isPresent()) {
+                memberQuizResultDto.setTitle(quiz.get().getTitle());
+                memberQuizResultDto.setPythonContent(quiz.get().getPythonContent());
+                memberQuizResultDto.setFirst(quiz.get().getFirst());
+                memberQuizResultDto.setSecond(quiz.get().getSecond());
+                memberQuizResultDto.setThird(quiz.get().getThird());
+                memberQuizResultDto.setFourth(quiz.get().getFourth());
+                memberQuizResultDto.setQuizNumber(i);
+                memberQuizResultDto.setQuizAnswer(quiz.get().getQuizAnswer());
+                if (memberQuiz != null) {
+                    memberQuizResultDto.setMemberQuizAnswer(memberQuiz.getMemberQuizAnswer());
+                }
+                memberQuizResultDtoList.add(memberQuizResultDto);
+            } else {
+                throw new DataNotFoundException("해당 퀴즈는 존재하지 않습니다.");
+            }
+        }
+        return memberQuizResultDtoList;
+    }
+
+    public List<MemberQuizResultDto> getJavaResult(Member member) {
+        List<MemberQuizResultDto> memberQuizResultDtoList = new ArrayList<>();
+        List<MemberQuiz> memberQuizList = member.getMemberQuizList();
+        for (int i=1; i<=10; i++) {
+            Optional<Quiz> quiz = quizRepository.findByQuizNumber(Long.valueOf(i));
+            MemberQuiz memberQuiz = member.getMemberQuizByQuizNumber((long) i, QuizType.Java);
+            MemberQuizResultDto memberQuizResultDto = new MemberQuizResultDto();
+            if (quiz.isPresent()) {
+                memberQuizResultDto.setTitle(quiz.get().getTitle());
+                memberQuizResultDto.setJavaContent(quiz.get().getJavaContent());
+                memberQuizResultDto.setFirst(quiz.get().getFirst());
+                memberQuizResultDto.setSecond(quiz.get().getSecond());
+                memberQuizResultDto.setThird(quiz.get().getThird());
+                memberQuizResultDto.setFourth(quiz.get().getFourth());
+                memberQuizResultDto.setQuizNumber(i);
+                memberQuizResultDto.setQuizAnswer(quiz.get().getQuizAnswer());
+                if (memberQuiz != null) {
+                    memberQuizResultDto.setMemberQuizAnswer(memberQuiz.getMemberQuizAnswer());
+                }
+                memberQuizResultDtoList.add(memberQuizResultDto);
+            } else {
+                throw new DataNotFoundException("해당 퀴즈는 존재하지 않습니다.");
+            }
+        }
+        return memberQuizResultDtoList;
     }
 }

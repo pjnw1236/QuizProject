@@ -1,0 +1,17 @@
+<html layout:decorate="~{layout}">
+<div layout:fragment="content" class="container my-3">
+
+  <div th:each="memberQuizResultDto, loop : ${memberQuizResultDtoList}">
+    <div th:text="${memberQuizResultDto.quizNumber}"></div>
+    <div th:text="${memberQuizResultDto.title}"></div>
+    <div th:text="${memberQuizResultDto.javaContent}"></div>
+    <div th:text="${memberQuizResultDto.first}"></div>
+    <div th:text="${memberQuizResultDto.second}"></div>
+    <div th:text="${memberQuizResultDto.third}"></div>
+    <div th:text="${memberQuizResultDto.fourth}"></div>
+    <div th:text="${memberQuizResultDto.quizAnswer}"></div>
+    <div th:text="${memberQuizResultDto.memberQuizAnswer}"></div>
+  </div>
+
+</div>
+</html>
