@@ -1,16 +1,188 @@
 <html layout:decorate="~{layout}">
 <div layout:fragment="content" class="container my-3">
 
+  <!-- Right -->
+<!--    <svg xmlns="http://www.w3.org/2000/svg" width="24" height="32" fill="green" class="bi bi-check-lg" viewBox="0 0 16 16">-->
+<!--      <path stroke="green" stroke-width="2" d="M12.736 3.97a.733.733 0 0 1 1.047 0c.286.289.29.756.01 1.05L7.88 12.01a.733.733 0 0 1-1.065.02L3.217 8.384a.757.757 0 0 1 0-1.06.733.733 0 0 1 1.047 0l3.052 3.093 5.4-6.425a.247.247 0 0 1 .02-.022Z"/>-->
+<!--    </svg>-->
+  <!-- False -->
+<!--    <svg xmlns="http://www.w3.org/2000/svg" width="24" height="32" fill="red" class="bi bi-x-lg" viewBox="0 0 16 16">-->
+<!--      <path stroke="red" stroke-width="2" d="M2.146 2.854a.5.5 0 1 1 .708-.708L8 7.293l5.146-5.147a.5.5 0 0 1 .708.708L8.707 8l5.147 5.146a.5.5 0 0 1-.708.708L8 8.707l-5.146 5.147a.5.5 0 0 1-.708-.708L7.293 8 2.146 2.854Z"/>-->
+<!--    </svg>-->
+
+  <h1 class="text-center" style="margin-top: 100px;">Score</h1>
+  <h1 class="text-center" th:text="${score} + ' 점'"></h1>
+
+  <table class="table table-bordered border-dark" style="margin-top: 30px; margin-bottom: 100px;">
+    <tbody>
+    <tr>
+      <td class="col-2">1번
+        <span th:if="${memberQuizResultDtoList[0].quizAnswer == memberQuizResultDtoList[0].memberQuizAnswer}">
+          <svg xmlns="http://www.w3.org/2000/svg" height="16" fill="green" class="bi bi-check-lg" viewBox="0 0 16 16">
+            <path stroke="green" stroke-width="2" d="M12.736 3.97a.733.733 0 0 1 1.047 0c.286.289.29.756.01 1.05L7.88 12.01a.733.733 0 0 1-1.065.02L3.217 8.384a.757.757 0 0 1 0-1.06.733.733 0 0 1 1.047 0l3.052 3.093 5.4-6.425a.247.247 0 0 1 .02-.022Z"/>
+          </svg>
+        </span>
+        <span th:if="${memberQuizResultDtoList[0].quizAnswer != memberQuizResultDtoList[0].memberQuizAnswer}">
+          <svg xmlns="http://www.w3.org/2000/svg" height="16" fill="red" class="bi bi-x-lg" viewBox="0 0 16 16">
+            <path stroke="red" stroke-width="2" d="M2.146 2.854a.5.5 0 1 1 .708-.708L8 7.293l5.146-5.147a.5.5 0 0 1 .708.708L8.707 8l5.147 5.146a.5.5 0 0 1-.708.708L8 8.707l-5.146 5.147a.5.5 0 0 1-.708-.708L7.293 8 2.146 2.854Z"/>
+          </svg>
+        </span>
+      </td>
+      <td class="col-2">2번
+        <span th:if="${memberQuizResultDtoList[1].quizAnswer == memberQuizResultDtoList[1].memberQuizAnswer}">
+          <svg xmlns="http://www.w3.org/2000/svg" height="16" fill="green" class="bi bi-check-lg" viewBox="0 0 16 16">
+            <path stroke="green" stroke-width="2" d="M12.736 3.97a.733.733 0 0 1 1.047 0c.286.289.29.756.01 1.05L7.88 12.01a.733.733 0 0 1-1.065.02L3.217 8.384a.757.757 0 0 1 0-1.06.733.733 0 0 1 1.047 0l3.052 3.093 5.4-6.425a.247.247 0 0 1 .02-.022Z"/>
+          </svg>
+        </span>
+        <span th:if="${memberQuizResultDtoList[1].quizAnswer != memberQuizResultDtoList[1].memberQuizAnswer}">
+          <svg xmlns="http://www.w3.org/2000/svg" height="16" fill="red" class="bi bi-x-lg" viewBox="0 0 16 16">
+            <path stroke="red" stroke-width="2" d="M2.146 2.854a.5.5 0 1 1 .708-.708L8 7.293l5.146-5.147a.5.5 0 0 1 .708.708L8.707 8l5.147 5.146a.5.5 0 0 1-.708.708L8 8.707l-5.146 5.147a.5.5 0 0 1-.708-.708L7.293 8 2.146 2.854Z"/>
+          </svg>
+        </span>
+      </td>
+      <td class="col-2">3번
+        <span th:if="${memberQuizResultDtoList[2].quizAnswer == memberQuizResultDtoList[2].memberQuizAnswer}">
+          <svg xmlns="http://www.w3.org/2000/svg" height="16" fill="green" class="bi bi-check-lg" viewBox="0 0 16 16">
+            <path stroke="green" stroke-width="2" d="M12.736 3.97a.733.733 0 0 1 1.047 0c.286.289.29.756.01 1.05L7.88 12.01a.733.733 0 0 1-1.065.02L3.217 8.384a.757.757 0 0 1 0-1.06.733.733 0 0 1 1.047 0l3.052 3.093 5.4-6.425a.247.247 0 0 1 .02-.022Z"/>
+          </svg>
+        </span>
+        <span th:if="${memberQuizResultDtoList[2].quizAnswer != memberQuizResultDtoList[2].memberQuizAnswer}">
+          <svg xmlns="http://www.w3.org/2000/svg" height="16" fill="red" class="bi bi-x-lg" viewBox="0 0 16 16">
+            <path stroke="red" stroke-width="2" d="M2.146 2.854a.5.5 0 1 1 .708-.708L8 7.293l5.146-5.147a.5.5 0 0 1 .708.708L8.707 8l5.147 5.146a.5.5 0 0 1-.708.708L8 8.707l-5.146 5.147a.5.5 0 0 1-.708-.708L7.293 8 2.146 2.854Z"/>
+          </svg>
+        </span>
+      </td>
+      <td class="col-2">4번
+        <span th:if="${memberQuizResultDtoList[3].quizAnswer == memberQuizResultDtoList[3].memberQuizAnswer}">
+          <svg xmlns="http://www.w3.org/2000/svg" height="16" fill="green" class="bi bi-check-lg" viewBox="0 0 16 16">
+            <path stroke="green" stroke-width="2" d="M12.736 3.97a.733.733 0 0 1 1.047 0c.286.289.29.756.01 1.05L7.88 12.01a.733.733 0 0 1-1.065.02L3.217 8.384a.757.757 0 0 1 0-1.06.733.733 0 0 1 1.047 0l3.052 3.093 5.4-6.425a.247.247 0 0 1 .02-.022Z"/>
+          </svg>
+        </span>
+        <span th:if="${memberQuizResultDtoList[3].quizAnswer != memberQuizResultDtoList[3].memberQuizAnswer}">
+          <svg xmlns="http://www.w3.org/2000/svg" height="16" fill="red" class="bi bi-x-lg" viewBox="0 0 16 16">
+            <path stroke="red" stroke-width="2" d="M2.146 2.854a.5.5 0 1 1 .708-.708L8 7.293l5.146-5.147a.5.5 0 0 1 .708.708L8.707 8l5.147 5.146a.5.5 0 0 1-.708.708L8 8.707l-5.146 5.147a.5.5 0 0 1-.708-.708L7.293 8 2.146 2.854Z"/>
+          </svg>
+        </span>
+      </td>
+      <td class="col-2">5번
+        <span th:if="${memberQuizResultDtoList[4].quizAnswer == memberQuizResultDtoList[4].memberQuizAnswer}">
+          <svg xmlns="http://www.w3.org/2000/svg" height="16" fill="green" class="bi bi-check-lg" viewBox="0 0 16 16">
+            <path stroke="green" stroke-width="2" d="M12.736 3.97a.733.733 0 0 1 1.047 0c.286.289.29.756.01 1.05L7.88 12.01a.733.733 0 0 1-1.065.02L3.217 8.384a.757.757 0 0 1 0-1.06.733.733 0 0 1 1.047 0l3.052 3.093 5.4-6.425a.247.247 0 0 1 .02-.022Z"/>
+          </svg>
+        </span>
+        <span th:if="${memberQuizResultDtoList[4].quizAnswer != memberQuizResultDtoList[4].memberQuizAnswer}">
+          <svg xmlns="http://www.w3.org/2000/svg" height="16" fill="red" class="bi bi-x-lg" viewBox="0 0 16 16">
+            <path stroke="red" stroke-width="2" d="M2.146 2.854a.5.5 0 1 1 .708-.708L8 7.293l5.146-5.147a.5.5 0 0 1 .708.708L8.707 8l5.147 5.146a.5.5 0 0 1-.708.708L8 8.707l-5.146 5.147a.5.5 0 0 1-.708-.708L7.293 8 2.146 2.854Z"/>
+          </svg>
+        </span>
+      </td>
+    </tr>
+    <tr>
+      <td>6번
+        <span th:if="${memberQuizResultDtoList[5].quizAnswer == memberQuizResultDtoList[5].memberQuizAnswer}">
+          <svg xmlns="http://www.w3.org/2000/svg" height="16" fill="green" class="bi bi-check-lg" viewBox="0 0 16 16">
+            <path stroke="green" stroke-width="2" d="M12.736 3.97a.733.733 0 0 1 1.047 0c.286.289.29.756.01 1.05L7.88 12.01a.733.733 0 0 1-1.065.02L3.217 8.384a.757.757 0 0 1 0-1.06.733.733 0 0 1 1.047 0l3.052 3.093 5.4-6.425a.247.247 0 0 1 .02-.022Z"/>
+          </svg>
+        </span>
+        <span th:if="${memberQuizResultDtoList[5].quizAnswer != memberQuizResultDtoList[5].memberQuizAnswer}">
+          <svg xmlns="http://www.w3.org/2000/svg" height="16" fill="red" class="bi bi-x-lg" viewBox="0 0 16 16">
+            <path stroke="red" stroke-width="2" d="M2.146 2.854a.5.5 0 1 1 .708-.708L8 7.293l5.146-5.147a.5.5 0 0 1 .708.708L8.707 8l5.147 5.146a.5.5 0 0 1-.708.708L8 8.707l-5.146 5.147a.5.5 0 0 1-.708-.708L7.293 8 2.146 2.854Z"/>
+          </svg>
+        </span>
+      </td>
+      <td>7번
+        <span th:if="${memberQuizResultDtoList[6].quizAnswer == memberQuizResultDtoList[6].memberQuizAnswer}">
+          <svg xmlns="http://www.w3.org/2000/svg" height="16" fill="green" class="bi bi-check-lg" viewBox="0 0 16 16">
+            <path stroke="green" stroke-width="2" d="M12.736 3.97a.733.733 0 0 1 1.047 0c.286.289.29.756.01 1.05L7.88 12.01a.733.733 0 0 1-1.065.02L3.217 8.384a.757.757 0 0 1 0-1.06.733.733 0 0 1 1.047 0l3.052 3.093 5.4-6.425a.247.247 0 0 1 .02-.022Z"/>
+          </svg>
+        </span>
+        <span th:if="${memberQuizResultDtoList[6].quizAnswer != memberQuizResultDtoList[6].memberQuizAnswer}">
+          <svg xmlns="http://www.w3.org/2000/svg" height="16" fill="red" class="bi bi-x-lg" viewBox="0 0 16 16">
+            <path stroke="red" stroke-width="2" d="M2.146 2.854a.5.5 0 1 1 .708-.708L8 7.293l5.146-5.147a.5.5 0 0 1 .708.708L8.707 8l5.147 5.146a.5.5 0 0 1-.708.708L8 8.707l-5.146 5.147a.5.5 0 0 1-.708-.708L7.293 8 2.146 2.854Z"/>
+          </svg>
+        </span>
+      </td>
+      <td>8번
+        <span th:if="${memberQuizResultDtoList[7].quizAnswer == memberQuizResultDtoList[7].memberQuizAnswer}">
+          <svg xmlns="http://www.w3.org/2000/svg" height="16" fill="green" class="bi bi-check-lg" viewBox="0 0 16 16">
+            <path stroke="green" stroke-width="2" d="M12.736 3.97a.733.733 0 0 1 1.047 0c.286.289.29.756.01 1.05L7.88 12.01a.733.733 0 0 1-1.065.02L3.217 8.384a.757.757 0 0 1 0-1.06.733.733 0 0 1 1.047 0l3.052 3.093 5.4-6.425a.247.247 0 0 1 .02-.022Z"/>
+          </svg>
+        </span>
+        <span th:if="${memberQuizResultDtoList[7].quizAnswer != memberQuizResultDtoList[7].memberQuizAnswer}">
+          <svg xmlns="http://www.w3.org/2000/svg" height="16" fill="red" class="bi bi-x-lg" viewBox="0 0 16 16">
+            <path stroke="red" stroke-width="2" d="M2.146 2.854a.5.5 0 1 1 .708-.708L8 7.293l5.146-5.147a.5.5 0 0 1 .708.708L8.707 8l5.147 5.146a.5.5 0 0 1-.708.708L8 8.707l-5.146 5.147a.5.5 0 0 1-.708-.708L7.293 8 2.146 2.854Z"/>
+          </svg>
+        </span>
+      </td>
+      <td>9번
+        <span th:if="${memberQuizResultDtoList[8].quizAnswer == memberQuizResultDtoList[8].memberQuizAnswer}">
+          <svg xmlns="http://www.w3.org/2000/svg" height="16" fill="green" class="bi bi-check-lg" viewBox="0 0 16 16">
+            <path stroke="green" stroke-width="2" d="M12.736 3.97a.733.733 0 0 1 1.047 0c.286.289.29.756.01 1.05L7.88 12.01a.733.733 0 0 1-1.065.02L3.217 8.384a.757.757 0 0 1 0-1.06.733.733 0 0 1 1.047 0l3.052 3.093 5.4-6.425a.247.247 0 0 1 .02-.022Z"/>
+          </svg>
+        </span>
+        <span th:if="${memberQuizResultDtoList[8].quizAnswer != memberQuizResultDtoList[8].memberQuizAnswer}">
+          <svg xmlns="http://www.w3.org/2000/svg" height="16" fill="red" class="bi bi-x-lg" viewBox="0 0 16 16">
+            <path stroke="red" stroke-width="2" d="M2.146 2.854a.5.5 0 1 1 .708-.708L8 7.293l5.146-5.147a.5.5 0 0 1 .708.708L8.707 8l5.147 5.146a.5.5 0 0 1-.708.708L8 8.707l-5.146 5.147a.5.5 0 0 1-.708-.708L7.293 8 2.146 2.854Z"/>
+          </svg>
+        </span>
+      </td>
+      <td>10번
+        <span th:if="${memberQuizResultDtoList[9].quizAnswer == memberQuizResultDtoList[9].memberQuizAnswer}">
+          <svg xmlns="http://www.w3.org/2000/svg" height="16" fill="green" class="bi bi-check-lg" viewBox="0 0 16 16">
+            <path stroke="green" stroke-width="2" d="M12.736 3.97a.733.733 0 0 1 1.047 0c.286.289.29.756.01 1.05L7.88 12.01a.733.733 0 0 1-1.065.02L3.217 8.384a.757.757 0 0 1 0-1.06.733.733 0 0 1 1.047 0l3.052 3.093 5.4-6.425a.247.247 0 0 1 .02-.022Z"/>
+          </svg>
+        </span>
+        <span th:if="${memberQuizResultDtoList[9].quizAnswer != memberQuizResultDtoList[9].memberQuizAnswer}">
+          <svg xmlns="http://www.w3.org/2000/svg" height="16" fill="red" class="bi bi-x-lg" viewBox="0 0 16 16">
+            <path stroke="red" stroke-width="2" d="M2.146 2.854a.5.5 0 1 1 .708-.708L8 7.293l5.146-5.147a.5.5 0 0 1 .708.708L8.707 8l5.147 5.146a.5.5 0 0 1-.708.708L8 8.707l-5.146 5.147a.5.5 0 0 1-.708-.708L7.293 8 2.146 2.854Z"/>
+          </svg>
+        </span>
+      </td>
+    </tr>
+    </tbody>
+  </table>
+
+  <div class="h4 pb-2 mb-4 text-secondary border-bottom border-secondary" style="margin-top: 20px;"></div>
   <div th:each="memberQuizResultDto, loop : ${memberQuizResultDtoList}">
-    <div th:text="${memberQuizResultDto.quizNumber}"></div>
-    <div th:text="${memberQuizResultDto.title}"></div>
-    <div th:text="${memberQuizResultDto.pythonContent}"></div>
-    <div th:text="${memberQuizResultDto.first}"></div>
-    <div th:text="${memberQuizResultDto.second}"></div>
-    <div th:text="${memberQuizResultDto.third}"></div>
-    <div th:text="${memberQuizResultDto.fourth}"></div>
-    <div th:text="${memberQuizResultDto.quizAnswer}"></div>
-    <div th:text="${memberQuizResultDto.memberQuizAnswer}"></div>
+    <h4>
+      <span th:if="${memberQuizResultDto.quizAnswer == memberQuizResultDto.memberQuizAnswer}">
+        <svg xmlns="http://www.w3.org/2000/svg" width="24" height="32" fill="green" class="bi bi-check-lg" viewBox="0 0 16 16">
+          <path stroke="green" stroke-width="2" d="M12.736 3.97a.733.733 0 0 1 1.047 0c.286.289.29.756.01 1.05L7.88 12.01a.733.733 0 0 1-1.065.02L3.217 8.384a.757.757 0 0 1 0-1.06.733.733 0 0 1 1.047 0l3.052 3.093 5.4-6.425a.247.247 0 0 1 .02-.022Z"/>
+        </svg>
+      </span>
+      <span th:if="${memberQuizResultDto.quizAnswer != memberQuizResultDto.memberQuizAnswer}">
+        <svg xmlns="http://www.w3.org/2000/svg" width="24" height="32" fill="red" class="bi bi-x-lg" viewBox="0 0 16 16">
+          <path stroke="red" stroke-width="2" d="M2.146 2.854a.5.5 0 1 1 .708-.708L8 7.293l5.146-5.147a.5.5 0 0 1 .708.708L8.707 8l5.147 5.146a.5.5 0 0 1-.708.708L8 8.707l-5.146 5.147a.5.5 0 0 1-.708-.708L7.293 8 2.146 2.854Z"/>
+        </svg>
+      </span>
+      <span th:text="'[' + ${memberQuizResultDto.quizNumber} + '] ' + ${memberQuizResultDto.title}"></span>
+    </h4>
+    <pre><code th:text="${memberQuizResultDto.pythonContent}"></code></pre>
+    <div th:text="'(1) ' + ${memberQuizResultDto.first}"
+         th:class="${memberQuizResultDto.quizAnswer == 1 and memberQuizResultDto.memberQuizAnswer == 1 ? 'text-success fw-bold' :
+                memberQuizResultDto.quizAnswer == 1 ? 'text-warning fw-bold' :
+                memberQuizResultDto.memberQuizAnswer == 1 ? 'text-danger fw-bold' : ''}"></div>
+    <div th:text="'(2) ' +${memberQuizResultDto.second}"
+         th:class="${memberQuizResultDto.quizAnswer == 2 and memberQuizResultDto.memberQuizAnswer == 2 ? 'text-success fw-bold' :
+                memberQuizResultDto.quizAnswer == 2 ? 'text-warning fw-bold' :
+                memberQuizResultDto.memberQuizAnswer == 2 ? 'text-danger fw-bold' : ''}"></div>
+    <div th:text="'(3) ' +${memberQuizResultDto.third}"
+         th:class="${memberQuizResultDto.quizAnswer == 3 and memberQuizResultDto.memberQuizAnswer == 3 ? 'text-success fw-bold' :
+                memberQuizResultDto.quizAnswer == 3 ? 'text-warning fw-bold' :
+                memberQuizResultDto.memberQuizAnswer == 3 ? 'text-danger fw-bold' : ''}"></div>
+    <div th:text="'(4) ' + ${memberQuizResultDto.fourth}"
+         th:class="${memberQuizResultDto.quizAnswer == 4 and memberQuizResultDto.memberQuizAnswer == 4 ? 'text-success fw-bold' :
+                memberQuizResultDto.quizAnswer == 4 ? 'text-warning fw-bold' :
+                memberQuizResultDto.memberQuizAnswer == 4 ? 'text-danger fw-bold' : ''}"></div>
+
+    <br/>
+    <div th:text="'정답 : ' + ${memberQuizResultDto.quizAnswer}"></div>
+    <div>
+      <span>선택한 답 : </span>
+      <span th:text="${memberQuizResultDto.memberQuizAnswer != null ? memberQuizResultDto.memberQuizAnswer : '없음'}"></span>
+    </div>
+    <br/>
+    <div class="h4 pb-2 mb-4 text-secondary border-bottom border-secondary" style="margin-top: 20px;"></div>
   </div>
 
 </div>

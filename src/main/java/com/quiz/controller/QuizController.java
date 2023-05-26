@@ -227,6 +227,7 @@ public class QuizController {
     @GetMapping("/quiz/python/result")
     public String getPythonResult(Model model) {
         Authentication authentication = SecurityContextHolder.getContext().getAuthentication();
+        double score=0;
         if (authentication instanceof UsernamePasswordAuthenticationToken) {
             UsernamePasswordAuthenticationToken auth = (UsernamePasswordAuthenticationToken) authentication;
             List<Member> memberList = userRepository.findByUsernameAndIsOauth(auth.getName(), false);
@@ -234,6 +235,13 @@ public class QuizController {
                 Member member = memberList.get(0);
                 List<MemberQuizResultDto> memberQuizResultDtoList = quizService.getPythonResult(member);
                 model.addAttribute("memberQuizResultDtoList", memberQuizResultDtoList);
+                for (MemberQuizResultDto memberQuizResultDto : memberQuizResultDtoList) {
+                    if (memberQuizResultDto.isRight()) {
+                        score += 1;
+                    }
+                }
+                score /= memberQuizResultDtoList.size();
+                model.addAttribute("score", score*100);
             }
         } else {
             OAuth2AuthenticationToken oauthToken = (OAuth2AuthenticationToken) authentication;
@@ -242,6 +250,13 @@ public class QuizController {
                 Member member = memberList.get(0);
                 List<MemberQuizResultDto> memberQuizResultDtoList = quizService.getPythonResult(member);
                 model.addAttribute("memberQuizResultDtoList", memberQuizResultDtoList);
+                for (MemberQuizResultDto memberQuizResultDto : memberQuizResultDtoList) {
+                    if (memberQuizResultDto.isRight()) {
+                        score += 1;
+                    }
+                }
+                score /= memberQuizResultDtoList.size();
+                model.addAttribute("score", score*100);
             }
         }
         return "quiz/python_result";
@@ -250,6 +265,7 @@ public class QuizController {
     @GetMapping( "/quiz/java/result")
     public String getJavaResult(Model model) {
         Authentication authentication = SecurityContextHolder.getContext().getAuthentication();
+        double score=0;
         if (authentication instanceof UsernamePasswordAuthenticationToken) {
             UsernamePasswordAuthenticationToken auth = (UsernamePasswordAuthenticationToken) authentication;
             List<Member> memberList = userRepository.findByUsernameAndIsOauth(auth.getName(), false);
@@ -257,6 +273,13 @@ public class QuizController {
                 Member member = memberList.get(0);
                 List<MemberQuizResultDto> memberQuizResultDtoList = quizService.getJavaResult(member);
                 model.addAttribute("memberQuizResultDtoList", memberQuizResultDtoList);
+                for (MemberQuizResultDto memberQuizResultDto : memberQuizResultDtoList) {
+                    if (memberQuizResultDto.isRight()) {
+                        score += 1;
+                    }
+                }
+                score /= memberQuizResultDtoList.size();
+                model.addAttribute("score", score*100);
             }
         } else {
             OAuth2AuthenticationToken oauthToken = (OAuth2AuthenticationToken) authentication;
@@ -265,6 +288,13 @@ public class QuizController {
                 Member member = memberList.get(0);
                 List<MemberQuizResultDto> memberQuizResultDtoList = quizService.getJavaResult(member);
                 model.addAttribute("memberQuizResultDtoList", memberQuizResultDtoList);
+                for (MemberQuizResultDto memberQuizResultDto : memberQuizResultDtoList) {
+                    if (memberQuizResultDto.isRight()) {
+                        score += 1;
+                    }
+                }
+                score /= memberQuizResultDtoList.size();
+                model.addAttribute("score", score*100);
             }
         }
         return "quiz/java_result";

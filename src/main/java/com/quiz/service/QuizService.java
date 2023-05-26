@@ -11,7 +11,6 @@ import com.quiz.entity.Quiz;
 import com.quiz.exception.DataNotFoundException;
 import com.quiz.repository.MemberQuizRepository;
 import com.quiz.repository.QuizRepository;
-import com.quiz.repository.UserRepository;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Optional;
@@ -140,6 +139,9 @@ public class QuizService {
                 memberQuizResultDto.setQuizAnswer(quiz.get().getQuizAnswer());
                 if (memberQuiz != null) {
                     memberQuizResultDto.setMemberQuizAnswer(memberQuiz.getMemberQuizAnswer());
+                    if (memberQuiz.getQuizAnswer() == memberQuiz.getMemberQuizAnswer()) {
+                        memberQuizResultDto.setRight(true);
+                    }
                 }
                 memberQuizResultDtoList.add(memberQuizResultDto);
             } else {
@@ -167,6 +169,9 @@ public class QuizService {
                 memberQuizResultDto.setQuizAnswer(quiz.get().getQuizAnswer());
                 if (memberQuiz != null) {
                     memberQuizResultDto.setMemberQuizAnswer(memberQuiz.getMemberQuizAnswer());
+                    if (memberQuiz.getQuizAnswer() == memberQuiz.getMemberQuizAnswer()) {
+                        memberQuizResultDto.setRight(true);
+                    }
                 }
                 memberQuizResultDtoList.add(memberQuizResultDto);
             } else {

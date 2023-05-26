@@ -20,4 +20,6 @@ public class MemberQuizResultDto {
 
     private Integer memberQuizAnswer;
     private QuizType quizType;
+
+    private boolean isRight = false;
 }
