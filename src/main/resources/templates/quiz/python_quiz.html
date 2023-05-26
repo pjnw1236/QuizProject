@@ -56,6 +56,12 @@
     </label>
   </div>
 
+  <th:block th:if="${quizResponseDto.quizNumber == 10}">
+    <div class="text-center">
+      <a class="btn btn-primary" href="/quiz/python/result" role="button">채점하기</a>
+    </div>
+  </th:block>
+
   <script th:inline="javascript">
     var startTime = Math.floor(Date.now() / 1000);
     var endTime = startTime + 60;
