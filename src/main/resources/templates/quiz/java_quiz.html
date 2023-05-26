@@ -63,20 +63,43 @@
   </th:block>
 
   <script th:inline="javascript">
-    var startTime = Math.floor(Date.now() / 1000);
-    var endTime = startTime + 60;
-
-    console.log("endTime : " + endTime);
-    console.log("endTime type : " + typeof(endTime));
-
+    function getCookie() {
+      var cookieInfos = document.cookie.split(";");
+      for (cookieInfo of cookieInfos) {
+        var key = cookieInfo.split("=")[0].trim();
+        var value = parseInt(cookieInfo.split("=")[1].trim());
+        if (key === "javaEndTime") {
+          return value;
+        }
+      }
+      return null;
+    }
+    function setCookie() {
+      var startTime = Math.floor(Date.now() / 1000);
+      var endTime = startTime + 900;
+      document.cookie="javaEndTime=" + endTime;
+    }
+    function timer() {
+      var javaEndTimeCookie = getCookie();
+      if (javaEndTimeCookie === null) {
+        setCookie();
+      }
+    }
+    function deleteCookie() {
+      document.cookie = "javaEndTime" + "=; expires=Thu, 01 Jan 1970 00:00:00 UTC;";
+    }
+    timer();
     var countdown = setInterval(function () {
       var currentTime = Math.floor(Date.now() / 1000);
-      var remainTime = endTime - currentTime;
-      document.getElementById("countdown").innerHTML = "" + remainTime;
+      var remainTime = getCookie() - currentTime;
+      var minutes = Math.floor(remainTime/60);
+      var second = remainTime%60;
+      document.getElementById("countdown").innerHTML = "" + minutes + " m " + second + " s";
       if (remainTime < 0) {
         clearInterval(countdown);
-        document.getElementById("countdown").innerHTML = "EXPIRED";
-        localStorage.removeItem("endTime");
+        alert("퀴즈 시간이 종료되었습니다. 채점 링크로 이동합니다.");
+        location.href="/quiz/java/result";
+        deleteCookie();
       }
     }, 1000);
 
