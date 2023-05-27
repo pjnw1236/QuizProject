@@ -28,4 +28,4 @@ jobs:
           username: ${{ secrets.AWS_SERVER_USER }}
           key: ${{ secrets.PEM_KEY }}
           source: "build/libs/quiz-0.0.1-SNAPSHOT.jar"
-          target: "/home/ec2-user"
+          target: "/home/ec2-user/quiz-0.0.1-SNAPSHOT.jar"
