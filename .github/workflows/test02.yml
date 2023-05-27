@@ -34,5 +34,5 @@ jobs:
           username: ${{ secrets.AWS_SERVER_USER }}
           key: ${{ secrets.PEM_KEY }}
           port: ${{ secrets.AWS_SERVER_SSH_PORT }}
-          script: unamer -r
+          script: uname -r
 
