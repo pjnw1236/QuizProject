@@ -1,4 +1,4 @@
-name: Java CI with Gradle
+name: jar 파일 생성 후 ec2 전송 테스트
 
 on:
   push:
