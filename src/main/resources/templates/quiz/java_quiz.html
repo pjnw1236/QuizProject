@@ -94,8 +94,9 @@
       var remainTime = getCookie() - currentTime;
       var minutes = Math.floor(remainTime/60);
       var second = remainTime%60;
-      document.getElementById("countdown").innerHTML = "" + minutes + " m " + second + " s";
-      if (remainTime < 0) {
+      if (remainTime >= 0) {
+        document.getElementById("countdown").innerHTML = "" + minutes + " m " + second + " s";
+      } else {
         clearInterval(countdown);
         alert("퀴즈 시간이 종료되었습니다. 채점 링크로 이동합니다.");
         location.href="/quiz/java/result";

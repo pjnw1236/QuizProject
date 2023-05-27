@@ -181,5 +181,11 @@
     <div class="h4 pb-2 mb-4 text-secondary border-bottom border-secondary" style="margin-top: 20px;"></div>
   </div>
 
+  <script th:inline="javascript">
+    function deleteCookie() {
+      document.cookie = "javaEndTime" + "=; expires=Thu, 01 Jan 1970 00:00:00 UTC;";
+    }
+    deleteCookie();
+  </script>
 </div>
 </html>

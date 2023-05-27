@@ -189,5 +189,17 @@
     <div class="h4 pb-2 mb-4 text-secondary border-bottom border-secondary" style="margin-top: 20px;"></div>
   </div>
 
+  <th:block th:if="${quizResponseDto.quizNumber == 10}">
+    <div class="text-center">
+      <a class="btn btn-primary" href="/quiz/python/result" role="button">채점하기</a>
+    </div>
+  </th:block>
+
+  <script th:inline="javascript">
+    function deleteCookie() {
+      document.cookie = "pythonEndTime" + "=; expires=Thu, 01 Jan 1970 00:00:00 UTC;";
+    }
+    deleteCookie();
+  </script>
 </div>
 </html>
