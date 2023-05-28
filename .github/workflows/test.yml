@@ -32,4 +32,4 @@ jobs:
 
       - name: Transfer JARs to Server
         run: |
-          find build/libs -name "*.jar" -exec scp -i ${{ secrets.PEM_KEY }} {} ${{ secrets.AWS_SERVER_USER }}@${{ secrets.AWS_SERVER_IP }}:/home/ec2-user \;
+          find build/libs -name "quiz*.jar" -exec scp -i ${{ secrets.PEM_KEY }} {} ${{ secrets.AWS_SERVER_USER }}@${{ secrets.AWS_SERVER_IP }}:/home/ec2-user \;
