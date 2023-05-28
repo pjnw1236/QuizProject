@@ -24,6 +24,7 @@ jobs:
       - name: Find Jar File
         run: |
           JAR_FILE=$(find build/libs -name "quiz*.jar" -printf "%f")
+          echo $JAR_FILE
 
       - name: Transfer JAR to EC2
         uses: appleboy/scp-action@master
