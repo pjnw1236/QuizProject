@@ -32,7 +32,7 @@ jobs:
           username: ${{ secrets.AWS_SERVER_USER }}
           key: ${{ secrets.PEM_KEY }}
           source: "build/libs/${{ env.JAR_FILE }}"
-          target: "/home/ec2-user"
+          target: ${{secrets.JAR_TARGET_PATH}}
 
 #      - name: Transfer JARs to Server
 #        run: |
