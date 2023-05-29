@@ -84,9 +84,10 @@ public class QuizController {
         return String.format("redirect:/admin/quiz/%s", id);
     }
 
-    @GetMapping("/quiz/python")
-    public String getQuizPython() {
-        return "quiz/python_home";
+    @GetMapping("/quiz/{quizType}")
+    public String getQuiz(@PathVariable("quizType") String quizType, Model model) {
+        model.addAttribute("quizType", quizType);
+        return "quiz/user/home";
     }
 
     @GetMapping("/quiz/python/{id}")
@@ -130,11 +131,6 @@ public class QuizController {
             }
         }
         return "quiz/python_quiz";
-    }
-
-    @GetMapping("/quiz/java")
-    public String getQuizJava() {
-        return "quiz/java_home";
     }
 
     @GetMapping("/quiz/java/{id}")

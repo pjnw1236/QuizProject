@@ -1,0 +1,27 @@
+<html layout:decorate="~{layout}">
+<div layout:fragment="content" class="container my-3">
+
+  <div class="card text-center" style="margin-top: 10rem;">
+    <h1 class="card-header">
+      <th:block th:if="${quizType == 'python'}">Python Quiz</th:block>
+      <th:block th:if="${quizType == 'java'}">Java Quiz</th:block>
+    </h1>
+    <div class="card-body">
+      <br><br>
+      <h4 class="card-text">
+        퀴즈는 <strong>10문제</strong>로 구성되어 있으며,<br>
+        제한 시간은 <strong>15분</strong>입니다.
+      </h4>
+      <br><br>
+      <a th:href="@{|/quiz/${quizType}/1|}" class="btn btn-primary" style="margin-bottom: 2rem;">
+        Quiz 풀기
+      </a>
+    </div>
+    <h1 class="card-footer">
+      <th:block th:if="${quizType == 'python'}">파이썬 퀴즈</th:block>
+      <th:block th:if="${quizType == 'java'}">자바 퀴즈</th:block>
+    </h1>
+  </div>
+
+</div>
+</html>
