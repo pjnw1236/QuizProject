@@ -1,13 +1,13 @@
 package com.quiz.controller;
 
 import com.quiz.entity.Answer;
-import com.quiz.repository.UserRepository;
+import com.quiz.repository.MemberRepository;
 import com.quiz.service.AnswerService;
 import com.quiz.form.AnswerForm;
 import com.quiz.entity.Question;
 import com.quiz.service.QuestionService;
 import com.quiz.entity.Member;
-import com.quiz.service.UserService;
+import com.quiz.service.MemberService;
 import java.util.List;
 import javax.validation.Valid;
 import lombok.RequiredArgsConstructor;
@@ -32,8 +32,8 @@ import org.springframework.web.server.ResponseStatusException;
 public class AnswerController {
     private final QuestionService questionService;
     private final AnswerService answerService;
-    private final UserService userService;
-    private final UserRepository userRepository;
+    private final MemberService memberService;
+    private final MemberRepository memberRepository;
 
     @PreAuthorize("isAuthenticated()")
     @PostMapping("/create/{id}")
@@ -53,7 +53,7 @@ public class AnswerController {
             String username = auth.getName();
             Boolean bool = false;
 
-            Member member = userService.getUser(username, bool);
+            Member member = memberService.getUser(username, bool);
 
             answerService.create(question, answerForm.getContent(), member);
             return String.format("redirect:/question/detail/%s", id);
@@ -63,7 +63,7 @@ public class AnswerController {
             String email = oauthToken.getPrincipal().getAttribute("email");
             Boolean bool = true;
 
-            List<Member> memberList = userRepository.findByEmailAndIsOauth(email, bool);
+            List<Member> memberList = memberRepository.findByEmailAndIsOauth(email, bool);
 
             answerService.create(question, answerForm.getContent(), memberList.get(0));
             return String.format("redirect:/question/detail/%s", id);
@@ -95,7 +95,7 @@ public class AnswerController {
             String email = oauthToken.getPrincipal().getAttribute("email");
             Boolean bool = true;
 
-            List<Member> memberList = userRepository.findByEmailAndIsOauth(email, bool);
+            List<Member> memberList = memberRepository.findByEmailAndIsOauth(email, bool);
 
             if (answer.getAuthor().getEmail().equals(email) && answer.getAuthor().getIsOauth().equals(bool)) {
                 answerForm.setContent(answer.getContent());
@@ -135,7 +135,7 @@ public class AnswerController {
             String email = oauthToken.getPrincipal().getAttribute("email");
             Boolean bool = true;
 
-            List<Member> memberList = userRepository.findByEmailAndIsOauth(email, bool);
+            List<Member> memberList = memberRepository.findByEmailAndIsOauth(email, bool);
 
             if (answer.getAuthor().getEmail().equals(email) && answer.getAuthor().getIsOauth().equals(bool)) {
                 answerService.modify(answer, answerForm.getContent());
@@ -171,7 +171,7 @@ public class AnswerController {
             String email = oauthToken.getPrincipal().getAttribute("email");
             Boolean bool = true;
 
-            List<Member> memberList = userRepository.findByEmailAndIsOauth(email, bool);
+            List<Member> memberList = memberRepository.findByEmailAndIsOauth(email, bool);
 
             if (answer.getAuthor().getEmail().equals(email) && answer.getAuthor().getIsOauth().equals(bool)) {
                 answerService.delete(answer);
@@ -195,7 +195,7 @@ public class AnswerController {
             String username = auth.getName();
             Boolean bool = false;
 
-            Member member = userService.getUser(username, bool);
+            Member member = memberService.getUser(username, bool);
 
             answerService.vote(answer, member);
             return String.format("redirect:/question/detail/%s", answer.getQuestion().getId());
@@ -205,7 +205,7 @@ public class AnswerController {
             String email = oauthToken.getPrincipal().getAttribute("email");
             Boolean bool = true;
 
-            List<Member> memberList = userRepository.findByEmailAndIsOauth(email, bool);
+            List<Member> memberList = memberRepository.findByEmailAndIsOauth(email, bool);
 
             answerService.vote(answer, memberList.get(0));
             return String.format("redirect:/question/detail/%s", answer.getQuestion().getId());

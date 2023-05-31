@@ -1,7 +1,7 @@
 package com.quiz.config;
 
 import com.quiz.entity.Member;
-import com.quiz.repository.UserRepository;
+import com.quiz.repository.MemberRepository;
 import com.quiz.constant.UserRole;
 import java.util.ArrayList;
 import java.util.List;
@@ -18,12 +18,12 @@ import org.springframework.stereotype.Service;
 @Service
 public class UserSecurityService implements UserDetailsService {
 
-    private final UserRepository userRepository;
+    private final MemberRepository memberRepository;
 
     @Override
     public UserDetails loadUserByUsername(String username) throws UsernameNotFoundException {
         Boolean bool = false;
-        List<Member> memberList = userRepository.findByUsernameAndIsOauth(username, bool);
+        List<Member> memberList = memberRepository.findByUsernameAndIsOauth(username, bool);
 
         if (memberList.size() == 0) {
             throw new UsernameNotFoundException("사용자를 찾을 수 없습니다.");

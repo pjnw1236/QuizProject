@@ -4,7 +4,7 @@ import com.quiz.exception.DataNotFoundException;
 import com.quiz.entity.Question;
 import com.quiz.repository.QuestionRepository;
 import com.quiz.entity.Member;
-import com.quiz.repository.UserRepository;
+import com.quiz.repository.MemberRepository;
 import java.time.LocalDateTime;
 import java.util.ArrayList;
 import java.util.List;
@@ -21,8 +21,8 @@ import org.springframework.stereotype.Service;
 @Service
 public class QuestionService {
     private final QuestionRepository questionRepository;
-    private final UserService userService;
-    private final UserRepository userRepository;
+    private final MemberService memberService;
+    private final MemberRepository memberRepository;
 
     public Page<Question> getList(int page, String kw) {
         List<Sort.Order> sorts = new ArrayList<>();
@@ -73,7 +73,7 @@ public class QuestionService {
     }
 
     public Question getQuestionByUsername(Integer id, String username, Boolean bool) {
-        Member user = userService.getUser(username, bool);
+        Member user = memberService.getUser(username, bool);
         Question question = this.getQuestion(id);
         question.getViewer().add(user);
         questionRepository.save(question);
@@ -81,7 +81,7 @@ public class QuestionService {
     }
 
     public Question getQuestionByEmail(Integer id, String email, Boolean bool) {
-        List<Member> memberList = userRepository.findByEmailAndIsOauth(email, bool);
+        List<Member> memberList = memberRepository.findByEmailAndIsOauth(email, bool);
         Question question = this.getQuestion(id);
         question.getViewer().add(memberList.get(0));
         questionRepository.save(question);

@@ -1,7 +1,7 @@
 package com.quiz.controller;
 
 import com.quiz.form.UserCreateForm;
-import com.quiz.service.UserService;
+import com.quiz.service.MemberService;
 import javax.validation.Valid;
 import lombok.RequiredArgsConstructor;
 import org.springframework.dao.DataIntegrityViolationException;
@@ -14,8 +14,8 @@ import org.springframework.web.bind.annotation.RequestMapping;
 @RequiredArgsConstructor
 @Controller
 @RequestMapping("/user")
-public class UserController {
-    private final UserService userService;
+public class MemberController {
+    private final MemberService memberService;
 
     @GetMapping("/signup")
     public String signup(UserCreateForm userCreateForm) {
@@ -33,7 +33,7 @@ public class UserController {
         }
 
         try {
-            userService.create(userCreateForm.getUsername(), userCreateForm.getEmail(), userCreateForm.getPassword1());
+            memberService.create(userCreateForm.getUsername(), userCreateForm.getEmail(), userCreateForm.getPassword1());
         } catch (DataIntegrityViolationException e) {
             e.printStackTrace();
             bindingResult.reject("signupFailed", "이미 등록된 사용자입니다.");

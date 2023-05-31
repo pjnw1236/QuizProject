@@ -1,7 +1,7 @@
 package com.quiz.config.oauth;
 
 import com.quiz.entity.Member;
-import com.quiz.repository.UserRepository;
+import com.quiz.repository.MemberRepository;
 import java.util.List;
 import lombok.AllArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
@@ -15,7 +15,7 @@ import org.springframework.stereotype.Service;
 @Slf4j
 @AllArgsConstructor
 public class OAuth2UserService extends DefaultOAuth2UserService {
-    private final UserRepository userRepository;
+    private final MemberRepository memberRepository;
 
     @Override
     public OAuth2User loadUser(OAuth2UserRequest userRequest) throws OAuth2AuthenticationException {
@@ -33,14 +33,14 @@ public class OAuth2UserService extends DefaultOAuth2UserService {
         String email = oAuth2User.getAttribute("email");
         Boolean bool = true;
 
-        List<Member> memberList = userRepository.findByEmailAndIsOauth(email, bool);
+        List<Member> memberList = memberRepository.findByEmailAndIsOauth(email, bool);
         if (memberList.size() == 0) {
             Member member = new Member();
             member.setUsername(username);
             member.setEmail(email);
             member.setPassword("password");
             member.setIsOauth(true);
-            userRepository.save(member);
+            memberRepository.save(member);
         }
 
         return oAuth2User;

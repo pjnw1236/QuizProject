@@ -8,7 +8,7 @@ import com.quiz.dto.QuizRequestDto;
 import com.quiz.dto.QuizResponseDto;
 import com.quiz.entity.Member;
 import com.quiz.entity.MemberQuiz;
-import com.quiz.repository.UserRepository;
+import com.quiz.repository.MemberRepository;
 import com.quiz.service.QuizService;
 import java.util.List;
 import javax.validation.Valid;
@@ -33,7 +33,7 @@ import org.springframework.web.bind.annotation.ResponseBody;
 @Slf4j
 public class QuizController {
     private final QuizService quizService;
-    private final UserRepository userRepository;
+    private final MemberRepository memberRepository;
 
     @GetMapping("/admin/quiz")
     public String getAdminQuiz(Model model) {
@@ -93,7 +93,7 @@ public class QuizController {
 
     @GetMapping("/quiz/{quizType}/result")
     public String getQuizResult(@PathVariable("quizType") String quizType, Model model) {
-        Member member = AuthenticationUtil.getMember(userRepository);
+        Member member = AuthenticationUtil.getMember(memberRepository);
         List<MemberQuizResultDto> memberQuizResultDtoList = null;
 
         double score = 0;
@@ -114,7 +114,7 @@ public class QuizController {
 
     @GetMapping("/quiz/{quizType}/{id}")
     public String getQuizDetail(@PathVariable("quizType") String quizType, @PathVariable("id") Long id, Model model) {
-        Member member = AuthenticationUtil.getMember(userRepository);
+        Member member = AuthenticationUtil.getMember(memberRepository);
         QuizResponseDto quizResponseDto = quizService.getQuizResponseDtoByQuizNumber(id);
         model.addAttribute("quizType", quizType);
         model.addAttribute("quizResponseDto", quizResponseDto);
@@ -136,14 +136,14 @@ public class QuizController {
         Authentication authentication = SecurityContextHolder.getContext().getAuthentication();
         if (authentication instanceof UsernamePasswordAuthenticationToken) {
             UsernamePasswordAuthenticationToken auth = (UsernamePasswordAuthenticationToken) authentication;
-            List<Member> memberList = userRepository.findByUsernameAndIsOauth(auth.getName(), false);
+            List<Member> memberList = memberRepository.findByUsernameAndIsOauth(auth.getName(), false);
             if (memberList.size() > 0) {
                 Member member = memberList.get(0);
                 quizService.solvingPythonQuiz(member, memberQuizDto);
             }
         } else {
             OAuth2AuthenticationToken oauthToken = (OAuth2AuthenticationToken) authentication;
-            List<Member> memberList = userRepository.findByEmailAndIsOauth(oauthToken.getPrincipal().getAttribute("email"), true);
+            List<Member> memberList = memberRepository.findByEmailAndIsOauth(oauthToken.getPrincipal().getAttribute("email"), true);
             if (memberList.size() > 0) {
                 Member member = memberList.get(0);
                 quizService.solvingPythonQuiz(member, memberQuizDto);
@@ -158,14 +158,14 @@ public class QuizController {
         Authentication authentication = SecurityContextHolder.getContext().getAuthentication();
         if (authentication instanceof UsernamePasswordAuthenticationToken) {
             UsernamePasswordAuthenticationToken auth = (UsernamePasswordAuthenticationToken) authentication;
-            List<Member> memberList = userRepository.findByUsernameAndIsOauth(auth.getName(), false);
+            List<Member> memberList = memberRepository.findByUsernameAndIsOauth(auth.getName(), false);
             if (memberList.size() > 0) {
                 Member member = memberList.get(0);
                 quizService.solvingJavaQuiz(member, memberQuizDto);
             }
         } else {
             OAuth2AuthenticationToken oauthToken = (OAuth2AuthenticationToken) authentication;
-            List<Member> memberList = userRepository.findByEmailAndIsOauth(oauthToken.getPrincipal().getAttribute("email"), true);
+            List<Member> memberList = memberRepository.findByEmailAndIsOauth(oauthToken.getPrincipal().getAttribute("email"), true);
             if (memberList.size() > 0) {
                 Member member = memberList.get(0);
                 quizService.solvingJavaQuiz(member, memberQuizDto);
