@@ -121,62 +121,93 @@ public class QuizService {
         }
     }
 
-    public List<MemberQuizResultDto> getPythonResult(Member member) {
-        List<MemberQuizResultDto> memberQuizResultDtoList = new ArrayList<>();
-        List<MemberQuiz> memberQuizList = member.getMemberQuizList();
-        for (int i=1; i<=10; i++) {
-            Optional<Quiz> quiz = quizRepository.findByQuizNumber(Long.valueOf(i));
-            MemberQuiz memberQuiz = member.getMemberQuizByQuizNumber((long) i, QuizType.Python);
-            MemberQuizResultDto memberQuizResultDto = new MemberQuizResultDto();
-            if (quiz.isPresent()) {
-                memberQuizResultDto.setTitle(quiz.get().getTitle());
-                memberQuizResultDto.setPythonContent(quiz.get().getPythonContent());
-                memberQuizResultDto.setFirst(quiz.get().getFirst());
-                memberQuizResultDto.setSecond(quiz.get().getSecond());
-                memberQuizResultDto.setThird(quiz.get().getThird());
-                memberQuizResultDto.setFourth(quiz.get().getFourth());
-                memberQuizResultDto.setQuizNumber(i);
-                memberQuizResultDto.setQuizAnswer(quiz.get().getQuizAnswer());
-                if (memberQuiz != null) {
-                    memberQuizResultDto.setMemberQuizAnswer(memberQuiz.getMemberQuizAnswer());
-                    if (memberQuiz.getQuizAnswer() == memberQuiz.getMemberQuizAnswer()) {
-                        memberQuizResultDto.setRight(true);
-                    }
-                }
-                memberQuizResultDtoList.add(memberQuizResultDto);
-            } else {
-                throw new DataNotFoundException("해당 퀴즈는 존재하지 않습니다.");
-            }
-        }
-        return memberQuizResultDtoList;
-    }
+//    public List<MemberQuizResultDto> getPythonResult(Member member) {
+//        List<MemberQuizResultDto> memberQuizResultDtoList = new ArrayList<>();
+//        List<MemberQuiz> memberQuizList = member.getMemberQuizList();
+//        for (int i=1; i<=10; i++) {
+//            Optional<Quiz> quiz = quizRepository.findByQuizNumber(Long.valueOf(i));
+//            MemberQuiz memberQuiz = member.getMemberQuizByQuizNumber((long) i, QuizType.Python);
+//            MemberQuizResultDto memberQuizResultDto = new MemberQuizResultDto();
+//            if (quiz.isPresent()) {
+//                memberQuizResultDto.setTitle(quiz.get().getTitle());
+//                memberQuizResultDto.setPythonContent(quiz.get().getPythonContent());
+//                memberQuizResultDto.setFirst(quiz.get().getFirst());
+//                memberQuizResultDto.setSecond(quiz.get().getSecond());
+//                memberQuizResultDto.setThird(quiz.get().getThird());
+//                memberQuizResultDto.setFourth(quiz.get().getFourth());
+//                memberQuizResultDto.setQuizNumber(i);
+//                memberQuizResultDto.setQuizAnswer(quiz.get().getQuizAnswer());
+//                if (memberQuiz != null) {
+//                    memberQuizResultDto.setMemberQuizAnswer(memberQuiz.getMemberQuizAnswer());
+//                    if (memberQuiz.getQuizAnswer() == memberQuiz.getMemberQuizAnswer()) {
+//                        memberQuizResultDto.setRight(true);
+//                    }
+//                }
+//                memberQuizResultDtoList.add(memberQuizResultDto);
+//            } else {
+//                throw new DataNotFoundException("해당 퀴즈는 존재하지 않습니다.");
+//            }
+//        }
+//        return memberQuizResultDtoList;
+//    }
+//
+//    public List<MemberQuizResultDto> getJavaResult(Member member) {
+//        List<MemberQuizResultDto> memberQuizResultDtoList = new ArrayList<>();
+//        List<MemberQuiz> memberQuizList = member.getMemberQuizList();
+//        for (int i=1; i<=10; i++) {
+//            Optional<Quiz> quiz = quizRepository.findByQuizNumber(Long.valueOf(i));
+//            MemberQuiz memberQuiz = member.getMemberQuizByQuizNumber((long) i, QuizType.Java);
+//            MemberQuizResultDto memberQuizResultDto = new MemberQuizResultDto();
+//            if (quiz.isPresent()) {
+//                memberQuizResultDto.setTitle(quiz.get().getTitle());
+//                memberQuizResultDto.setJavaContent(quiz.get().getJavaContent());
+//                memberQuizResultDto.setFirst(quiz.get().getFirst());
+//                memberQuizResultDto.setSecond(quiz.get().getSecond());
+//                memberQuizResultDto.setThird(quiz.get().getThird());
+//                memberQuizResultDto.setFourth(quiz.get().getFourth());
+//                memberQuizResultDto.setQuizNumber(i);
+//                memberQuizResultDto.setQuizAnswer(quiz.get().getQuizAnswer());
+//                if (memberQuiz != null) {
+//                    memberQuizResultDto.setMemberQuizAnswer(memberQuiz.getMemberQuizAnswer());
+//                    if (memberQuiz.getQuizAnswer() == memberQuiz.getMemberQuizAnswer()) {
+//                        memberQuizResultDto.setRight(true);
+//                    }
+//                }
+//                memberQuizResultDtoList.add(memberQuizResultDto);
+//            } else {
+//                throw new DataNotFoundException("해당 퀴즈는 존재하지 않습니다.");
+//            }
+//        }
+//        return memberQuizResultDtoList;
+//    }
 
-    public List<MemberQuizResultDto> getJavaResult(Member member) {
+    public List<MemberQuizResultDto> getQuizResult(Member member, String quizType) {
         List<MemberQuizResultDto> memberQuizResultDtoList = new ArrayList<>();
-        List<MemberQuiz> memberQuizList = member.getMemberQuizList();
-        for (int i=1; i<=10; i++) {
+        for (int i = 1; i <= 10; i++) {
             Optional<Quiz> quiz = quizRepository.findByQuizNumber(Long.valueOf(i));
-            MemberQuiz memberQuiz = member.getMemberQuizByQuizNumber((long) i, QuizType.Java);
             MemberQuizResultDto memberQuizResultDto = new MemberQuizResultDto();
-            if (quiz.isPresent()) {
-                memberQuizResultDto.setTitle(quiz.get().getTitle());
-                memberQuizResultDto.setJavaContent(quiz.get().getJavaContent());
-                memberQuizResultDto.setFirst(quiz.get().getFirst());
-                memberQuizResultDto.setSecond(quiz.get().getSecond());
-                memberQuizResultDto.setThird(quiz.get().getThird());
-                memberQuizResultDto.setFourth(quiz.get().getFourth());
-                memberQuizResultDto.setQuizNumber(i);
-                memberQuizResultDto.setQuizAnswer(quiz.get().getQuizAnswer());
-                if (memberQuiz != null) {
-                    memberQuizResultDto.setMemberQuizAnswer(memberQuiz.getMemberQuizAnswer());
-                    if (memberQuiz.getQuizAnswer() == memberQuiz.getMemberQuizAnswer()) {
-                        memberQuizResultDto.setRight(true);
-                    }
-                }
-                memberQuizResultDtoList.add(memberQuizResultDto);
-            } else {
-                throw new DataNotFoundException("해당 퀴즈는 존재하지 않습니다.");
+            MemberQuiz memberQuiz = null;
+            if (quizType.equals("python")) {
+                memberQuiz = member.getMemberQuizByQuizNumber((long) i, QuizType.Python);
+            } else if (quizType.equals("java")) {
+                memberQuiz = member.getMemberQuizByQuizNumber((long) i, QuizType.Java);
             }
+            memberQuizResultDto.setTitle(quiz.get().getTitle());
+            memberQuizResultDto.setPythonContent(quiz.get().getPythonContent());
+            memberQuizResultDto.setJavaContent(quiz.get().getJavaContent());
+            memberQuizResultDto.setFirst(quiz.get().getFirst());
+            memberQuizResultDto.setSecond(quiz.get().getSecond());
+            memberQuizResultDto.setThird(quiz.get().getThird());
+            memberQuizResultDto.setFourth(quiz.get().getFourth());
+            memberQuizResultDto.setQuizNumber(i);
+            memberQuizResultDto.setQuizAnswer(quiz.get().getQuizAnswer());
+            if (memberQuiz != null) {
+                memberQuizResultDto.setMemberQuizAnswer(memberQuiz.getMemberQuizAnswer());
+                if (memberQuizResultDto.getQuizAnswer() == memberQuizResultDto.getMemberQuizAnswer()) {
+                    memberQuizResultDto.setRight(true);
+                }
+            }
+            memberQuizResultDtoList.add(memberQuizResultDto);
         }
         return memberQuizResultDtoList;
     }

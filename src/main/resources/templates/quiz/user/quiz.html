@@ -1,0 +1,80 @@
+<html layout:decorate="~{layout}">
+<div layout:fragment="content" class="container my-3">
+
+  <meta name="_csrf" th:content="${_csrf.token}" />
+
+  <nav aria-label="Page navigation example" style="margin-top: 4rem; margin-bottom: 2rem;">
+    <ul class="pagination pagination-lg justify-content-center">
+      <li class="page-item"><a class="page-link text-secondary" th:href="@{|/quiz/${quizType}/${quizResponseDto.quizNumber-1}|}" th:classappend="${quizResponseDto.quizNumber == 1 ? 'disabled' : ''}">이전 문제</a></li>
+      <li class="page-item"><a class="page-link text-secondary" th:href="@{|/quiz/${quizType}/1|}" th:classappend="${quizResponseDto.quizNumber == 1 ? 'bg-secondary bg-opacity-10 disabled' : ''}">1</a></li>
+      <li class="page-item"><a class="page-link text-secondary" th:href="@{|/quiz/${quizType}/2|}" th:classappend="${quizResponseDto.quizNumber == 2 ? 'bg-secondary bg-opacity-10 disabled' : ''}">2</a></li>
+      <li class="page-item"><a class="page-link text-secondary" th:href="@{|/quiz/${quizType}/3|}" th:classappend="${quizResponseDto.quizNumber == 3 ? 'bg-secondary bg-opacity-10 disabled' : ''}">3</a></li>
+      <li class="page-item"><a class="page-link text-secondary" th:href="@{|/quiz/${quizType}/4|}" th:classappend="${quizResponseDto.quizNumber == 4 ? 'bg-secondary bg-opacity-10 disabled' : ''}">4</a></li>
+      <li class="page-item"><a class="page-link text-secondary" th:href="@{|/quiz/${quizType}/5|}" th:classappend="${quizResponseDto.quizNumber == 5 ? 'bg-secondary bg-opacity-10 disabled' : ''}">5</a></li>
+      <li class="page-item"><a class="page-link text-secondary" th:href="@{|/quiz/${quizType}/6|}" th:classappend="${quizResponseDto.quizNumber == 6 ? 'bg-secondary bg-opacity-10 disabled' : ''}">6</a></li>
+      <li class="page-item"><a class="page-link text-secondary" th:href="@{|/quiz/${quizType}/7|}" th:classappend="${quizResponseDto.quizNumber == 7 ? 'bg-secondary bg-opacity-10 disabled' : ''}">7</a></li>
+      <li class="page-item"><a class="page-link text-secondary" th:href="@{|/quiz/${quizType}/8|}" th:classappend="${quizResponseDto.quizNumber == 8 ? 'bg-secondary bg-opacity-10 disabled' : ''}">8</a></li>
+      <li class="page-item"><a class="page-link text-secondary" th:href="@{|/quiz/${quizType}/9|}" th:classappend="${quizResponseDto.quizNumber == 9 ? 'bg-secondary bg-opacity-10 disabled' : ''}">9</a></li>
+      <li class="page-item"><a class="page-link text-secondary" th:href="@{|/quiz/${quizType}/10|}" th:classappend="${quizResponseDto.quizNumber == 10 ? 'bg-secondary bg-opacity-10 disabled' : ''}">10</a></li>
+      <li class="page-item"><a class="page-link text-secondary" th:href="@{|/quiz/${quizType}/${quizResponseDto.quizNumber+1}|}" th:classappend="${quizResponseDto.quizNumber == 10 ? 'disabled' : ''}">다음 문제</a></li>
+    </ul>
+  </nav>
+
+  <h2 style="margin-top: 2rem; margin-bottom: 2rem;">
+    <span th:text="'[Quiz ' + ${quizResponseDto.quizNumber} + ']'"></span>
+    <span id="countdown" class="float-end"></span>
+  </h2>
+
+  <h2 class="border-bottom py-2" th:text="${quizResponseDto.title}"></h2>
+
+  <h4 class="mt-5">
+    <th:block th:if="${quizType == 'python'}">Python 코드</th:block>
+    <th:block th:if="${quizType == 'java'}">Java 코드</th:block>
+  </h4>
+  <pre><code th:if="${quizType == 'python'}" th:text="${quizResponseDto.pythonContent}"></code></pre>
+  <pre><code th:if="${quizType == 'java'}" th:text="${quizResponseDto.javaContent}"></code></pre>
+
+  <div class="mt-5"></div>
+  <div class="form-check">
+    <input class="form-check-input" type="radio" name="exampleRadios" id="exampleRadios1" value="option1" th:checked="${memberQuizAnswer == 1}">
+    <label class="form-check-label" for="exampleRadios1" th:text="'(1번) ' + ${quizResponseDto.first}" th:onclick="selectAnswer(1)">
+      1번 선택지
+    </label>
+  </div>
+  <div class="form-check">
+    <input class="form-check-input" type="radio" name="exampleRadios" id="exampleRadios2" value="option2" th:checked="${memberQuizAnswer == 2}">
+    <label class="form-check-label" for="exampleRadios2" th:text="'(2번) ' + ${quizResponseDto.second}" th:onclick="selectAnswer(2)">
+      2번 선택지
+    </label>
+  </div>
+  <div class="form-check">
+    <input class="form-check-input" type="radio" name="exampleRadios" id="exampleRadios3" value="option3" th:checked="${memberQuizAnswer == 3}">
+    <label class="form-check-label" for="exampleRadios3" th:text="'(3번) ' + ${quizResponseDto.third}" th:onclick="selectAnswer(3)">
+      3번 선택지
+    </label>
+  </div>
+  <div class="form-check">
+    <input class="form-check-input" type="radio" name="exampleRadios" id="exampleRadios4" value="option4" th:checked="${memberQuizAnswer == 4}">
+    <label class="form-check-label" for="exampleRadios4" th:text="'(4번) ' + ${quizResponseDto.fourth}" th:onclick="selectAnswer(4)">
+      4번 선택지
+    </label>
+  </div>
+
+  <th:block th:if="${quizResponseDto.quizNumber == 10}">
+    <div class="text-center">
+      <a class="btn btn-primary" th:href="@{|/quiz/${quizType}/result|}" role="button">채점하기</a>
+    </div>
+  </th:block>
+
+  <script th:inline="javascript">
+    var csrfToken = document.querySelector('meta[name="_csrf"]').getAttribute('content');
+    var quizNumber = [[${quizResponseDto.quizNumber}]];
+    var quizAnswer = [[${quizResponseDto.quizAnswer}]];
+    var quizType = [[${quizType}]]
+    var url = "/quiz/" + quizType;
+  </script>
+  <script type="text/javascript" th:src="@{/static/quiz/select.js}" defer></script>
+  <script type="text/javascript" th:src="@{/static/quiz/timer.js}" defer></script>
+
+</div>
+</html>

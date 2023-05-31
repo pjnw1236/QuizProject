@@ -134,7 +134,7 @@
   </table>
 
   <div class="text-center"  style="margin-bottom: 60px;">
-    <a class="btn btn-primary" href="/quiz/java/1" role="button">문제 다시풀기</a>
+    <a class="btn btn-primary" th:href="@{|/quiz/${quizType}/1|}" role="button">문제 다시풀기</a>
   </div>
 
   <div class="h4 pb-2 mb-4 text-secondary border-bottom border-secondary" style="margin-top: 20px;"></div>
@@ -152,7 +152,8 @@
       </span>
       <span th:text="'[' + ${memberQuizResultDto.quizNumber} + '] ' + ${memberQuizResultDto.title}"></span>
     </h4>
-    <pre><code th:text="${memberQuizResultDto.javaContent}"></code></pre>
+    <pre><code th:if="${quizType == 'python'}" th:text="${memberQuizResultDto.pythonContent}"></code></pre>
+    <pre><code th:if="${quizType == 'java'}" th:text="${memberQuizResultDto.javaContent}"></code></pre>
 
     <div th:text="'(1) ' + ${memberQuizResultDto.first}"
          th:class="${memberQuizResultDto.quizAnswer == 1 and memberQuizResultDto.memberQuizAnswer == 1 ? 'text-success fw-bold' :
@@ -183,6 +184,7 @@
 
   <script th:inline="javascript">
     function deleteCookie() {
+      document.cookie = "pythonEndTime" + "=; expires=Thu, 01 Jan 1970 00:00:00 UTC;";
       document.cookie = "javaEndTime" + "=; expires=Thu, 01 Jan 1970 00:00:00 UTC;";
     }
     deleteCookie();
