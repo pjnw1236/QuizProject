@@ -13,7 +13,7 @@ function getCookie(quizType) {
 function setCookie(quizType) {
     var cookieName = quizType + "EndTime";
     var startTime = Math.floor(Date.now() / 1000);
-    var endTime = startTime + 10;
+    var endTime = startTime + 900;
     document.cookie = cookieName + "=" + endTime;
 }
 function timer(quizType) {
