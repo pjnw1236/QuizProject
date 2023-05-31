@@ -23,5 +23,13 @@
     </h1>
   </div>
 
+  <script th:inline="javascript">
+    function deleteCookie() {
+      document.cookie = "pythonEndTime" + "=; expires=Thu, 01 Jan 1970 00:00:00 UTC;";
+      document.cookie = "javaEndTime" + "=; expires=Thu, 01 Jan 1970 00:00:00 UTC;";
+    }
+    deleteCookie();
+  </script>
+
 </div>
 </html>
