@@ -64,7 +64,7 @@ public class QuestionController {
             Page<Question> paging = questionService.getList(page, kw);
             model.addAttribute("paging", paging);
         }
-        return "question_list";
+        return "board/question/list";
     }
 
     @GetMapping( "/{id}")
