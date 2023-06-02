@@ -1,5 +1,6 @@
 package com.quiz.controller;
 
+import com.quiz.constant.AuthenticationUtil;
 import com.quiz.form.AnswerForm;
 import com.quiz.entity.Question;
 import com.quiz.form.QuestionForm;
@@ -41,7 +42,6 @@ public class QuestionController {
     public String list(Model model, @RequestParam(value = "page", defaultValue = "0") int page, @RequestParam(value = "kw", defaultValue = "") String kw, @RequestParam(name = "searchOption", required = false) String searchOption) {
         model.addAttribute("kw", kw);
         model.addAttribute("searchOption", searchOption);
-
         if (searchOption == null) {
             Page<Question> paging = questionService.getList(page, kw);
             model.addAttribute("paging", paging);
@@ -64,38 +64,15 @@ public class QuestionController {
             Page<Question> paging = questionService.getList(page, kw);
             model.addAttribute("paging", paging);
         }
-
-        log.info(searchOption);
         return "question_list";
     }
 
-    @GetMapping(value = "/detail/{id}")
+    @GetMapping( "/{id}")
     public String detail(Model model, @PathVariable("id") Integer id, AnswerForm answerForm) {
-        Authentication authentication = SecurityContextHolder.getContext().getAuthentication();
-
-        if (authentication instanceof UsernamePasswordAuthenticationToken) {
-            UsernamePasswordAuthenticationToken auth = (UsernamePasswordAuthenticationToken) authentication;
-
-            String username = auth.getName();
-            Boolean bool = false;
-
-            Question question = questionService.getQuestionByUsername(id, username, bool);
-            model.addAttribute("question", question);
-            return "question_detail";
-        } else if (authentication instanceof OAuth2AuthenticationToken) {
-            OAuth2AuthenticationToken oauthToken = (OAuth2AuthenticationToken) authentication;
-
-            String email = oauthToken.getPrincipal().getAttribute("email");
-            Boolean bool = true;
-
-            Question question = questionService.getQuestionByEmail(id, email, bool);
-            model.addAttribute("question", question);
-            return "question_oauth_detail";
-        } else {
-            Question question = questionService.getQuestion(id);
-            model.addAttribute("question", question);
-            return "question_detail";
-        }
+        Member member = AuthenticationUtil.getMember(memberRepository);
+        Question question = questionService.getQuestionByMember(member, id);
+        model.addAttribute("question", question);
+        return "board/question/detail";
     }
 
     @PreAuthorize("isAuthenticated()")

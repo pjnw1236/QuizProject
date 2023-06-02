@@ -72,13 +72,16 @@ public class QuestionService {
         }
     }
 
-    public Question getQuestionByUsername(Integer id, String username, Boolean bool) {
-        Member user = memberService.getUser(username, bool);
+    // @GetMapping( "/{id}") 시작
+    public Question getQuestionByMember(Member member, Integer id) {
         Question question = this.getQuestion(id);
-        question.getViewer().add(user);
-        questionRepository.save(question);
+        if (member != null) {
+            question.getViewer().add(member);
+            questionRepository.save(question);
+        }
         return question;
     }
+    // @GetMapping( "/{id}") 끝
 
     public Question getQuestionByEmail(Integer id, String email, Boolean bool) {
         List<Member> memberList = memberRepository.findByEmailAndIsOauth(email, bool);
