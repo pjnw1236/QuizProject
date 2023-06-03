@@ -22,6 +22,7 @@ import org.springframework.security.oauth2.client.authentication.OAuth2Authentic
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.validation.BindingResult;
+import org.springframework.web.bind.annotation.DeleteMapping;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PatchMapping;
 import org.springframework.web.bind.annotation.PathVariable;
@@ -121,36 +122,15 @@ public class QuestionController {
         return String.format("redirect:/question/%s", id);
     }
 
-    @PreAuthorize("isAuthenticated()")
-    @GetMapping("/delete/{id}")
+    @DeleteMapping("/{id}")
     public String questionDelete(@PathVariable("id") Integer id) {
-        Authentication authentication = SecurityContextHolder.getContext().getAuthentication();
+        Member member = AuthenticationUtil.getMember(memberRepository);
         Question question = questionService.getQuestion(id);
-
-        if (authentication instanceof UsernamePasswordAuthenticationToken) {
-            UsernamePasswordAuthenticationToken auth = (UsernamePasswordAuthenticationToken) authentication;
-
-            String username = auth.getName();
-            Boolean bool = false;
-
-            if (question.getAuthor().getUsername().equals(username) && question.getAuthor().getIsOauth().equals(bool)) {
-                questionService.delete(question);
-                return "redirect:/";
-            } else {
-                throw new ResponseStatusException(HttpStatus.BAD_REQUEST, "삭제 권한이 없습니다.");
-            }
+        if (questionService.getPermission(question, member)) {
+            questionService.delete(question);
+            return "redirect:/question/list";
         } else {
-            OAuth2AuthenticationToken oauthToken = (OAuth2AuthenticationToken) authentication;
-
-            String email = oauthToken.getPrincipal().getAttribute("email");
-            Boolean bool = true;
-
-            if (question.getAuthor().getEmail().equals(email) && question.getAuthor().getIsOauth().equals(bool)) {
-                questionService.delete(question);
-                return "redirect:/";
-            } else {
-                throw new ResponseStatusException(HttpStatus.BAD_REQUEST, "삭제 권한이 없습니다.");
-            }
+            throw new ResponseStatusException(HttpStatus.BAD_REQUEST, "삭제 권한이 없습니다.");
         }
     }
 
