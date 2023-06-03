@@ -5,6 +5,7 @@ import com.quiz.constant.UserRole;
 import lombok.RequiredArgsConstructor;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
+import org.springframework.http.HttpMethod;
 import org.springframework.security.authentication.AuthenticationManager;
 import org.springframework.security.config.annotation.authentication.configuration.AuthenticationConfiguration;
 import org.springframework.security.config.annotation.method.configuration.EnableMethodSecurity;
@@ -28,6 +29,8 @@ public class SecurityConfig {
         http.authorizeHttpRequests()
             .mvcMatchers("/admin/**").hasAuthority(UserRole.ADMIN.getValue())
             .mvcMatchers("/quiz/**").hasAnyAuthority(UserRole.ADMIN.getValue(), UserRole.USER.getValue())
+            .mvcMatchers(HttpMethod.GET, "/question/register").hasAnyAuthority(UserRole.ADMIN.getValue(), UserRole.USER.getValue())
+            .mvcMatchers(HttpMethod.POST, "/question/register").hasAnyAuthority(UserRole.ADMIN.getValue(), UserRole.USER.getValue())
             .anyRequest().permitAll()
                 .and()
             .csrf().csrfTokenRepository(CookieCsrfTokenRepository.withHttpOnlyFalse())

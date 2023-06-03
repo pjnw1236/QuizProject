@@ -1,6 +1,7 @@
 package com.quiz.controller;
 
 import com.quiz.constant.AuthenticationUtil;
+import com.quiz.dto.QuestionRequestDto;
 import com.quiz.form.AnswerForm;
 import com.quiz.entity.Question;
 import com.quiz.form.QuestionForm;
@@ -76,43 +77,19 @@ public class QuestionController {
         return "board/question/detail";
     }
 
-    @PreAuthorize("isAuthenticated()")
-    @GetMapping("/create")
-    public String questionCreate(QuestionForm questionForm) {
-        return "question_form";
+    @GetMapping("/register")
+    public String registerForm(QuestionRequestDto questionRequestDto) {
+        return "board/question/form/register";
     }
 
-    @PreAuthorize("isAuthenticated()")
-    @PostMapping("/create")
-    public String questionCreate(@Valid QuestionForm questionForm, BindingResult bindingResult) {
-        Authentication authentication = SecurityContextHolder.getContext().getAuthentication();
-
+    @PostMapping("/register")
+    public String registerQuestion(@Valid QuestionRequestDto questionRequestDto, BindingResult bindingResult) {
+        Member member = AuthenticationUtil.getMember(memberRepository);
         if (bindingResult.hasErrors()) {
-            return "question_form";
+            return "board/question/form/register";
         }
-
-        if (authentication instanceof UsernamePasswordAuthenticationToken) {
-            UsernamePasswordAuthenticationToken auth = (UsernamePasswordAuthenticationToken) authentication;
-
-            String username = auth.getName();
-            Boolean bool = false;
-
-            Member member = memberService.getUser(username, bool);
-            questionService.create(questionForm.getSubject(), questionForm.getContent(), member);
-
-            return "redirect:/question/list";
-        } else {
-            OAuth2AuthenticationToken oauthToken = (OAuth2AuthenticationToken) authentication;
-
-            String email = oauthToken.getPrincipal().getAttribute("email");
-            Boolean bool = true;
-
-            List<Member> memberList = memberRepository.findByEmailAndIsOauth(email, bool);
-            Member member = memberList.get(0);
-            questionService.create(questionForm.getSubject(), questionForm.getContent(), member);
-
-            return "redirect:/question/list";
-        }
+        questionService.register(questionRequestDto, member);
+        return "redirect:/question/list";
     }
 
     @PreAuthorize("isAuthenticated()")

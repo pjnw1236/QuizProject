@@ -1,7 +1,9 @@
 package com.quiz.service;
 
+import com.quiz.dto.QuestionRequestDto;
 import com.quiz.exception.DataNotFoundException;
 import com.quiz.entity.Question;
+import com.quiz.form.QuestionForm;
 import com.quiz.repository.QuestionRepository;
 import com.quiz.entity.Member;
 import com.quiz.repository.MemberRepository;
@@ -91,12 +93,12 @@ public class QuestionService {
         return question;
     }
 
-    public void create(String subject, String content, Member user) {
+    public void register(QuestionRequestDto questionRequestDto, Member member) {
         Question q = new Question();
-        q.setSubject(subject);
-        q.setContent(content);
+        q.setSubject(questionRequestDto.getSubject());
+        q.setContent(questionRequestDto.getContent());
         q.setCreateDate(LocalDateTime.now());
-        q.setAuthor(user);
+        q.setAuthor(member);
         questionRepository.save(q);
     }
 
