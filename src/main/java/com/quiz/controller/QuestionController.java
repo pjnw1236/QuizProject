@@ -4,7 +4,6 @@ import com.quiz.constant.AuthenticationUtil;
 import com.quiz.dto.QuestionRequestDto;
 import com.quiz.form.AnswerForm;
 import com.quiz.entity.Question;
-import com.quiz.form.QuestionForm;
 import com.quiz.repository.MemberRepository;
 import com.quiz.service.QuestionService;
 import com.quiz.entity.Member;
@@ -24,9 +23,9 @@ import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.validation.BindingResult;
 import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.PatchMapping;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
-import org.springframework.web.bind.annotation.PutMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.server.ResponseStatusException;
@@ -80,14 +79,14 @@ public class QuestionController {
 
     @GetMapping("/register")
     public String registerForm(QuestionRequestDto questionRequestDto) {
-        return "board/question/form";
+        return "board/question/form/register";
     }
 
     @PostMapping
     public String registerQuestion(@Valid QuestionRequestDto questionRequestDto, BindingResult bindingResult) {
         Member member = AuthenticationUtil.getMember(memberRepository);
         if (bindingResult.hasErrors()) {
-            return "board/question/form";
+            return "board/question/form/register";
         }
         questionService.register(questionRequestDto, member);
         return "redirect:/question/list";
@@ -103,22 +102,23 @@ public class QuestionController {
         } else {
             throw new ResponseStatusException(HttpStatus.BAD_REQUEST, "수정 권한이 없습니다.");
         }
-        return "board/question/form";
+        return "board/question/form/edit";
     }
 
-    @PutMapping("/{id}")
-    public String editQuestion(@Valid QuestionRequestDto questionRequestDto, BindingResult bindingResult, @PathVariable("id") Integer id) {
+    @PatchMapping("/{id}")
+    public String editQuestion(@Valid QuestionRequestDto questionRequestDto, BindingResult bindingResult, @PathVariable("id") Integer id, Model model) {
         Member member = AuthenticationUtil.getMember(memberRepository);
         Question question = questionService.getQuestion(id);
+        model.addAttribute("id", id);
         if (bindingResult.hasErrors()) {
-            return "board/question/form";
+            return "board/question/form/edit";
         }
         if (questionService.getPermission(question, member)) {
             questionService.edit(question, questionRequestDto);
         } else {
             throw new ResponseStatusException(HttpStatus.BAD_REQUEST, "수정 권한이 없습니다.");
         }
-        return String.format("redirect:/question/detail/%s", id);
+        return String.format("redirect:/question/%s", id);
     }
 
     @PreAuthorize("isAuthenticated()")

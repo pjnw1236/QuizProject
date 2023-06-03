@@ -113,7 +113,7 @@ public class QuestionService {
         question.setSubject(questionRequestDto.getSubject());
         question.setContent(questionRequestDto.getContent());
         question.setModifyDate(LocalDateTime.now());
-        questionRepository.save(question);
+        this.questionRepository.save(question);
     }
 
     public void delete(Question question) {

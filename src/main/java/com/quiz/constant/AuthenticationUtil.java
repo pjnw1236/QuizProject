@@ -17,7 +17,7 @@ public class AuthenticationUtil {
             if (memberList.size() > 0) {
                 return memberList.get(0);
             }
-        } else {
+        } else if (authentication instanceof OAuth2AuthenticationToken) {
             OAuth2AuthenticationToken oauthToken = (OAuth2AuthenticationToken) authentication;
             List<Member> memberList = memberRepository.findByEmailAndIsOauth(oauthToken.getPrincipal().getAttribute("email"), true);
             if (memberList.size() > 0) {
