@@ -102,9 +102,16 @@ public class QuestionService {
         questionRepository.save(q);
     }
 
-    public void modify(Question question, String subject, String content) {
-        question.setSubject(subject);
-        question.setContent(content);
+    public boolean getPermission(Question question, Member member) {
+        if (question.getAuthor() == member) {
+            return true;
+        }
+        return false;
+    }
+
+    public void edit(Question question, QuestionRequestDto questionRequestDto) {
+        question.setSubject(questionRequestDto.getSubject());
+        question.setContent(questionRequestDto.getContent());
         question.setModifyDate(LocalDateTime.now());
         questionRepository.save(question);
     }

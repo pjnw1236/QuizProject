@@ -30,7 +30,7 @@ public class SecurityConfig {
             .mvcMatchers("/admin/**").hasAuthority(UserRole.ADMIN.getValue())
             .mvcMatchers("/quiz/**").hasAnyAuthority(UserRole.ADMIN.getValue(), UserRole.USER.getValue())
             .mvcMatchers(HttpMethod.GET, "/question/register").hasAnyAuthority(UserRole.ADMIN.getValue(), UserRole.USER.getValue())
-            .mvcMatchers(HttpMethod.POST, "/question/register").hasAnyAuthority(UserRole.ADMIN.getValue(), UserRole.USER.getValue())
+            .mvcMatchers(HttpMethod.POST, "/question").hasAnyAuthority(UserRole.ADMIN.getValue(), UserRole.USER.getValue())
             .anyRequest().permitAll()
                 .and()
             .csrf().csrfTokenRepository(CookieCsrfTokenRepository.withHttpOnlyFalse())
