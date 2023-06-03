@@ -29,8 +29,18 @@ public class SecurityConfig {
         http.authorizeHttpRequests()
             .mvcMatchers("/admin/**").hasAuthority(UserRole.ADMIN.getValue())
             .mvcMatchers("/quiz/**").hasAnyAuthority(UserRole.ADMIN.getValue(), UserRole.USER.getValue())
+
+            // 게시글 등록
             .mvcMatchers(HttpMethod.GET, "/question/register").hasAnyAuthority(UserRole.ADMIN.getValue(), UserRole.USER.getValue())
             .mvcMatchers(HttpMethod.POST, "/question").hasAnyAuthority(UserRole.ADMIN.getValue(), UserRole.USER.getValue())
+
+            // 게시글 수정
+            .mvcMatchers(HttpMethod.GET, "/question/edit/{id:\\d+}").hasAnyAuthority(UserRole.ADMIN.getValue(), UserRole.USER.getValue())
+            .mvcMatchers(HttpMethod.PATCH, "/question/{id:\\d+}").hasAnyAuthority(UserRole.ADMIN.getValue(), UserRole.USER.getValue())
+
+            // 게시글 삭제
+            .mvcMatchers(HttpMethod.DELETE, "/question/{id:\\d+}").hasAnyAuthority(UserRole.ADMIN.getValue(), UserRole.USER.getValue())
+
             .anyRequest().permitAll()
                 .and()
             .csrf().csrfTokenRepository(CookieCsrfTokenRepository.withHttpOnlyFalse())
