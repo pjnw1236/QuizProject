@@ -21,12 +21,12 @@
         <a href="javascript:void(0);" class="recommend btn btn-sm btn-outline-secondary" th:data-uri="@{|/question/vote/${question.id}|}">추천<span class="badge rounded-pill bg-success" th:text="${#lists.size(question.voter)}"></span></a>
         <a th:href="@{|/question/modify/${question.id}|}"
            class="btn btn-sm btn-outline-secondary" sec:authorize="isAuthenticated()"
-           th:if="${question.author != null and #authentication.getPrincipal().getUsername() == question.author.username}"
+           th:if="${question.author != null and member != null and question.author == member}"
            th:text="수정">
         </a>
         <a href="javascript:void(0);" th:data-uri="@{|/question/delete/${question.id}|}"
            class="delete btn btn-sm btn-outline-secondary" sec:authorize="isAuthenticated()"
-           th:if="${question.author != null and #authentication.getPrincipal().getUsername() == question.author.username}"
+           th:if="${question.author != null and member != null and question.author == member}"
            th:text="삭제">
         </a>
       </div>
@@ -56,12 +56,12 @@
         <a href="javascript:void(0);" class="recommend btn btn-sm btn-outline-secondary" th:data-uri="@{|/answer/vote/${answer.id}|}">추천<span class="badge rounded-pill bg-success" th:text="${#lists.size(answer.voter)}"></span></a>
         <a th:href="@{|/answer/modify/${answer.id}|}"
            class="btn btn-sm btn-outline-secondary" sec:authorize="isAuthenticated()"
-           th:if="${answer.author != null and #authentication.getPrincipal().getUsername() == answer.author.username}"
+           th:if="${answer.author != null and member != null and answer.author == member}"
            th:text="수정">
         </a>
         <a href="javascript:void(0);" th:data-uri="@{|/answer/delete/${answer.id}|}"
            class="delete btn btn-sm btn-outline-secondary" sec:authorize="isAuthenticated()"
-           th:if="${answer.author != null and #authentication.getPrincipal().getUsername() == answer.author.username}"
+           th:if="${answer.author != null and member != null and answer.author == member}"
            th:text="삭제">
         </a>
       </div>

@@ -72,6 +72,7 @@ public class QuestionController {
         Member member = AuthenticationUtil.getMember(memberRepository);
         Question question = questionService.getQuestionByMember(member, id);
         model.addAttribute("question", question);
+        model.addAttribute("member", member);
         return "board/question/detail";
     }
 
