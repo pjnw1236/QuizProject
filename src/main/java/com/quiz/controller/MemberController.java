@@ -1,6 +1,6 @@
 package com.quiz.controller;
 
-import com.quiz.form.UserCreateForm;
+import com.quiz.form.MemberRegisterForm;
 import com.quiz.service.MemberService;
 import javax.validation.Valid;
 import lombok.RequiredArgsConstructor;
@@ -13,27 +13,27 @@ import org.springframework.web.bind.annotation.RequestMapping;
 
 @RequiredArgsConstructor
 @Controller
-@RequestMapping("/user")
+@RequestMapping("/member")
 public class MemberController {
     private final MemberService memberService;
 
     @GetMapping("/signup")
-    public String signup(UserCreateForm userCreateForm) {
+    public String signup(MemberRegisterForm memberRegisterForm) {
         return "signup_form";
     }
 
     @PostMapping("/signup")
-    public String signup(@Valid UserCreateForm userCreateForm, BindingResult bindingResult) {
+    public String signup(@Valid MemberRegisterForm memberRegisterForm, BindingResult bindingResult) {
         if (bindingResult.hasErrors()) {
             return "signup_form";
         }
-        if (!userCreateForm.getPassword1().equals(userCreateForm.getPassword2())) {
+        if (!memberRegisterForm.getPassword1().equals(memberRegisterForm.getPassword2())) {
             bindingResult.rejectValue("password2", "passwordInCorrect", "2개의 패스워드가 일치하지 않습니다.");
             return "signup_form";
         }
 
         try {
-            memberService.create(userCreateForm.getUsername(), userCreateForm.getEmail(), userCreateForm.getPassword1());
+            memberService.create(memberRegisterForm.getUsername(), memberRegisterForm.getEmail(), memberRegisterForm.getPassword1());
         } catch (DataIntegrityViolationException e) {
             e.printStackTrace();
             bindingResult.reject("signupFailed", "이미 등록된 사용자입니다.");
@@ -43,7 +43,6 @@ public class MemberController {
             bindingResult.reject("signupFailed", e.getMessage());
             return "signup_form";
         }
-
         return "redirect:/";
     }
 

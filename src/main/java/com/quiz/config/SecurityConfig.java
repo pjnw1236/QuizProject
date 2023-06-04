@@ -45,11 +45,11 @@ public class SecurityConfig {
                 .and()
             .csrf().csrfTokenRepository(CookieCsrfTokenRepository.withHttpOnlyFalse())
                 .and()
-            .formLogin().loginPage("/user/login").defaultSuccessUrl("/")
+            .formLogin().loginPage("/member/login").defaultSuccessUrl("/")
                 .and()
-            .logout().logoutRequestMatcher(new AntPathRequestMatcher("/user/logout")).logoutSuccessUrl("/").invalidateHttpSession(true)
+            .logout().logoutRequestMatcher(new AntPathRequestMatcher("/member/logout")).logoutSuccessUrl("/").invalidateHttpSession(true)
                 .and()
-            .oauth2Login().loginPage("/user/login").userInfoEndpoint().userService(oAuth2UserService);
+            .oauth2Login().loginPage("/member/login").userInfoEndpoint().userService(oAuth2UserService);
         return http.build();
     }
 
