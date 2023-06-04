@@ -42,10 +42,10 @@ dependencies {
 	implementation 'org.commonmark:commonmark:0.21.0'
 	// OAuth2 Client
 	implementation 'org.springframework.boot:spring-boot-starter-oauth2-client'
-	// SpringDoc
-	implementation 'org.springdoc:springdoc-openapi-ui:1.6.15'
 	// JUnit5
 	implementation 'org.junit.vintage:junit-vintage-engine:5.9.2'
+	// Swagger
+	implementation 'io.springfox:springfox-swagger2:3.0.0'
 }
 
 tasks.named('test') {
