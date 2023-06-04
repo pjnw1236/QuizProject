@@ -134,32 +134,11 @@ public class QuestionController {
         }
     }
 
-    @PreAuthorize("isAuthenticated()")
-    @GetMapping("/vote/{id}")
+    @PostMapping("/vote/{id}")
     public String questionVote(@PathVariable("id") Integer id) {
-        Authentication authentication = SecurityContextHolder.getContext().getAuthentication();
+        Member member = AuthenticationUtil.getMember(memberRepository);
         Question question = questionService.getQuestion(id);
-
-        if (authentication instanceof UsernamePasswordAuthenticationToken) {
-            UsernamePasswordAuthenticationToken auth = (UsernamePasswordAuthenticationToken) authentication;
-
-            String username = auth.getName();
-            Boolean bool = false;
-
-            Member member = memberService.getUser(username, bool);
-
-            questionService.vote(question, member);
-            return String.format("redirect:/question/detail/%s", id);
-        } else {
-            OAuth2AuthenticationToken oauthToken = (OAuth2AuthenticationToken) authentication;
-
-            String email = oauthToken.getPrincipal().getAttribute("email");
-            Boolean bool = true;
-
-            List<Member> memberList = memberRepository.findByEmailAndIsOauth(email, bool);
-
-            questionService.vote(question, memberList.get(0));
-            return String.format("redirect:/question/detail/%s", id);
-        }
+        questionService.vote(question, member);
+        return String.format("redirect:/question/%s", id);
     }
 }

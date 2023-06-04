@@ -18,7 +18,11 @@
         </div>
       </div>
       <div class="my-3">
-        <a href="javascript:void(0);" class="recommend btn btn-sm btn-outline-secondary" th:data-uri="@{|/question/vote/${question.id}|}">추천<span class="badge rounded-pill bg-success" th:text="${#lists.size(question.voter)}"></span></a>
+        <form th:action="@{|/question/vote/${question.id}|}" method="post" sec:authorize="isAuthenticated()" style="display: inline;">
+          <button type="submit" class="recommend btn btn-sm btn-outline-secondary">추천
+            <span class="badge rounded-pill bg-success" th:text="${#lists.size(question.voter)}"></span>
+          </button>
+        </form>
         <a th:href="@{|/question/edit/${question.id}|}"
            class="btn btn-sm btn-outline-secondary"
            th:if="${question.author != null and member != null and question.author == member}"

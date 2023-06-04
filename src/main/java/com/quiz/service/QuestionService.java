@@ -121,6 +121,9 @@ public class QuestionService {
     }
 
     public void vote(Question question, Member member) {
+        if (member == null) {
+            throw new DataNotFoundException("member not found");
+        }
         question.getVoter().add(member);
         questionRepository.save(question);
     }
