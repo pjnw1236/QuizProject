@@ -3,6 +3,7 @@ package com.quiz.service;
 import com.quiz.constant.UserRole;
 import com.quiz.exception.DataNotFoundException;
 import com.quiz.entity.Member;
+import com.quiz.form.MemberRegisterForm;
 import com.quiz.repository.MemberRepository;
 import java.util.List;
 import lombok.RequiredArgsConstructor;
@@ -15,16 +16,16 @@ public class MemberService {
     private final MemberRepository memberRepository;
     private final PasswordEncoder passwordEncoder;
 
-    public Member create(String username, String email, String password) {
-        Member user = new Member();
-        user.setUsername(username);
-        user.setEmail(email);
-        user.setPassword(passwordEncoder.encode(password));
-        if (username.equals("admin")) {
-            user.setUserRole(UserRole.ADMIN);
+    public Member create(MemberRegisterForm memberRegisterForm) {
+        Member member = new Member();
+        member.setUsername(memberRegisterForm.getUsername());
+        member.setEmail(memberRegisterForm.getEmail());
+        member.setPassword(passwordEncoder.encode(memberRegisterForm.getPassword1()));
+        if (member.getUsername().equals("admin")) {
+            member.setUserRole(UserRole.ADMIN);
         }
-        memberRepository.save(user);
-        return user;
+        memberRepository.save(member);
+        return member;
     }
 
     public Member getUser(String username, Boolean bool) {
