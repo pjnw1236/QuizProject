@@ -1,5 +1,6 @@
 package com.quiz.service;
 
+import com.quiz.dto.AnswerRequestDto;
 import com.quiz.exception.DataNotFoundException;
 import com.quiz.entity.Answer;
 import com.quiz.repository.AnswerRepository;
@@ -15,13 +16,17 @@ import org.springframework.stereotype.Service;
 public class AnswerService {
     private final AnswerRepository answerRepository;
 
-    public void create(Question question, String content, Member author) {
-        Answer answer = new Answer();
-        answer.setContent(content);
-        answer.setCreateDate(LocalDateTime.now());
-        answer.setQuestion(question);
-        answer.setAuthor(author);
-        answerRepository.save(answer);
+    public void create(Question question, AnswerRequestDto answerRequestDto, Member member) {
+        if (member != null) {
+            Answer answer = new Answer();
+            answer.setContent(answerRequestDto.getContent());
+            answer.setCreateDate(LocalDateTime.now());
+            answer.setQuestion(question);
+            answer.setAuthor(member);
+            answerRepository.save(answer);
+        } else {
+            throw new DataNotFoundException("answer not found");
+        }
     }
 
     public Answer getAnswer(Integer id) {

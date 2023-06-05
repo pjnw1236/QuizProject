@@ -1,5 +1,7 @@
 package com.quiz.controller;
 
+import com.quiz.constant.AuthenticationUtil;
+import com.quiz.dto.AnswerRequestDto;
 import com.quiz.entity.Answer;
 import com.quiz.repository.MemberRepository;
 import com.quiz.service.AnswerService;
@@ -26,7 +28,7 @@ import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.server.ResponseStatusException;
 
-@RequestMapping("/answer")
+@RequestMapping("/question")
 @RequiredArgsConstructor
 @Controller
 public class AnswerController {
@@ -35,43 +37,21 @@ public class AnswerController {
     private final MemberService memberService;
     private final MemberRepository memberRepository;
 
-    @PreAuthorize("isAuthenticated()")
-    @PostMapping("/create/{id}")
-    public String createAnswer(Model model, @PathVariable("id") Integer id, @Valid AnswerForm answerForm, BindingResult bindingResult) {
-        Authentication authentication = SecurityContextHolder.getContext().getAuthentication();
-
+    @PostMapping("/{id}/answer")
+    public String createAnswer(Model model, @PathVariable("id") Integer id, @Valid AnswerRequestDto answerRequestDto, BindingResult bindingResult) {
+        Member member = AuthenticationUtil.getMember(memberRepository);
         Question question = questionService.getQuestion(id);
 
         if (bindingResult.hasErrors()) {
             model.addAttribute("question", question);
-            return "question_detail";
+            return "board/question/detail";
         }
 
-        if (authentication instanceof UsernamePasswordAuthenticationToken) {
-            UsernamePasswordAuthenticationToken auth = (UsernamePasswordAuthenticationToken) authentication;
-
-            String username = auth.getName();
-            Boolean bool = false;
-
-            Member member = memberService.getUser(username, bool);
-
-            answerService.create(question, answerForm.getContent(), member);
-            return String.format("redirect:/question/detail/%s", id);
-        } else {
-            OAuth2AuthenticationToken oauthToken = (OAuth2AuthenticationToken) authentication;
-
-            String email = oauthToken.getPrincipal().getAttribute("email");
-            Boolean bool = true;
-
-            List<Member> memberList = memberRepository.findByEmailAndIsOauth(email, bool);
-
-            answerService.create(question, answerForm.getContent(), memberList.get(0));
-            return String.format("redirect:/question/detail/%s", id);
-        }
+        answerService.create(question, answerRequestDto, member);
+        return String.format("redirect:/question/%s", id);
     }
 
-    @PreAuthorize("isAuthenticated()")
-    @GetMapping("/modify/{id}")
+    @GetMapping("/answer/edit/{id}")
     public String answerModify(AnswerForm answerForm, @PathVariable("id") Integer id) {
         Authentication authentication = SecurityContextHolder.getContext().getAuthentication();
 
