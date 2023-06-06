@@ -30,16 +30,26 @@ public class SecurityConfig {
             .mvcMatchers("/admin/**").hasAuthority(UserRole.ADMIN.getValue())
             .mvcMatchers("/quiz/**").hasAnyAuthority(UserRole.ADMIN.getValue(), UserRole.USER.getValue())
 
-            // 게시글 등록
+            // 게시글 작성
             .mvcMatchers(HttpMethod.GET, "/question/register").hasAnyAuthority(UserRole.ADMIN.getValue(), UserRole.USER.getValue())
             .mvcMatchers(HttpMethod.POST, "/question").hasAnyAuthority(UserRole.ADMIN.getValue(), UserRole.USER.getValue())
-
             // 게시글 수정
             .mvcMatchers(HttpMethod.GET, "/question/edit/{id:\\d+}").hasAnyAuthority(UserRole.ADMIN.getValue(), UserRole.USER.getValue())
             .mvcMatchers(HttpMethod.PATCH, "/question/{id:\\d+}").hasAnyAuthority(UserRole.ADMIN.getValue(), UserRole.USER.getValue())
-
             // 게시글 삭제
             .mvcMatchers(HttpMethod.DELETE, "/question/{id:\\d+}").hasAnyAuthority(UserRole.ADMIN.getValue(), UserRole.USER.getValue())
+            // 게시글 추천
+            .mvcMatchers(HttpMethod.POST, "/question/vote/{id:\\d+}").hasAnyAuthority(UserRole.ADMIN.getValue(), UserRole.USER.getValue())
+
+            // 댓글 작성
+            .mvcMatchers(HttpMethod.POST, "/question/{id:\\d+}/answer").hasAnyAuthority(UserRole.ADMIN.getValue(), UserRole.USER.getValue())
+            // 댓글 수정
+            .mvcMatchers(HttpMethod.GET, "/question/answer/edit/{id:\\d+}").hasAnyAuthority(UserRole.ADMIN.getValue(), UserRole.USER.getValue())
+            .mvcMatchers(HttpMethod.PATCH, "/question/answer/{id:\\d+}").hasAnyAuthority(UserRole.ADMIN.getValue(), UserRole.USER.getValue())
+            // 댓글 삭제
+            .mvcMatchers(HttpMethod.DELETE, "/question/answer/{id:\\d+}").hasAnyAuthority(UserRole.ADMIN.getValue(), UserRole.USER.getValue())
+            // 댓글 추천
+            .mvcMatchers(HttpMethod.POST, "/question/answer/vote/{id:\\d+}").hasAnyAuthority(UserRole.ADMIN.getValue(), UserRole.USER.getValue())
 
             .anyRequest().permitAll()
                 .and()
