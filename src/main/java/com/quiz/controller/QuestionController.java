@@ -7,7 +7,6 @@ import com.quiz.entity.Question;
 import com.quiz.repository.MemberRepository;
 import com.quiz.service.QuestionService;
 import com.quiz.entity.Member;
-import com.quiz.service.MemberService;
 import javax.validation.Valid;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
@@ -31,7 +30,6 @@ import org.springframework.web.server.ResponseStatusException;
 @Slf4j
 public class QuestionController {
     private final QuestionService questionService;
-    private final MemberService memberService;
     private final MemberRepository memberRepository;
 
     @GetMapping("/list")

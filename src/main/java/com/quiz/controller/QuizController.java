@@ -40,11 +40,6 @@ public class QuizController {
         return "admin/quiz/list";
     }
 
-    @GetMapping("/admin/board")
-    public String getAdminBoard() {
-        return "admin/admin_question_list";
-    }
-
     @GetMapping("/admin/quiz/register")
     public String getAdminQuizForm(QuizRequestDto quizRequestDto) {
         return "admin/quiz/form/register";
