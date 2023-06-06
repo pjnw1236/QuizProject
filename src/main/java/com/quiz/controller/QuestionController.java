@@ -1,24 +1,18 @@
 package com.quiz.controller;
 
 import com.quiz.constant.AuthenticationUtil;
+import com.quiz.dto.AnswerRequestDto;
 import com.quiz.dto.QuestionRequestDto;
-import com.quiz.form.AnswerForm;
 import com.quiz.entity.Question;
 import com.quiz.repository.MemberRepository;
 import com.quiz.service.QuestionService;
 import com.quiz.entity.Member;
 import com.quiz.service.MemberService;
-import java.util.List;
 import javax.validation.Valid;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.data.domain.Page;
 import org.springframework.http.HttpStatus;
-import org.springframework.security.access.prepost.PreAuthorize;
-import org.springframework.security.authentication.UsernamePasswordAuthenticationToken;
-import org.springframework.security.core.Authentication;
-import org.springframework.security.core.context.SecurityContextHolder;
-import org.springframework.security.oauth2.client.authentication.OAuth2AuthenticationToken;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.validation.BindingResult;
@@ -70,7 +64,7 @@ public class QuestionController {
     }
 
     @GetMapping( "/{id}")
-    public String detail(Model model, @PathVariable("id") Integer id, AnswerForm answerForm) {
+    public String detail(Model model, @PathVariable("id") Integer id, AnswerRequestDto answerRequestDto) {
         Member member = AuthenticationUtil.getMember(memberRepository);
         Question question = questionService.getQuestionByMember(member, id);
         model.addAttribute("question", question);

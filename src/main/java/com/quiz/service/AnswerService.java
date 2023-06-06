@@ -38,8 +38,15 @@ public class AnswerService {
         }
     }
 
-    public void modify(Answer answer, String content) {
-        answer.setContent(content);
+    public boolean getPermission(Answer answer, Member member) {
+        if (answer.getAuthor() == member) {
+            return true;
+        }
+        return false;
+    }
+
+    public void modify(Answer answer, AnswerRequestDto answerRequestDto) {
+        answer.setContent(answerRequestDto.getContent());
         answer.setModifyDate(LocalDateTime.now());
         answerRepository.save(answer);
     }
@@ -49,7 +56,11 @@ public class AnswerService {
     }
 
     public void vote(Answer answer, Member member) {
-        answer.getVoter().add(member);
-        answerRepository.save(answer);
+        if (member != null) {
+            answer.getVoter().add(member);
+            answerRepository.save(answer);
+        } else {
+            throw new DataNotFoundException("member not found");
+        }
     }
 }

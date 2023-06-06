@@ -56,17 +56,22 @@
         </div>
       </div>
       <div class="my-3">
-        <a href="javascript:void(0);" class="recommend btn btn-sm btn-outline-secondary" th:data-uri="@{|/answer/vote/${answer.id}|}">추천<span class="badge rounded-pill bg-success" th:text="${#lists.size(answer.voter)}"></span></a>
-        <a th:href="@{|/answer/modify/${answer.id}|}"
-           class="btn btn-sm btn-outline-secondary" sec:authorize="isAuthenticated()"
+        <form th:action="@{|/question/answer/vote/${answer.id}|}" method="post"
+              sec:authorize="isAuthenticated()" style="display: inline;">
+          <button type="submit" class="recommend btn btn-sm btn-outline-secondary">추천
+            <span class="badge rounded-pill bg-success" th:text="${#lists.size(answer.voter)}"></span>
+          </button>
+        </form>
+        <a th:href="@{|/question/answer/edit/${answer.id}|}"
+           class="btn btn-sm btn-outline-secondary"
            th:if="${answer.author != null and member != null and answer.author == member}"
            th:text="수정">
         </a>
-        <a href="javascript:void(0);" th:data-uri="@{|/answer/delete/${answer.id}|}"
-           class="delete btn btn-sm btn-outline-secondary" sec:authorize="isAuthenticated()"
-           th:if="${answer.author != null and member != null and answer.author == member}"
-           th:text="삭제">
-        </a>
+        <form th:action="@{/question/answer/{id}(id=${answer.id})}" th:method="delete" style="display: inline;">
+          <input type="submit" value="삭제" class="delete btn btn-sm btn-outline-secondary"
+                 th:if="${answer.author != null and member != null and answer.author == member}" />
+        </form>
+
       </div>
     </div>
   </div>
