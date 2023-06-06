@@ -34,7 +34,8 @@
     </label>
   </div>
 
-  <form th:action="@{|/admin/quiz/editform/${quizResponseDto.id}|}" method="get" class="my-3">
+  <form th:action="@{/admin/quiz/edit/{id}(id=${id})}"
+        method="get" class="my-3">
     <input type="submit" value="Quiz 수정" class="btn btn-primary my-2">
   </form>
 

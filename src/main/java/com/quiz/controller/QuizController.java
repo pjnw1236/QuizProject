@@ -13,7 +13,6 @@ import com.quiz.service.QuizService;
 import java.util.List;
 import javax.validation.Valid;
 import lombok.AllArgsConstructor;
-import lombok.extern.slf4j.Slf4j;
 import org.springframework.security.authentication.UsernamePasswordAuthenticationToken;
 import org.springframework.security.core.Authentication;
 import org.springframework.security.core.context.SecurityContextHolder;
@@ -30,16 +29,15 @@ import org.springframework.web.bind.annotation.ResponseBody;
 
 @Controller
 @AllArgsConstructor
-@Slf4j
 public class QuizController {
     private final QuizService quizService;
     private final MemberRepository memberRepository;
 
-    @GetMapping("/admin/quiz")
+    @GetMapping("/admin/quiz/list")
     public String getAdminQuiz(Model model) {
         List<QuizResponseDto> quizResponseDtoList = quizService.getQuizList();
         model.addAttribute("quizResponseDtoList", quizResponseDtoList);
-        return "admin/admin_quiz";
+        return "admin/quiz/list";
     }
 
     @GetMapping("/admin/board")
@@ -47,39 +45,40 @@ public class QuizController {
         return "admin/admin_question_list";
     }
 
-    @GetMapping("/admin/quiz/form")
+    @GetMapping("/admin/quiz/register")
     public String getAdminQuizForm(QuizRequestDto quizRequestDto) {
-        log.info(quizRequestDto.toString());
-        return "admin/quiz_form";
+        return "admin/quiz/form/register";
     }
 
-    @PostMapping("/admin/quiz/form")
+    @PostMapping("/admin/quiz")
     public String createAdminQuiz(@Valid QuizRequestDto quizRequestDto, BindingResult bindingResult) {
         if (bindingResult.hasErrors()) {
-            return "admin/quiz_form";
+            return "admin/quiz/form/register";
         }
         QuizResponseDto quizResponseDto = quizService.createQuiz(quizRequestDto);
-        return "redirect:/admin/quiz";
+        return "redirect:/admin/quiz/list";
     }
 
     @GetMapping("/admin/quiz/{id}")
     public String getQuizDetail(@PathVariable("id") Long id, Model model) {
         QuizResponseDto quizResponseDto = quizService.getQuizResponseDtoByQuizNumber(id);
         model.addAttribute("quizResponseDto", quizResponseDto);
-        return "admin/quiz_detail";
+        return "admin/quiz/detail";
     }
 
-    @GetMapping("/admin/quiz/editform/{id}")
+    @GetMapping("/admin/quiz/edit/{id}")
     public String getQuizEditForm(@PathVariable("id") Long id, Model model) {
         QuizRequestDto quizRequestDto = quizService.getQuizRequestDto(id);
         model.addAttribute("quizRequestDto", quizRequestDto);
-        return "admin/quiz_edit_form";
+        model.addAttribute("id", id);
+        return "admin/quiz/form/edit";
     }
 
-    @PatchMapping("/admin/quiz/editform/{id}")
-    public String patchQuizDetail(@PathVariable("id") Long id, @Valid QuizRequestDto quizRequestDto, BindingResult bindingResult) {
+    @PatchMapping("/admin/quiz/{id}")
+    public String patchQuizDetail(@PathVariable("id") Long id, @Valid QuizRequestDto quizRequestDto, BindingResult bindingResult, Model model) {
+        model.addAttribute("id", id);
         if (bindingResult.hasErrors()) {
-            return "admin/quiz_edit_form";
+            return "admin/quiz/form/edit";
         }
         quizService.patchQuiz(id, quizRequestDto);
         return String.format("redirect:/admin/quiz/%s", id);
