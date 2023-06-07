@@ -66,7 +66,6 @@ public class AdminController {
     @DeleteMapping( "/question/{id}")
     public String deleteQuestion(@PathVariable("id") Integer id) {
         adminService.deleteQuestion(id);
-//        return "admin/question/list";
         return "redirect:/admin/question/list";
     }
 
@@ -74,7 +73,6 @@ public class AdminController {
     public String deleteAnswer(@PathVariable("id") Integer id, Model model) {
         Question question = adminService.getAnswer(id).getQuestion();
         adminService.deleteAnswer(id);
-//        return "admin/question/detail";
         return String.format("redirect:/admin/question/%s", question.getId());
     }
 }

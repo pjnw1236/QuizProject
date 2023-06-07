@@ -9,7 +9,6 @@ import com.quiz.service.QuestionService;
 import com.quiz.entity.Member;
 import javax.validation.Valid;
 import lombok.RequiredArgsConstructor;
-import lombok.extern.slf4j.Slf4j;
 import org.springframework.data.domain.Page;
 import org.springframework.http.HttpStatus;
 import org.springframework.stereotype.Controller;
@@ -27,7 +26,6 @@ import org.springframework.web.server.ResponseStatusException;
 @RequestMapping("/question")
 @RequiredArgsConstructor
 @Controller
-@Slf4j
 public class QuestionController {
     private final QuestionService questionService;
     private final MemberRepository memberRepository;
