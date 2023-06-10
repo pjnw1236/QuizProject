@@ -5,8 +5,6 @@ import java.util.List;
 import org.springframework.data.jpa.repository.JpaRepository;
 
 public interface MemberRepository extends JpaRepository<Member, Long> {
-    List<Member> findAllByUsername(String username);
-    List<Member> findAllByEmail(String email);
     List<Member> findByUsernameAndIsOauth(String username, Boolean bool);
     List<Member> findByEmailAndIsOauth(String email, Boolean bool);
 }
