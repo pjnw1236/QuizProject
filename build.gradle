@@ -10,6 +10,7 @@ sourceCompatibility = '17'
 
 bootJar {
 	archiveFileName = "${rootProject.name}-${new Date().format('yyyy-MMdd-HHmm')}.jar"
+	exclude("src/test/**")
 }
 
 configurations {
