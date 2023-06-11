@@ -9,4 +9,9 @@ public class MainController {
     public String index() {
         return "index";
     }
+
+    @GetMapping("/editor")
+    public String test() {
+        return "editor";
+    }
 }

@@ -1,0 +1,43 @@
+<html layout:decorate="~{layout}">
+<div layout:fragment="content" class="container my-3">
+
+  <!-- Create the toolbar container -->
+  <div id="toolbar">
+    <span class="ql-formats">
+      <select class="ql-font"></select>
+      <select class="ql-size"></select>
+    </span>
+    <span class="ql-formats">
+      <button class="ql-bold"></button>
+      <button class="ql-italic"></button>
+      <button class="ql-underline"></button>
+      <button class="ql-strike"></button>
+    </span>
+    <span class="ql-formats">
+      <select class="ql-color"></select>
+      <select class="ql-background"></select>
+    </span>
+    </span>
+    <span class="ql-formats">
+      <button class="ql-header" value="1"></button>
+      <button class="ql-header" value="2"></button>
+      <button class="ql-blockquote"></button>
+      <button class="ql-code-block"></button>
+    </span>
+  </div>
+
+  <!-- Create the editor container -->
+  <div id="editor">
+    <p>Hello World!</p>
+  </div>
+
+  <!-- Initialize Quill editor -->
+  <script>
+    var editor = new Quill('#editor', {
+      modules: { toolbar: '#toolbar' },
+      theme: 'snow',
+    });
+  </script>
+
+</div>
+</html>
