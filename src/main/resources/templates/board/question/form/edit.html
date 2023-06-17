@@ -11,7 +11,8 @@
     <div class="mb-3">
       <label for="content" class="form-label">내용</label>
 <!--      <textarea th:field="*{content}" class="form-control" rows="10"></textarea>-->
-      <div id="editor" th:field="*{content}" th:utext="*{content}"></div>
+      <div id="editor" th:utext="*{content}"></div>
+
       <textarea th:field="*{content}" class="form-control" style="display:none" id="hiddenTextarea"></textarea>
     </div>
     <input type="submit" value="저장하기" class="btn btn-primary my-2">
